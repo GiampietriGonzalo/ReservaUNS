@@ -14,7 +14,6 @@ Administrador del departamento
 	Anular asignaciòn (alta)
 	Confirmar asignación (alta)
 	Registrar asignación (alta)
-	Anular asignación (alta)
 	Modificar confirmación de asignación (media)
 	Modificar habilitación de docente (minima)
 	Consultar docentes habilitados (minima)
@@ -24,17 +23,17 @@ SGA y autoridades
 	Obtener reporte de reservas por departamente (POSIBLE DESCARTABLE)
 	Obtener reporte de reservas por aula
 	Obtener reporte de reservas por materia (POSIBLE DESCARTABLE)
-	Consultar asignaciones no confirmadas (alta)
-	Anular asignación (alta)
+	Consultar asignaciones no confirmadas y evaluar(alta)
+	Anular prestamo (alta)
 	Evaluar prestamo (alta)
-	Obtener lista de prestamos (alta)
+	Obtener lista de prestamos (reservas y asignaciones) (alta)
 
 
 Docentes
-	Eliminar solicitud de prestamo (alta)
+	Eliminar solicitud de reserva (alta)
 	Modificar prestamo (alta) 
 	Solicitar prestamo evento (Minima)
-	Consultar solicitudes de prestamo (alta) 
+	Consultar solicitudes de prestamos (alta) 
 
 ¿Diferencia entre prestamo parcial y final?
 	
