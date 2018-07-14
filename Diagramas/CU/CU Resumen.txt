@@ -1,53 +1,40 @@
 Público
-	Consultar horarios de aula
-	Consultar horarios de profesor (POSIBLE DESCARTABLE)
-	Consultar horarios de materia (POSIBLE DESCARTABLE)
-	Consultar profesor de materia (POSIBLE DESCARTABLE)
-	Consultar dictado de materia por departamento (DESCARTABLE)
-	Consultar aulas (¿?)
+
+	Consultar horarios de profesor (Minima)
+	Consultar horarios de materia (Minima)
+	Consultar profesor de materia (Minima)
+	Consultar aulas (y disponibilidad) (Media)
 
 Los siguientes participantes heredan los CU del Público
 
 Administrador del departamento
-	Consulta listado de conflictos (POSIBLE DESCARTABLE)
-	Consulta listado de intercambios (POSIBLE DESCARTABLE)
-	Consulta estado de reservas de aulas según franja horaria (DESCARTABLE)
-	Anular asignaciòn
-	Confirmar asignación
-	Registrar asignación (¿?) ->> implica ->> Registrar conflicto
-	Replicar asignaciones de aulas (DESCARTABLE)
-	Modificar asignacipón de aula (POSIBLE DESCARTABLE)
-	Consultar Aulas disponibles
-	Anular asignación
-	Modificar confirmación de asignación (POSIBLE DESCARTABLE)
-	Modificar habilitación de docente (SUPONGO QUE POR SANCION)
-	Consultar docentes habilitados (VER)
+	
+	Consulta listado de intercambios (ultra minima)
+	
+	Anular asignaciòn (alta)
+	Confirmar asignación (alta)
+	Registrar asignación (alta)
+	Anular asignación (alta)
+	Modificar confirmación de asignación (media)
+	Modificar habilitación de docente (minima)
+	Consultar docentes habilitados (minima)
 
 SGA y autoridades
 	Consultar comisiones sin aulas asignadas (DESCARTABLE)
 	Obtener reporte de reservas por departamente (POSIBLE DESCARTABLE)
 	Obtener reporte de reservas por aula
 	Obtener reporte de reservas por materia (POSIBLE DESCARTABLE)
-	Consultar asignaciones no confirmadas
-	Consultar aulas disponibles
-	Consultar reservas de aulas según periodo (DESCARTABLE)
-	Consultar estado de reservas según franja horaria (DESCARTABLE)
-	Anular asignación
-	Evaluar prestamo
-	Obtener lista de prestamos
-	Obtener lista de conflictos
-	Obtener listado de intercambios (POSIBLE DESCARTABLE)
-	Consultar tablero de control ->> implica ->> Alertar Aulas subocupadas (¿?) y Alertar conflictos entre asignaciones
+	Consultar asignaciones no confirmadas (alta)
+	Anular asignación (alta)
+	Evaluar prestamo (alta)
+	Obtener lista de prestamos (alta)
+
 
 Docentes
-	Eliminar solicitud de prestamo
-	Modificar prestamo final
-	Modifica prestamo parcial
-	Modificar prestamo evento 
-	Solicitar prestamo final 
-	Solicitar prestamo evento
-	Consultar solicitudes de prestamo
-	Consultar aulas disponibles
+	Eliminar solicitud de prestamo (alta)
+	Modificar prestamo (alta) 
+	Solicitar prestamo evento (Minima)
+	Consultar solicitudes de prestamo (alta) 
 
 ¿Diferencia entre prestamo parcial y final?
 	
