@@ -1,0 +1,14 @@
+Bases de datos:
+
+Usuarios: Docentes,EncargadoDepto, EncargadoSec
+
+
+Espacios: Aulas, Laboratorios, SalasConferencias, SalaReuniones
+
+Prestamos: Reservas y asiganciones
+
+Edificios: DeAulas, Departamentos, Otros
+
+
+
+

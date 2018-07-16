@@ -1,4 +1,4 @@
-package Clases;
+package Clases.Principales;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class Edificio
         this.encargado = encargado;
     }
 
-    public void añadirEspacio(Espacio espacio)
+    public void addEspacio(Espacio espacio)
     {
         espacios.add(espacio);
     }

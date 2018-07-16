@@ -1,10 +1,10 @@
-package Clases;
+package Clases.Principales;
 
-public class SalaConferencias extends Espacio
+public class Laboratorio extends Espacio
 {
     protected String numero;
 
-    public SalaConferencias(String id, String nombre, int capacidad, Edificio edificio, String numero)
+    public Laboratorio(String id, String nombre, int capacidad, Edificio edificio, String numero)
     {
         super(id, nombre, capacidad, edificio);
         this.numero = numero;
