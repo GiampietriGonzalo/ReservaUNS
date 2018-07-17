@@ -1,7 +1,6 @@
 package Clases.Principales;
 
-public class Aula extends Espacio
-{
+public class Aula extends Espacio {
     protected String numero;
 
     public Aula(String id, String nombre, int capacidad, Edificio edificio, String numero)

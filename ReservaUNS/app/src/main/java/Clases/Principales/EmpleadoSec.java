@@ -1,20 +1,19 @@
 package Clases.Principales;
 
-public class Encargado
-{
+public class EmpleadoSec extends Usuario{
+
     protected String id;
     protected String nombre;
     protected String apellido;
     protected String lu;
-    protected String contraseña;
 
-    public Encargado(String id, String nombre, String apellido, String lu, String contraseña)
+    public EmpleadoSec(String cuenta, String password, String id, String nombre, String apellido, String lu)
     {
+        super(cuenta,password);
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.lu = lu;
-        this.contraseña= contraseña;
     }
 
     public void setId(String id)
@@ -37,11 +36,6 @@ public class Encargado
         this.lu = lu;
     }
 
-    public void setContraseña(String contraseña)
-    {
-        this.contraseña = contraseña;
-    }
-
     public String getId()
     {
         return id;
@@ -62,8 +56,4 @@ public class Encargado
         return lu;
     }
 
-    public String getContraseña()
-    {
-        return contraseña;
-    }
 }

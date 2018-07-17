@@ -13,7 +13,7 @@ public class TablaPrestamos implements Tabla {
 
 
 
-    rotected class Columns implements BaseColumns {
+    protected class Columns implements BaseColumns {
 
         public static final String ID= "id";
         public static final String tableName = "Prestamos";

@@ -1,7 +1,6 @@
 package Clases.Principales;
 
-public class Laboratorio extends Espacio
-{
+public class Laboratorio extends Espacio {
     protected String numero;
 
     public Laboratorio(String id, String nombre, int capacidad, Edificio edificio, String numero)

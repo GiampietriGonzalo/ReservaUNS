@@ -2,16 +2,15 @@ package Clases.Principales;
 
 import java.util.ArrayList;
 
-public class Edificio
-{
+public class Edificio {
     protected String id;
     protected String nombre;
     protected String direccion;
     protected String telefono;
-    protected Encargado encargado;
+    protected Usuario encargado;
     protected ArrayList<Espacio> espacios;
 
-    public Edificio(String id, String nombre, String direccion, String telefono, Encargado encargado)
+    public Edificio(String id, String nombre, String direccion, String telefono, Usuario encargado)
     {
         this.id = id;
         this.nombre = nombre;
@@ -46,7 +45,7 @@ public class Edificio
         this.telefono = telefono;
     }
 
-    public void setEncargado(Encargado encargado)
+    public void setEncargado(Usuario encargado)
     {
         this.encargado = encargado;
     }
@@ -76,7 +75,7 @@ public class Edificio
         return telefono;
     }
 
-    public Encargado getEncargado()
+    public Usuario getEncargado()
     {
         return encargado;
     }

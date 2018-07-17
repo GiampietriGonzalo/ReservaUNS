@@ -1,20 +1,24 @@
 package Clases.Principales;
 
-public class Docente extends Usuario {
+public class EmpleadoDepartamento extends Usuario{
+
+    protected String id;
     protected String nombre;
     protected String apellido;
     protected String lu;
-    protected String mail;
-    protected String telefono;
 
-    public Docente(String cuenta, String password, String nombre, String apellido, String lu, String mail, String telefono)
+    public EmpleadoDepartamento(String cuenta, String password, String id, String nombre, String apellido, String lu)
     {
         super(cuenta,password);
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.lu = lu;
-        this.mail = mail;
-        this.telefono = telefono;
+    }
+
+    public void setId(String id)
+    {
+        this.id = id;
     }
 
     public void setNombre(String nombre)
@@ -32,14 +36,9 @@ public class Docente extends Usuario {
         this.lu = lu;
     }
 
-    public void setMail(String mail)
+    public String getId()
     {
-        this.mail = mail;
-    }
-
-    public void setTelefono(String telefono)
-    {
-        this.telefono = telefono;
+        return id;
     }
 
     public String getNombre()
@@ -57,13 +56,4 @@ public class Docente extends Usuario {
         return lu;
     }
 
-    public String getMail()
-    {
-        return mail;
-    }
-
-    public String getTelefono()
-    {
-        return telefono;
-    }
 }

@@ -1,54 +1,37 @@
 package Clases.Principales;
 
-public class Reserva
-{
-    protected String id;
-    protected String fecha;
-    protected String hora;
-    protected String duracion;
-    protected String estado;
+import Clases.Estados.EstadoReserva;
+import Clases.Estados.ReservaActiva;
+
+public class Reserva extends Prestamo{
+
+    protected Horario horario;
     protected Espacio espacio;
     protected Docente responsable;
 
-    public Reserva(String id, String fecha, String hora, String duracion, Espacio espacio, Docente responsable)
+    public Reserva(int id, String descripcion,String fecha, Horario horario, Espacio espacio, Docente responsable)
     {
-        this.id = id;
-        this.fecha = fecha;
-        this.hora = hora;
-        this.duracion = duracion;
+        super(id,descripcion,fecha);
+        this.horario=horario;
         this.espacio = espacio;
         this.responsable = responsable;
-        estado = "activa";
+        estado = new ReservaActiva();
     }
 
-    public void setId(String id)
-    {
-        this.id = id;
-    }
 
     public void setFecha(String fecha)
     {
         this.fecha = fecha;
     }
 
-    public void setHora(String hora)
+    public void setHorario(Horario horario)
     {
-        this.hora = hora;
-    }
-
-    public void setDuracion(String duracion)
-    {
-        this.duracion = duracion;
+        this.horario = horario;
     }
 
     public void cancelar()
     {
-        estado = "cancelada";
-    }
-
-    public void activa()
-    {
-        estado = "activa";
+        estado.cancelar();
     }
 
     public void setEspacio(Espacio espacio)
@@ -61,27 +44,17 @@ public class Reserva
         this.responsable = responsable;
     }
 
-    public String getId()
-    {
-        return id;
-    }
-
     public String getFecha()
     {
         return fecha;
     }
 
-    public String getHora()
+    public Horario getHorario()
     {
-        return hora;
+        return horario;
     }
 
-    public String getDuracion()
-    {
-        return duracion;
-    }
-
-    public String getEstado()
+    public EstadoReserva getEstado()
     {
         return estado;
     }
