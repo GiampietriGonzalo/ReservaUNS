@@ -5,7 +5,6 @@ public abstract class Espacio
     protected String id;
     protected String nombre;
     protected int capacidad;
-    protected boolean disponible;
     protected Edificio edificio;
 
     public Espacio(String id, String nombre, int capacidad, Edificio edificio)
@@ -14,7 +13,6 @@ public abstract class Espacio
         this.nombre= nombre;
         this.capacidad = capacidad;
         this.edificio = edificio;
-        disponible = true;
     }
 
     public String getID()
@@ -32,18 +30,9 @@ public abstract class Espacio
         return capacidad;
     }
 
-    public boolean getDisponible()
-    {
-        return disponible;
-    }
-
     public Edificio getEdifiio()
     {
         return edificio;
     }
 
-    public void setDisponibilidad(boolean estado)
-    {
-        disponible = estado;
-    }
 }

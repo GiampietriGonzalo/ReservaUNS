@@ -9,7 +9,7 @@ public class Laboratorio extends Espacio {
         this.numero = numero;
     }
 
-    public void ssetNumero(String numero)
+    public void setNumero(String numero)
     {
         this.numero = numero;
     }

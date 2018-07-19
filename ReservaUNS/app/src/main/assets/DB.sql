@@ -1,0 +1,10 @@
+BEGIN TRANSACTION
+CREATE TABLE IF NOT EXISTS `Aulas` (
+	`Id`	INTEGER NOT NULL UNIQUE,
+	`Nombre`	TEXT NOT NULL,
+	`Capacidad`	INTEGER NOT NULL,
+	`NombreEdificio`	INTEGER NOT NULL,
+	`NombreAnterior`	TEXT
+);
+INSERT INTO `Aulas` VALUES (10,'pipen',100,'palihue1','');
+COMMIT

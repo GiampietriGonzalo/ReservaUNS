@@ -7,9 +7,12 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/nombre"
+        android:layout_width="87dp"
+        android:layout_height="29dp"
         android:text="Hello World!"
-        android:textColor="@android:color/background_dark" />
+        android:textColor="@android:color/background_dark"
+        tools:layout_editor_absoluteX="94dp"
+        tools:layout_editor_absoluteY="182dp" />
 
 </android.support.constraint.ConstraintLayout>
