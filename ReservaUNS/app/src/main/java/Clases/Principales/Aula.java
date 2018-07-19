@@ -4,9 +4,9 @@ public class Aula extends Espacio {
     protected int numero;
     protected String nombreAnterior;
 
-    public Aula(String id, String nombre, int capacidad, Edificio edificio, int numero, String nombreAnterior)
+    public Aula(String id, String nombre, int capacidad, String nombreEdificio, int numero, String nombreAnterior)
     {
-        super(id, nombre, capacidad, edificio);
+        super(id, nombre, capacidad, nombreEdificio);
         this.numero = numero;
         this.nombreAnterior=nombreAnterior;
     }

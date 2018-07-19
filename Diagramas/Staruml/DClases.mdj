@@ -400,7 +400,7 @@
 											"top": 156,
 											"width": 152,
 											"height": 13,
-											"text": "#espacios: List<Espacio>",
+											"text": "#espacios: List<Integer>",
 											"horizontalAlignment": 0
 										}
 									],
@@ -1974,6 +1974,23 @@
 									"subViews": [
 										{
 											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFks+O7Z7kaPlA=",
+											"_parent": {
+												"$ref": "AAAAAAFkkAZoKM6A2Y8="
+											},
+											"model": {
+												"$ref": "AAAAAAFks+O7F7kX1Jc="
+											},
+											"font": "Arial;13;0",
+											"left": 237,
+											"top": 678,
+											"width": 206.29248046875,
+											"height": 13,
+											"text": "#id",
+											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
 											"_id": "AAAAAAFklLhhA3rPrks=",
 											"_parent": {
 												"$ref": "AAAAAAFkkAZoKM6A2Y8="
@@ -1983,7 +2000,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 237,
-											"top": 678,
+											"top": 693,
 											"width": 206.29248046875,
 											"height": 13,
 											"text": "#password",
@@ -2000,7 +2017,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 237,
-											"top": 693,
+											"top": 708,
 											"width": 206.29248046875,
 											"height": 13,
 											"text": "#cuenta",
@@ -2011,7 +2028,7 @@
 									"left": 232,
 									"top": 673,
 									"width": 216.29248046875,
-									"height": 38
+									"height": 53
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -2034,7 +2051,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 237,
-											"top": 716,
+											"top": 731,
 											"width": 206.29248046875,
 											"height": 13,
 											"text": "+setPassword(Vieja, Nueva)",
@@ -2051,7 +2068,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 237,
-											"top": 731,
+											"top": 746,
 											"width": 206.29248046875,
 											"height": 13,
 											"text": "+seters()",
@@ -2068,7 +2085,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 237,
-											"top": 746,
+											"top": 761,
 											"width": 206.29248046875,
 											"height": 13,
 											"text": "+geters()",
@@ -2077,7 +2094,7 @@
 									],
 									"font": "Arial;13;0",
 									"left": 232,
-									"top": 711,
+									"top": 726,
 									"width": 216.29248046875,
 									"height": 53
 								},
@@ -3038,7 +3055,7 @@
 											"top": 115,
 											"width": 206,
 											"height": 13,
-											"text": "#autor: Usuario",
+											"text": "#idAutor: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -3055,7 +3072,7 @@
 											"top": 130,
 											"width": 206,
 											"height": 13,
-											"text": "#horario: Horario",
+											"text": "#idHorario: int",
 											"horizontalAlignment": 0
 										},
 										{
@@ -6295,7 +6312,7 @@
 											"top": 170,
 											"width": 190,
 											"height": 13,
-											"text": "#edificio: Edificio",
+											"text": "#idEdificio: int",
 											"horizontalAlignment": 0
 										}
 									],
@@ -8362,7 +8379,7 @@
 							},
 							"name": "espacios",
 							"visibility": "protected",
-							"type": "List<Espacio>"
+							"type": "List<Integer>"
 						}
 					],
 					"operations": [
@@ -8815,6 +8832,15 @@
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
+							"_id": "AAAAAAFks+O7F7kX1Jc=",
+							"_parent": {
+								"$ref": "AAAAAAFkkAZoJc54upU="
+							},
+							"name": "id",
+							"visibility": "protected"
+						},
+						{
+							"_type": "UMLAttribute",
 							"_id": "AAAAAAFklLhgz3rMuIs=",
 							"_parent": {
 								"$ref": "AAAAAAFkkAZoJc54upU="
@@ -9039,9 +9065,9 @@
 							"_parent": {
 								"$ref": "AAAAAAFklMhncXsDU3c="
 							},
-							"name": "autor",
+							"name": "idAutor",
 							"visibility": "protected",
-							"type": "Usuario"
+							"type": "int"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -9049,11 +9075,9 @@
 							"_parent": {
 								"$ref": "AAAAAAFklMhncXsDU3c="
 							},
-							"name": "horario",
+							"name": "idHorario",
 							"visibility": "protected",
-							"type": {
-								"$ref": "AAAAAAFkj++KPc2GSYw="
-							}
+							"type": "int"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -9587,9 +9611,9 @@
 							"_parent": {
 								"$ref": "AAAAAAFkpUKTFIE28GA="
 							},
-							"name": "edificio",
+							"name": "idEdificio",
 							"visibility": "protected",
-							"type": "Edificio"
+							"type": "int"
 						}
 					],
 					"operations": [

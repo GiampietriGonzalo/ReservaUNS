@@ -8,8 +8,8 @@ public class Departamento extends Edificio {
 
     protected int codigo;
 
-    public  Departamento(String id, String nombre, String direccion, String telefono, Usuario encargado, int codigo){
-        super(id,nombre,direccion,telefono,encargado);
+    public  Departamento(String id, String nombre, String direccion, String telefono, int idEncargado, int codigo){
+        super(id,nombre,direccion,telefono,idEncargado);
         this.codigo=codigo;
     }
 

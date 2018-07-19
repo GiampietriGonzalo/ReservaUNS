@@ -2,21 +2,21 @@ package Clases.Principales;
 
 import java.util.ArrayList;
 
-public class Edificio {
+public abstract class Edificio {
     protected String id;
     protected String nombre;
     protected String direccion;
     protected String telefono;
-    protected Usuario encargado;
-    protected ArrayList<Espacio> espacios;
+    protected int idEncargado;
+    protected ArrayList<Integer> espacios;
 
-    public Edificio(String id, String nombre, String direccion, String telefono, Usuario encargado)
+    public Edificio(String id, String nombre, String direccion, String telefono, int idEncargado)
     {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion; this.telefono = telefono;
-        this.encargado = encargado;
-        espacios = new ArrayList<Espacio>();
+        this.idEncargado = idEncargado;
+        espacios = new ArrayList<Integer>();
     }
 
     public Edificio(String id, String nombre)
@@ -45,15 +45,15 @@ public class Edificio {
         this.telefono = telefono;
     }
 
-    public void setEncargado(Usuario encargado)
+    public void setEncargado(int idEncargado)
     {
-        this.encargado = encargado;
+        this.idEncargado = idEncargado;
     }
 
-    public void addEspacio(Espacio espacio)
+    /*public void addEspacio(Espacio espacio)
     {
         espacios.add(espacio);
-    }
+    }*/
 
     public String getId()
     {
@@ -75,13 +75,15 @@ public class Edificio {
         return telefono;
     }
 
-    public Usuario getEncargado()
+    /*public Usuario getEncargado()
     {
         return encargado;
-    }
+    }*/
 
-    public ArrayList<Espacio> getEspacios()
+    public ArrayList<Integer> getEspacios()
     {
+        //BUSCAR EN LA BD LOS ESPACIOS CON LOS ID DE LA LISTA, ARMAR UNA LISTA DE ESPACIOS Y RETORNARLA
+
         return espacios;
     }
 }

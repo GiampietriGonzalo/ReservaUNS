@@ -6,6 +6,7 @@ import android.provider.BaseColumns;
 
 import java.util.LinkedList;
 
+import Clases.Principales.Departamento;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 
@@ -27,8 +28,10 @@ public class TablaEdificios implements Tabla {
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
             //Busco los espacios vinculados a este edificio
-           
+            espacios=TablaEspacios.findEspacios(nombreEdificio,db);
 
+
+            // SEGUIR toReturn= new Departamento(cursor.getInt(0),cursor.getString());
 
         }
 

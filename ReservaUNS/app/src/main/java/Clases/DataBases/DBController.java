@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
@@ -28,21 +29,32 @@ public class DBController {
         sqlDB=dbHelper.getWritableDatabase();
     }
 
-    public static DBController getDbC(Context context) {
+    public  DBController getDbC(Context context) {
         if(dbC==null)
             dbC=new DBController(context);
         return dbC;
     }
 
-    public Espacio findAula(String name){
+    public Espacio findAula(String nombreAula){
 
          Aula toReturn=null;
 
-        if (name!=null && name!="")
-            toReturn = TablaAulas.find(name, sqlDB);
+        if (nombreAula!=null && nombreAula!="")
+            toReturn = TablaEspacios.findAula(nombreAula, sqlDB);
 
 
          return toReturn;
+
+    }
+
+    public LinkedList<Espacio> findEspacios(String nombreEdificio){
+
+        LinkedList<Espacio> espacios=null;
+
+        if (nombreEdificio!=null)
+        espacios = TablaEspacios.findEspacios(nombreEdificio, sqlDB);
+
+        return espacios;
 
     }
 
