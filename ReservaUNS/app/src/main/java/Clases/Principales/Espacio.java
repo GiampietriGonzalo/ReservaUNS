@@ -4,20 +4,23 @@ import Clases.DataBases.DBController;
 
 public abstract class Espacio
 {
-    protected String id;
+    protected int id;
     protected String nombre;
     protected int capacidad;
-    protected String nombreEdificio;
+    protected int idEdificio;
+    protected int piso;
+    protected String cuerpo;
 
-    public Espacio(String id, String nombre, int capacidad, String nombreEdificioedificio)
-    {
+    public Espacio(int id, String nombre, int capacidad, int idEdificio, int piso, String cuerpo) {
         this.id = id;
         this.nombre= nombre;
         this.capacidad = capacidad;
-        this.nombreEdificio = nombreEdificioedificio;
+        this.idEdificio = idEdificio;
+        this.piso=piso;
+        this.cuerpo=cuerpo;
     }
 
-    public String getID()
+    public int getID()
     {
         return id;
     }
@@ -25,6 +28,14 @@ public abstract class Espacio
     public String getNombre()
     {
         return nombre;
+    }
+
+    public int getPiso() {
+        return piso;
+    }
+
+    public String getCuerpo() {
+        return cuerpo;
     }
 
     public int getCapacidad()

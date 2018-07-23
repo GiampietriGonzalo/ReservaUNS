@@ -1,22 +1,11 @@
 package Clases.Principales;
 
-public class SalaReuniones extends Espacio
-{
-    protected String numero;
+public class SalaReuniones extends Espacio {
 
-    public SalaReuniones(String id, String nombre, int capacidad, Edificio edificio, String numero)
+    public SalaReuniones(int id, String nombre, int capacidad, int idEdificio, int piso, String cuerpo)
     {
-        super(id, nombre, capacidad, edificio);
-        this.numero = numero;
+        super(id, nombre, capacidad, idEdificio,piso,cuerpo);
     }
 
-    public void ssetNumero(String numero)
-    {
-        this.numero = numero;
-    }
 
-    public String getNumero()
-    {
-        return numero;
-    }
 }

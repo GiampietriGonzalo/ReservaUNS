@@ -1,31 +1,32 @@
 package Clases.Principales;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public abstract class Edificio {
-    protected String id;
+    protected int id;
     protected String nombre;
     protected String direccion;
     protected String telefono;
     protected int idEncargado;
-    protected ArrayList<Integer> espacios;
+    protected LinkedList<Integer> espacios;
 
-    public Edificio(String id, String nombre, String direccion, String telefono, int idEncargado)
+    public Edificio(int id, String nombre, String direccion, String telefono, int idEncargado)
     {
         this.id = id;
         this.nombre = nombre;
         this.direccion = direccion; this.telefono = telefono;
         this.idEncargado = idEncargado;
-        espacios = new ArrayList<Integer>();
+        espacios = new LinkedList<Integer>();
     }
 
-    public Edificio(String id, String nombre)
+    public Edificio(int id, String nombre)
     {
         this.id = id;
         this.nombre = nombre;
     }
 
-    public void setId(String id)
+    public void setId(int id)
     {
         this.id = id;
     }
@@ -55,7 +56,7 @@ public abstract class Edificio {
         espacios.add(espacio);
     }*/
 
-    public String getId()
+    public int getId()
     {
         return id;
     }
@@ -80,10 +81,14 @@ public abstract class Edificio {
         return encargado;
     }*/
 
-    public ArrayList<Integer> getEspacios()
+    public LinkedList<Integer> getEspacios()
     {
         //BUSCAR EN LA BD LOS ESPACIOS CON LOS ID DE LA LISTA, ARMAR UNA LISTA DE ESPACIOS Y RETORNARLA
 
         return espacios;
+    }
+
+    public void setEspacios(LinkedList<Integer> espacios) {
+        this.espacios = espacios;
     }
 }

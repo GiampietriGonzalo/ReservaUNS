@@ -1,25 +1,15 @@
 package Clases.Principales;
 
 public class Aula extends Espacio {
-    protected int numero;
     protected String nombreAnterior;
 
-    public Aula(String id, String nombre, int capacidad, String nombreEdificio, int numero, String nombreAnterior)
+    public Aula(int id, String nombre, int capacidad, int idEdificio, String nombreAnterior, int piso, String cuerpo)
     {
-        super(id, nombre, capacidad, nombreEdificio);
-        this.numero = numero;
+        super(id, nombre, capacidad, idEdificio,piso,cuerpo);
         this.nombreAnterior=nombreAnterior;
+
     }
 
-    public void setNumero(int numero)
-    {
-        this.numero = numero;
-    }
-
-    public int getNumero()
-    {
-        return numero;
-    }
 
     public void setNombreAnterior(String nombreAnterior) {
         this.nombreAnterior = nombreAnterior;

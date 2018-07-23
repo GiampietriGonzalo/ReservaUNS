@@ -6,12 +6,18 @@ package Clases.Principales;
 
 public abstract class Usuario {
 
+    protected int id;
     protected String password;
     protected String cuenta;
 
-    public Usuario(String cuenta, String password){
+    public Usuario(int id, String cuenta, String password){
+        this.id=id;
         this.password=password;
         this.cuenta=cuenta;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getPassword() {
@@ -25,6 +31,10 @@ public abstract class Usuario {
     public void setPassword(String oldPassword,String newPassword) {
         //CONTROLAR QUE LA CONTRASEÑA VIEJA ES IGUAL A LA ACTUAL
         this.password = password;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setCuenta(String cuenta) {
