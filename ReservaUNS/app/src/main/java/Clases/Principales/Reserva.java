@@ -1,21 +1,21 @@
 package Clases.Principales;
 
+import Clases.DataBases.DBController;
+import Clases.DataBases.TablaEstadosReservas;
 import Clases.Estados.EstadoReserva;
 import Clases.Estados.ReservaActiva;
 
 public class Reserva extends Prestamo{
 
-    protected Horario horario;
-    protected Espacio espacio;
-    protected Docente responsable;
+    protected int idDocente;
 
-    public Reserva(int id, String descripcion,String fecha, Horario horario, Espacio espacio, Docente responsable)
-    {
-        super(id,descripcion,fecha);
-        this.horario=horario;
-        this.espacio = espacio;
-        this.responsable = responsable;
-        estado = new ReservaActiva();
+    public Reserva(int id, String descripcion,String fecha, int idHorario, int idEspacio, int idDocente) {
+        super(id,descripcion,fecha,idEspacio,idHorario);
+        this.idHorario=idHorario;
+        this.idEspacio = idEspacio;
+        this.idDocente = idDocente;
+        EstadoReserva aux = new ReservaActiva(TablaEstadosReservas.getNextID(DBController.getDB()));
+        this.idEstado=aux.getId();
     }
 
 
@@ -24,48 +24,39 @@ public class Reserva extends Prestamo{
         this.fecha = fecha;
     }
 
-    public void setHorario(Horario horario)
-    {
-        this.horario = horario;
+    public void setHorario(Horario horario) {
+        idHorario = horario.getId();
     }
 
-    public void cancelar()
-    {
+    /*Hacer
+
+    public void cancelar(){
         estado.cancelar();
+    }*/
+
+    public void setEspacio(Espacio espacio) {
+        idEspacio = espacio.getID();
     }
 
-    public void setEspacio(Espacio espacio)
-    {
-        this.espacio = espacio;
+    public void setResponsable(Docente responsable) {
+        idDocente = responsable.getId();
     }
 
-    public void setResponsable(Docente responsable)
-    {
-        this.responsable = responsable;
-    }
-
-    public String getFecha()
-    {
-        return fecha;
-    }
-
-    public Horario getHorario()
-    {
+    /*HACER
+    public Horario getHorario() {
         return horario;
     }
 
-    public EstadoReserva getEstado()
-    {
+    public EstadoReserva getEstado() {
         return estado;
     }
 
-    public Espacio getEspacio()
-    {
+
+    public Espacio getEspacio(){
         return espacio;
     }
 
-    public Docente getResponsable()
-    {
+    public Docente getResponsable() {
         return responsable;
-    }
+    }*/
 }

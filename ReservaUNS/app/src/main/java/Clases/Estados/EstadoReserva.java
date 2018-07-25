@@ -6,5 +6,13 @@ package Clases.Estados;
 
 public abstract class EstadoReserva {
 
+    protected int id;
+    public EstadoReserva(int id){
+        this.id=id;
+    }
     public void cancelar(){}
+
+    public int getId() {
+        return id;
+    }
 }

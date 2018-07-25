@@ -22,11 +22,15 @@ public class DBController {
     private final static String DB_NAME="DB";
     private static DBController dbC;
     private DBHelper dbHelper;
-    private SQLiteDatabase sqlDB;
+    private static SQLiteDatabase sqlDB;
 
     private DBController(Context context) {
         dbHelper = new DBHelper(context);
         sqlDB=dbHelper.getWritableDatabase();
+    }
+
+    public static SQLiteDatabase getDB() {
+        return sqlDB;
     }
 
     public  DBController getDbC(Context context) {
@@ -47,23 +51,22 @@ public class DBController {
 
     }
 
-    public LinkedList<Espacio> findEspacios(String nombreEdificio){
+    /*public LinkedList<Espacio> findEspacios(int idEdificio){
 
         LinkedList<Espacio> espacios=null;
 
-        if (nombreEdificio!=null)
-        espacios = TablaEspacios.findEspacios(nombreEdificio, sqlDB);
+        if (idEdificio!=null)
+        espacios = TablaEspacios.findEspacios(idEdificio, sqlDB);
 
         return espacios;
 
-    }
+    }*/
 
-    public Edificio findDepartamento(String nombreDepartamento){
+    public Edificio findDepartamento(int idDepartamento){
 
         Edificio toReturn=null;
 
-        if (nombreDepartamento!=null && nombreDepartamento!="")
-            toReturn = TablaEdificios.findDepartamento(nombreDepartamento, sqlDB);
+        toReturn = TablaEdificios.findDepartamento(idDepartamento, sqlDB);
 
 
         return toReturn;

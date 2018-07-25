@@ -11,11 +11,15 @@ public abstract class Prestamo {
     protected int id;
     protected String descripcion;
     protected String fecha;
-    protected EstadoReserva estado;
+    protected int idEstado;
+    protected int idEspacio;
+    protected int idHorario;
 
-    public Prestamo(int id, String descripcion, String fecha){
+    public Prestamo(int id, String descripcion, String fecha, int idEspacio,int idHorario){
         this.id=id;
         this.descripcion=descripcion;
+        this.idEspacio=idEspacio;
+        this.idHorario=idHorario;
     }
 
     public void cancelar(){}
@@ -24,9 +28,10 @@ public abstract class Prestamo {
         return id;
     }
 
-    public EstadoReserva getEstado() {
-        return estado;
-    }
+    /* HACER
+        public EstadoReserva getEstado() {
+            return estado;
+        }*/
 
     public String getDescripcion() {
         return descripcion;
@@ -36,6 +41,12 @@ public abstract class Prestamo {
         return fecha;
     }
 
+    /*HACER
+    public Espacio getEspacio() {
+        return idEspacio;
+    }*/
+
+
     public void setId(int id) {
         this.id = id;
     }
@@ -44,11 +55,14 @@ public abstract class Prestamo {
         this.descripcion = descripcion;
     }
 
-    public void setEstado(EstadoReserva estado) {
-        this.estado = estado;
+    public void setEstado(int idEstado) {
+        this.idEstado = idEstado;
     }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+
+
 }

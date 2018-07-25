@@ -5,4 +5,9 @@ package Clases.Estados;
  */
 
 public class ReservaCancelada extends  EstadoReserva {
+
+    public ReservaCancelada(int id){
+        super(id);
+    }
+
 }
