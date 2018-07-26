@@ -2,6 +2,9 @@ package Clases.Principales;
 
 import java.util.LinkedList;
 
+import Clases.DataBases.DBController;
+import Clases.DataBases.TablaHorarios;
+
 /**
  * Created by gonza on 16/07/18.
  */
@@ -11,7 +14,20 @@ public class Horario {
     protected int id;
     protected String horaInicio;
     protected String horaFin;
+    protected int idPrestamo;
     protected LinkedList<String> diasSemana;
+
+    public Horario(int id, String horaInicio, String horaFin, int idPrestamo, LinkedList<String> diasSemana){
+        this.id=id;
+        this.horaInicio=horaInicio;
+        this.horaFin=horaFin;
+        this.idPrestamo=idPrestamo;
+        this.diasSemana=diasSemana;
+
+        if(this.id==999)
+            this.id= TablaHorarios.getNextID(DBController.getDB());
+
+    }
 
     public int getId() {
         return id;

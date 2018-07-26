@@ -4,14 +4,44 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import Clases.Estados.EstadoPrestamo;
+import Clases.Estados.PrestamoActivo;
+import Clases.Estados.PrestamoCancelado;
+
 public class TablaEstadosReservas implements Tabla {
 
-    private static String[] columns={Columns.Id,Columns.IdReserva};
+    private static String[] columns={Columns.Id,Columns.IdPrestamo,Columns.Tipo};
+
+    public static EstadoPrestamo findEstado(int id, SQLiteDatabase db){
+
+        EstadoPrestamo toReturn=null;
+        Cursor cursor=db.query("EstadosPrestamos",columns, Columns.Id + " = '" + id ,null,null,null,null,null);
+
+        while (!cursor.isClosed() && cursor.moveToNext()){
+
+            switch (cursor.getString(2)){
+
+                case "PrestamoActivo":{
+                    toReturn= new PrestamoActivo(cursor.getInt(0),cursor.getInt(1));
+                    break;
+                }
+
+                case "PrestamoCancelado":{
+                    toReturn= new PrestamoCancelado(cursor.getInt(0),cursor.getInt(1));
+                    break;
+                }
+            }
+
+        }
+
+        return toReturn;
+    }
+
 
     public static int getNextID(SQLiteDatabase db){
         int toReturn=0;
 
-        Cursor cursor=db.query("EstadosPrestamos",columns, Columns.Id ,null,null,null,null,null);
+        Cursor cursor=db.query("EstadosPrestamos",columns, null ,null,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
             toReturn++;
@@ -23,7 +53,8 @@ public class TablaEstadosReservas implements Tabla {
     private class Columns implements BaseColumns {
 
         public static final String Id= "Id";
-        public static final String IdReserva =  "IdReserva";
+        public static final String IdPrestamo =  "IdPrestamo";
+        public static final String Tipo = "Tipo";
 
     }
 
