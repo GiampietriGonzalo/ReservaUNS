@@ -6,8 +6,8 @@ package Clases.Estados;
 
 public class PrestamoActivo extends  EstadoPrestamo{
 
-    public PrestamoActivo(int id,int idPrestamo){
-        super(id,idPrestamo);
+    public PrestamoActivo(int id, int idPrestamo){
+        super(id, idPrestamo);
     }
 
 }

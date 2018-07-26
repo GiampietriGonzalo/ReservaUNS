@@ -5,7 +5,7 @@ public class Aula extends Espacio {
 
     public Aula(int id, String nombre, int capacidad, int idEdificio, String nombreAnterior, int piso, String cuerpo)
     {
-        super(id, nombre, capacidad, idEdificio,piso,cuerpo);
+        super(id, nombre, capacidad, idEdificio, piso, cuerpo);
         this.nombreAnterior=nombreAnterior;
 
     }

@@ -2,7 +2,6 @@ package Clases.Principales;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaEstadosReservas;
-import Clases.Estados.EstadoReserva;
 import Clases.Estados.PrestamoActivo;
 
 public class Reserva extends Prestamo{
@@ -14,8 +13,8 @@ public class Reserva extends Prestamo{
         this.idHorario=idHorario;
         this.idEspacio = idEspacio;
         this.idDocente = idDocente;
-        EstadoReserva aux = new PrestamoActivo(TablaEstadosReservas.getNextID(DBController.getDB()));
-        this.idEstado=aux.getId();
+      //  EstadoReserva aux = new PrestamoActivo(TablaEstadosReservas.getNextID(DBController.getDB()));
+      //  this.idEstado = aux.getId();
     }
 
 
