@@ -1,5 +1,6 @@
 package Clases.DataBases;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -16,6 +17,38 @@ public class TablaPrestamos implements Tabla {
 
     private static String[] columns={Columns.Id, Columns.Descripcion, Columns.Fecha, Columns.IdEstado, Columns.IdHorario,Columns.IdEspacio,Columns.Tipo,Columns.IdTitular, Columns.FechaDesde, Columns.FechaHasta};
 
+
+    public  static boolean insertReserva(Prestamo p,SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+        values.put("Id",p.getId());
+        values.put("Descripcion",p.getDescripcion());
+        values.put("Fecha",p.getFecha());
+        values.put("IdEstado",p.getIdEstado());
+        values.put("IdEspacio",p.getIdEspacio());
+        values.put("IdHorario",p.getIdHorario());
+        values.put("Tipo","Reserva");
+        values.put("IdTitular",((Reserva)p).getIdDocente());
+
+        return db.insert("Prestamos",null,values)>0;
+
+    }
+
+    public static boolean insertAsignacion(Prestamo p, SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+        values.put("Id",p.getId());
+        values.put("Descripcion",p.getDescripcion());
+        values.put("Fecha",p.getFecha());
+        values.put("IdEstado",p.getIdEstado());
+        values.put("IdEspacio",p.getIdEspacio());
+        values.put("IdHorario",p.getIdHorario());
+        values.put("Tipo","Reserva");
+        values.put("FechaHasta",((Asignacion)p).getFechaHasta());
+        values.put("FechaDesde",((Asignacion)p).getFechaDesde());
+
+        return db.insert("Prestamos",null,values)>0;
+    }
 
     public  static Prestamo findPrestamo(int id, SQLiteDatabase db){
 
@@ -41,6 +74,18 @@ public class TablaPrestamos implements Tabla {
         }
 
         return toReturn;
+    }
+
+
+    public static int getNextID(SQLiteDatabase db){
+        int nextID=0;
+        Cursor cursor=db.query("Prestamos",columns,null,null,null,null,null);
+
+        while (!cursor.isClosed() && cursor.moveToNext())
+            nextID++;
+
+
+        return nextID;
     }
 
 

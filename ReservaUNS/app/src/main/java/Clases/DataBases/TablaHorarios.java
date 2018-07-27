@@ -1,6 +1,7 @@
 
 package Clases.DataBases;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -18,11 +19,32 @@ public class TablaHorarios implements Tabla {
     private static String[] columns={Columns.Id,Columns.HoraInicio,Columns.HoraFin,Columns.IdPrestamo,Columns.DiasSemana};
 
 
-    /*public static boolean saveHorario(Horario h,SQLiteDatabase db){
+    public static boolean insertHorario(Horario h,SQLiteDatabase db){
 
+        ContentValues values= new ContentValues();
+        LinkedList<String> diasSemana= h.getDiasSemana();
+        JSONObject jsonDiasSemana = new JSONObject();
+        int i=0;
 
+        values.put("Id",h.getId());
+        values.put("HoraInicio",h.getHoraInicio());
+        values.put("HoraFin",h.getHoraFin());
+        values.put("IdPrestamo",h.getIdPrestamo());
 
-    }*/
+        try{
+
+            for(String dia: diasSemana){
+                jsonDiasSemana.put(""+i , dia);
+                i++;
+            }
+
+            values.put("DiasSemana",jsonDiasSemana.toString());
+
+        }
+        catch (JSONException e){System.out.println("Error en json de TablaHorarios");}
+
+        return db.insert("Horarios",null,values)>0;
+    }
 
     public static Horario findHorario(int idHorario, SQLiteDatabase db){
 

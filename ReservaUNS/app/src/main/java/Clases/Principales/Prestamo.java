@@ -1,5 +1,12 @@
 package Clases.Principales;
 
+import Clases.DataBases.DBController;
+import Clases.DataBases.TablaEspacios;
+import Clases.DataBases.TablaEstadosReservas;
+import Clases.DataBases.TablaHorarios;
+import Clases.DataBases.TablaPrestamos;
+import Clases.Estados.EstadoPrestamo;
+
 /**
  * Created by gonza on 16/07/18.
  */
@@ -18,7 +25,12 @@ public abstract class Prestamo {
         this.descripcion=descripcion;
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;
+
+        if(id==9999)
+            id= TablaPrestamos.getNextID(DBController.getDB());
     }
+
+     abstract public  boolean guardarPrestamo();
 
     public void cancelar(){}
 
@@ -26,10 +38,10 @@ public abstract class Prestamo {
         return id;
     }
 
-    /* HACER
-        public EstadoReserva getEstado() {
-            return estado;
-        }*/
+
+    public EstadoPrestamo getEstado() {
+            return TablaEstadosReservas.findEstado(idEspacio,DBController.getDB());
+    }
 
     public String getDescripcion() {
         return descripcion;
@@ -39,10 +51,15 @@ public abstract class Prestamo {
         return fecha;
     }
 
-    /*HACER
+
     public Espacio getEspacio() {
-        return idEspacio;
-    }*/
+        return TablaEspacios.findEspacio(idEspacio,DBController.getDB());
+    }
+
+    public Horario getHorario() {
+        return TablaHorarios.findHorario(idHorario,DBController.getDB());
+    }
+
 
 
     public void setId(int id) {
@@ -61,6 +78,15 @@ public abstract class Prestamo {
         this.fecha = fecha;
     }
 
+    public int getIdEspacio() {
+        return idEspacio;
+    }
 
+    public int getIdEstado() {
+        return idEstado;
+    }
 
+    public int getIdHorario() {
+        return idHorario;
+    }
 }

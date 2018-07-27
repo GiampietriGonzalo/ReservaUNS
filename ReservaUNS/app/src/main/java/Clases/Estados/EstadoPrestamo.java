@@ -18,12 +18,28 @@ public abstract class EstadoPrestamo {
         this.idPrestamo=idPrestamo;
         TablaEstadosReservas.getNextID(DBController.getDB());
 
-        if(this.id==999)
+        if(this.id==9999)
             this.id= TablaEstadosReservas.getNextID(DBController.getDB());
     }
+
+    abstract public boolean guardarEstado();
+
     public void cancelar(){}
 
     public int getId() {
         return id;
     }
+
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

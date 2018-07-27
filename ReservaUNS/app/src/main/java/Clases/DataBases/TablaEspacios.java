@@ -53,6 +53,45 @@ public class TablaEspacios implements Tabla {
      * Dado el id de un edificio, retorna todos los Espacios que se encuentra en él.
      * */
 
+    public static Espacio findEspacio(int idEspacio, SQLiteDatabase db) {
+
+
+        Espacio toReturn=null;
+        Cursor cursor=db.query("Espacios",columns,Columns.Id +" = '"+idEspacio,null,null,null,null);
+
+        while (!cursor.isClosed() && cursor.moveToNext()) {
+
+            switch (cursor.getString(4)) {
+
+                case "Aula":{
+                            toReturn = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                            break;
+                }
+
+                case "Laboratorio":{
+                            toReturn = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                            break;
+                }
+
+                case "SalaReuniones":{
+                            toReturn = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                            break;
+                }
+
+                case "SalaConferencias":{
+                            toReturn = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                            break;
+                }
+
+
+            }//Fin switch
+        }
+
+        return toReturn;
+
+    }
+
+
     public static LinkedList<Integer> findEspacios(int idEdificio, SQLiteDatabase db) {
 
         LinkedList<Integer> espacios=null;
@@ -64,23 +103,23 @@ public class TablaEspacios implements Tabla {
             switch (cursor.getString(4)) {
 
                 case "Aula":{
-                            aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
-                            break;
+                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                    break;
                 }
 
                 case "Laboratorio":{
-                            aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                            break;
+                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
                 }
 
                 case "SalaReuniones":{
-                            aux= new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                            break;
+                    aux= new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
                 }
 
                 case "SalaConferencias":{
-                            aux= new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                            break;
+                    aux= new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
                 }
 
 
@@ -95,6 +134,9 @@ public class TablaEspacios implements Tabla {
         return espacios;
 
     }
+
+
+
 
     private static class Columns implements BaseColumns {
 

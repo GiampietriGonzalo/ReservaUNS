@@ -29,6 +29,10 @@ public class Horario {
 
     }
 
+    public boolean guardarHorario(){
+        return TablaHorarios.insertHorario(this,DBController.getDB());
+    }
+
     public int getId() {
         return id;
     }
@@ -43,6 +47,14 @@ public class Horario {
 
     public String getHoraInicio() {
         return horaInicio;
+    }
+
+    public int getIdPrestamo() {
+        return idPrestamo;
+    }
+
+    public void setIdPrestamo(int idPrestamo) {
+        this.idPrestamo = idPrestamo;
     }
 
     public void setDiasSemana(LinkedList<String> diasSemana) {

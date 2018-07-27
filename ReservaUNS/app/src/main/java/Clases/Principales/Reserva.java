@@ -2,6 +2,9 @@ package Clases.Principales;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaEstadosReservas;
+import Clases.DataBases.TablaPrestamos;
+import Clases.DataBases.TablaUsuarios;
+import Clases.Estados.EstadoPrestamo;
 import Clases.Estados.PrestamoActivo;
 
 public class Reserva extends Prestamo{
@@ -13,8 +16,8 @@ public class Reserva extends Prestamo{
         this.idHorario=idHorario;
         this.idEspacio = idEspacio;
         this.idDocente = idDocente;
-      //  EstadoReserva aux = new PrestamoActivo(TablaEstadosReservas.getNextID(DBController.getDB()));
-      //  this.idEstado = aux.getId();
+        EstadoPrestamo aux = new PrestamoActivo(TablaEstadosReservas.getNextID(DBController.getDB()),id);
+        this.idEstado = aux.getId();
     }
 
 
@@ -37,25 +40,20 @@ public class Reserva extends Prestamo{
         idEspacio = espacio.getID();
     }
 
+    public boolean guardarPrestamo() {
+        return TablaPrestamos.insertReserva(this, DBController.getDB());
+    }
+
     public void setResponsable(Docente responsable) {
         idDocente = responsable.getId();
     }
 
-    /*HACER
-    public Horario getHorario() {
-        return horario;
-    }
-
-    public EstadoReserva getEstado() {
-        return estado;
-    }
-
-
-    public Espacio getEspacio(){
-        return espacio;
-    }
 
     public Docente getResponsable() {
-        return responsable;
-    }*/
+        return ((Docente)TablaUsuarios.findUsuario(idDocente,DBController.getDB()));
+    }
+
+    public int getIdDocente() {
+        return idDocente;
+    }
 }

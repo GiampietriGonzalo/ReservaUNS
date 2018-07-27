@@ -1,5 +1,6 @@
 package Clases.DataBases;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
@@ -11,6 +12,29 @@ import Clases.Estados.PrestamoCancelado;
 public class TablaEstadosReservas implements Tabla {
 
     private static String[] columns={Columns.Id,Columns.IdPrestamo,Columns.Tipo};
+
+    public static boolean insertPrestamoActivo(EstadoPrestamo estado, SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+
+        values.put("Id",estado.getId());
+        values.put("IdPrestamo",estado.getIdPrestamo());
+        values.put("Tipo","PrestamoActivo");
+
+        return db.insert("EstadosPrestamos",null,values)>0;
+    }
+
+    public static boolean insertPrestamoCancelado(EstadoPrestamo estado, SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+
+        values.put("Id",estado.getId());
+        values.put("IdPrestamo",estado.getIdPrestamo());
+        values.put("Tipo","PrestamoCancelado");
+
+        return db.insert("EstadosPrestamos",null,values)>0;
+    }
+
 
     public static EstadoPrestamo findEstado(int id, SQLiteDatabase db){
 
