@@ -3,6 +3,8 @@ package Clases.Principales;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import Clases.DataBases.DBController;
+
 public abstract class Edificio {
     protected int id;
     protected String nombre;
@@ -76,13 +78,11 @@ public abstract class Edificio {
         return telefono;
     }
 
-    /*public Usuario getEncargado()
-    {
-        return encargado;
-    }*/
+    public Usuario getEncargado() {
+        return DBController.findUsuario(idEncargado);
+    }
 
-    public LinkedList<Integer> getEspacios()
-    {
+    public LinkedList<Integer> getEspacios() {
         //BUSCAR EN LA BD LOS ESPACIOS CON LOS ID DE LA LISTA, ARMAR UNA LISTA DE ESPACIOS Y RETORNARLA
 
         return espacios;

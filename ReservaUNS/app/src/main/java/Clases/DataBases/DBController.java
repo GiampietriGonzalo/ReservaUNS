@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
+import Clases.Principales.Usuario;
 
 /**
  * Created by gonza on 16/07/18.
@@ -39,7 +40,27 @@ public class DBController {
         return dbC;
     }
 
-    public Espacio findAula(String nombreAula){
+    public static Usuario findUsuario(int idUsuario){
+        return TablaUsuarios.findUsuario(idUsuario,sqlDB);
+    }
+
+
+    public static LinkedList<Espacio> findEspaciosAReservar(String tipo,String nombreEdificioPreferencia, int capacidadEstimada){
+
+        LinkedList<Espacio> espacios= new LinkedList<Espacio>();
+        int idEdificioPreferencia= TablaEdificios.getIdEdificio(nombreEdificioPreferencia,sqlDB);
+
+        //si idEdificioPreferencia = 9999 --> no se ingresó edificio de preferencia
+        if(idEdificioPreferencia==9999)
+            espacios= TablaEspacios.findEspaciosAReservarSinEdificioPreferencia(tipo,capacidadEstimada,sqlDB);
+        else
+            espacios= TablaEspacios.findEspaciosAReservar(tipo,idEdificioPreferencia,capacidadEstimada,sqlDB);
+
+        return espacios;
+    }
+
+
+        public Espacio findAula(String nombreAula){
 
          Aula toReturn=null;
 
@@ -51,26 +72,12 @@ public class DBController {
 
     }
 
-    /*public LinkedList<Espacio> findEspacios(int idEdificio){
-
-        LinkedList<Espacio> espacios=null;
-
-        if (idEdificio!=null)
-        espacios = TablaEspacios.findEspacios(idEdificio, sqlDB);
-
-        return espacios;
-
-    }*/
+    public LinkedList<Integer> findEspaciosDeEdificio(int idEdificio){
+       return TablaEspacios.findEspacios(idEdificio, sqlDB);
+    }
 
     public Edificio findDepartamento(int idDepartamento){
-
-        Edificio toReturn=null;
-
-        toReturn = TablaEdificios.findDepartamento(idDepartamento, sqlDB);
-
-
-        return toReturn;
-
+        return TablaEdificios.findDepartamento(idDepartamento, sqlDB);
     }
 
     public void open(){

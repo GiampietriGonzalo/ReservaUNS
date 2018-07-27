@@ -27,7 +27,7 @@ public abstract class Prestamo {
         this.idHorario=idHorario;
 
         if(id==9999)
-            id= TablaPrestamos.getNextID(DBController.getDB());
+            id = TablaPrestamos.getNextID(DBController.getDB());
     }
 
      abstract public  boolean guardarPrestamo();

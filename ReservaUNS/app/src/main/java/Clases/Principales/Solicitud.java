@@ -17,6 +17,8 @@ public abstract class Solicitud {
     protected String descripcion;
     protected int capacidadEstimada;
 
+
+
     public Horario getHorario() {
         return horario;
     }

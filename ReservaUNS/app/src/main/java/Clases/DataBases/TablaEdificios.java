@@ -4,6 +4,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import java.security.PublicKey;
 import java.util.LinkedList;
 
 import Clases.Principales.Departamento;
@@ -46,7 +47,7 @@ public class TablaEdificios implements Tabla {
     public static Edificio findEdificio(int idEdificio, SQLiteDatabase db){
 
         Edificio toReturn=null;
-        Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+idEdificio,null,null,null,null);
+        Cursor cursor=db.query("Edificios",columns, Columns.Id +" = '"+idEdificio,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
@@ -67,6 +68,23 @@ public class TablaEdificios implements Tabla {
         return toReturn;
 
     }
+
+    public static int getIdEdificio(String nombreEdificio, SQLiteDatabase db){
+
+        int id=9999;
+
+
+        if( nombreEdificio!="Seleccionar"){
+
+            Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase(),null,null,null,null);
+            if (!cursor.isClosed() && cursor.moveToNext())
+                id=cursor.getInt(0);
+        }
+
+        return id;
+
+    }
+
 
     private static class Columns implements BaseColumns {
 

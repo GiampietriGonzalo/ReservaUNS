@@ -24,6 +24,88 @@ public class TablaEspacios implements Tabla {
     private static final String[] columns={Columns.Id, Columns.Nombre , Columns.Capacidad, Columns.Piso, Columns.Cuerpo, Columns.IdEdificio, Columns.Tipo ,Columns.NombreAnterior};
 
 
+    public static LinkedList<Espacio> findEspaciosAReservarSinEdificioPreferencia(String tipo, int capacidadEstimada, SQLiteDatabase db){
+
+        LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
+        Espacio aux=null;
+
+        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ?  AND Capacidad = ?", new String[] {tipo, ""+capacidadEstimada});
+
+        while (!cursor.isClosed() && cursor.moveToNext()) {
+
+            switch (tipo){
+
+                case "Aula":{
+                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "Laboratorio":{
+                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "SalaReuniones":{
+                    aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "SalaConferencias":{
+                    aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+            } //fin switch
+
+            toReturn.addLast(aux);
+
+        }
+
+        return toReturn;
+
+    }
+
+
+    public static LinkedList<Espacio> findEspaciosAReservar(String tipo,int idEdificioPreferencia, int capacidadEstimada, SQLiteDatabase db){
+
+        LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
+        Espacio aux=null;
+
+
+        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ? AND idEdificio= ? AND Capacidad = ?", new String[] {tipo, ""+idEdificioPreferencia, ""+capacidadEstimada});
+
+        while (!cursor.isClosed() && cursor.moveToNext()) {
+            
+            switch (tipo){
+
+                case "Aula":{
+                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "Laboratorio":{
+                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "SalaReuniones":{
+                    aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+
+                case "SalaConferencias":{
+                    aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                    break;
+                }
+                
+            } //fin switch
+
+            toReturn.addLast(aux);
+
+        }
+
+        return toReturn;
+    }
 
     /**
      * @return Si el aula es encontrada la retorna, caso contrario retorna null
@@ -95,42 +177,11 @@ public class TablaEspacios implements Tabla {
     public static LinkedList<Integer> findEspacios(int idEdificio, SQLiteDatabase db) {
 
         LinkedList<Integer> espacios=null;
-        Espacio aux=null;
+
         Cursor cursor=db.query("Espacios",columns,Columns.IdEdificio +" = '"+idEdificio,null,null,null,null);
 
-        while (!cursor.isClosed() && cursor.moveToNext()) {
-            aux=null;
-            switch (cursor.getString(4)) {
-
-                case "Aula":{
-                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
-
-                case "Laboratorio":{
-                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
-
-                case "SalaReuniones":{
-                    aux= new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
-
-                case "SalaConferencias":{
-                    aux= new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
-
-
-            }//Fin switch
-
-
-            if(aux!=null)
-                espacios.addLast(aux.getID());
-
-        }
-
+        while (!cursor.isClosed() && cursor.moveToNext())
+            espacios.addLast(cursor.getInt(0));
         return espacios;
 
     }
