@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
+import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
 
 /**
@@ -72,12 +73,20 @@ public class DBController {
 
     }
 
-    public LinkedList<Integer> findEspaciosDeEdificio(int idEdificio){
+    public static LinkedList<Integer> findEspaciosDeEdificio(int idEdificio){
        return TablaEspacios.findEspacios(idEdificio, sqlDB);
     }
 
-    public Edificio findDepartamento(int idDepartamento){
+    public static Edificio findDepartamento(int idDepartamento){
         return TablaEdificios.findDepartamento(idDepartamento, sqlDB);
+    }
+
+    public static boolean insertSolicitudReserva(Solicitud reserva){
+        return TablaSolicitudes.insertSolicitudReserva(reserva,sqlDB);
+    }
+
+    public static boolean insertSolicitudAsignacion(Solicitud asignacion){
+        return TablaSolicitudes.insertSolicitudReserva(asignacion,sqlDB);
     }
 
     public void open(){

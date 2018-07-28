@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import Clases.DataBases.DBController;
+import Clases.DataBases.TablaSolicitudes;
 import Clases.Estados.EstadoSolicitud;
 
 /**
@@ -8,20 +10,32 @@ import Clases.Estados.EstadoSolicitud;
 
 public abstract class Solicitud {
 
-    protected int numSolicitud;
     protected int id;
-    protected EstadoSolicitud estado;
-    protected Usuario autor;
-    protected Horario horario;
+    protected int idEstado;
+    protected int idAutor;
+    protected int idHorario;
     protected String fecha;
     protected String descripcion;
     protected int capacidadEstimada;
 
+    public Solicitud(int id,int idEstado,int idAutor, int idHorario, String fecha, String descripcion, int capacidadEstimada){
 
+        this.idEstado=idEstado;
+        this.idAutor=idAutor;
+        this.idHorario=idHorario;
+        this.fecha=fecha;
+        this.descripcion=descripcion;
+        this.capacidadEstimada=capacidadEstimada;
 
-    public Horario getHorario() {
-        return horario;
+        if(id==9999)
+            id=TablaSolicitudes.getNextID(DBController.getDB());
+        else
+            this.id=id;
+
     }
+
+    public abstract boolean guardarSolicitud();
+
 
     public String getDescripcion() {
         return descripcion;
@@ -35,29 +49,16 @@ public abstract class Solicitud {
         return id;
     }
 
-    public EstadoSolicitud getEstado() {
-        return estado;
-    }
-
     public int getCapacidadEstimada() {
         return capacidadEstimada;
     }
 
-    public int getNumSolicitud() {
-        return numSolicitud;
-    }
 
-    public Usuario getAutor() {
-        return autor;
-    }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
-    public void setEstado(EstadoSolicitud estado) {
-        this.estado = estado;
-    }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
@@ -67,23 +68,36 @@ public abstract class Solicitud {
         this.id = id;
     }
 
-    public void setAutor(Usuario autor) {
-        this.autor = autor;
+    public int getIdHorario() {
+        return idHorario;
+    }
+
+    public int getIdEstado() {
+        return idEstado;
+    }
+
+    public int getIdAutor() {
+        return idAutor;
+    }
+
+    public void setIdAutor(int idAutor) {
+        this.idAutor = idAutor;
+    }
+
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
     }
 
     public void setCapacidadEstimada(int capacidadEstimada) {
         this.capacidadEstimada = capacidadEstimada;
     }
 
-    public void setHorario(Horario horario) {
-        this.horario = horario;
-    }
 
-    public void setNumSolicitud(int numSolicitud) {
-        this.numSolicitud = numSolicitud;
-    }
-
-    public void cancelar(){estado.cancelar();}
-    public void rechazar(){estado.rechazar();}
-    public void aceptar(){estado.aceptar();}
+    //public void cancelar(){estado.cancelar();}
+    //public void rechazar(){estado.rechazar();}
+    //public void aceptar(){estado.aceptar();}
 }

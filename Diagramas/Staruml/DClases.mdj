@@ -4969,7 +4969,7 @@
 											"height": 13,
 											"autoResize": false,
 											"underline": false,
-											"text": "#estado: EstadoSolicitud",
+											"text": "#idEstado",
 											"horizontalAlignment": 0,
 											"verticalAlignment": 5,
 											"wordWrap": false
@@ -13801,6 +13801,7 @@
 							"visibility": "protected",
 							"isStatic": false,
 							"isLeaf": false,
+							"type": "",
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,
@@ -14591,11 +14592,10 @@
 							"_parent": {
 								"$ref": "AAAAAAFklMhncXsDU3c="
 							},
-							"name": "estado",
+							"name": "idEstado",
 							"visibility": "protected",
 							"isStatic": false,
 							"isLeaf": false,
-							"type": "EstadoSolicitud",
 							"isReadOnly": false,
 							"isOrdered": false,
 							"isUnique": false,
