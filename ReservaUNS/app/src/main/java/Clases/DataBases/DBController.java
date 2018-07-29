@@ -4,13 +4,19 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.widget.SimpleCursorTreeAdapter;
+
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+import Clases.Estados.EstadoPrestamo;
+import Clases.Estados.EstadoSolicitud;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
+import Clases.Principales.Horario;
+import Clases.Principales.Prestamo;
 import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
 
@@ -60,8 +66,12 @@ public class DBController {
         return espacios;
     }
 
+    public static Espacio findEspacio(int idEspacio){
+        return TablaEspacios.findEspacio(idEspacio,sqlDB);
+    }
 
-        public Espacio findAula(String nombreAula){
+
+    public Espacio findAula(String nombreAula){
 
          Aula toReturn=null;
 
@@ -71,6 +81,42 @@ public class DBController {
 
          return toReturn;
 
+    }
+
+    public static EstadoPrestamo findEstadoPrestamo(int idEstadoPrestamo){
+        return TablaEstadosReservas.findEstadoPrestamo(idEstadoPrestamo,sqlDB);
+    }
+
+    public static boolean insertPrestamoActivo(EstadoPrestamo estado){
+        return TablaEstadosReservas.insertPrestamoActivo(estado,sqlDB);
+    }
+
+    public static boolean insertPrestamoCancelado(EstadoPrestamo estado){
+        return TablaEstadosReservas.insertPrestamoCancelado(estado,sqlDB);
+    }
+
+    public static Edificio findEdificio(int idEdificio){
+        return TablaEdificios.findEdificio(idEdificio,sqlDB);
+    }
+
+    public static EstadoSolicitud findEstadoSolicitud(int idEstadoSolicitud){
+        return TablaEstadosSolicitud.findEstadoSolicitud(idEstadoSolicitud,sqlDB);
+    }
+
+    public static boolean insertSolicitudActiva(EstadoSolicitud estado){
+        return TablaEstadosSolicitud.insertSolicitudActiva(estado,sqlDB);
+    }
+
+    public static boolean insertSolicitudAceptada(EstadoSolicitud estado){
+        return TablaEstadosSolicitud.insertSolicitudAceptada(estado,sqlDB);
+    }
+
+    public static boolean insertSolicitudRechazada(EstadoSolicitud estado){
+        return TablaEstadosSolicitud.insertSolicitudRechazada(estado,sqlDB);
+    }
+
+    public static boolean insertSolicitudCancelada(EstadoSolicitud estado){
+        return TablaEstadosSolicitud.insertSolicitudCancelada(estado,sqlDB);
     }
 
     public static LinkedList<Integer> findEspaciosDeEdificio(int idEdificio){
@@ -87,6 +133,42 @@ public class DBController {
 
     public static boolean insertSolicitudAsignacion(Solicitud asignacion){
         return TablaSolicitudes.insertSolicitudReserva(asignacion,sqlDB);
+    }
+
+    public static boolean insertHorario(Horario h){
+        return TablaHorarios.insertHorario(h,sqlDB);
+    }
+
+    public static Horario findHorario(int idHorario){
+        return TablaHorarios.findHorario(idHorario,sqlDB);
+    }
+
+    public static boolean insertReserva(Prestamo prestamo){
+        return TablaPrestamos.insertReserva(prestamo,sqlDB);
+    }
+
+    public static boolean insertAsignacion(Prestamo prestamo){
+        return TablaPrestamos.insertAsignacion(prestamo,sqlDB);
+    }
+
+    public static Prestamo findPrestamo(int idPrestamo){
+        return TablaPrestamos.findPrestamo(idPrestamo,sqlDB);
+    }
+
+    public static Solicitud findSolicitud(int idSolicitud){
+        return TablaSolicitudes.findSolicitud(idSolicitud,sqlDB);
+    }
+
+    public static boolean insertDocente(Usuario docente){
+        return TablaUsuarios.insertDocente(docente,sqlDB);
+    }
+
+    public static boolean insertEmpleadoDepartamento(Usuario empleado){
+        return TablaUsuarios.insertEmpleadoDepartamento(empleado,sqlDB);
+    }
+
+    public static boolean insertEmpleadoSecretaria(Usuario empleado){
+        return TablaUsuarios.insertEmpleadoSecretaria(empleado,sqlDB);
     }
 
     public void open(){

@@ -1,12 +1,13 @@
 package Clases.DataBases;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
 import Clases.Principales.Docente;
 import Clases.Principales.EmpleadoDepartamento;
-import Clases.Principales.EmpleadoSec;
+import Clases.Principales.EmpleadoSecretaria;
 import Clases.Principales.Usuario;
 
 /**
@@ -18,6 +19,54 @@ public class TablaUsuarios implements Tabla {
 
     private static final String[] columns={Columns.Id, Columns.Cuenta , Columns.Password, Columns.Legajo, Columns.Nombre, Columns.Apellido,Columns.Mail, Columns.Telefono ,Columns.Tipo};
 
+
+    public static boolean insertDocente(Usuario docente,SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+        values.put("Id",docente.getId());
+        values.put("Cuenta",docente.getCuenta());
+        values.put("Password",docente.getPassword());
+        values.put("Legajo",docente.getLegajo());
+        values.put("Nombre",docente.getNombre());
+        values.put("Apellido",docente.getApellido());
+        values.put("Mail",docente.getMail());
+        values.put("Telefono",docente.getTelefono());
+        values.put("Tipo","Docente");
+
+        return db.insert("Usuarios",null,values)>0;
+    }
+
+    public static boolean insertEmpleadoDepartamento(Usuario empleado,SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+        values.put("Id",empleado.getId());
+        values.put("Cuenta",empleado.getCuenta());
+        values.put("Password",empleado.getPassword());
+        values.put("Legajo",empleado.getLegajo());
+        values.put("Nombre",empleado.getNombre());
+        values.put("Apellido",empleado.getApellido());
+        values.put("Mail",empleado.getMail());
+        values.put("Telefono",empleado.getTelefono());
+        values.put("Tipo","EmpleadoDepartamento");
+
+        return db.insert("Usuarios",null,values)>0;
+    }
+
+    public static boolean insertEmpleadoSecretaria(Usuario empleado,SQLiteDatabase db){
+
+        ContentValues values= new ContentValues();
+        values.put("Id",empleado.getId());
+        values.put("Cuenta",empleado.getCuenta());
+        values.put("Password",empleado.getPassword());
+        values.put("Legajo",empleado.getLegajo());
+        values.put("Nombre",empleado.getNombre());
+        values.put("Apellido",empleado.getApellido());
+        values.put("Mail",empleado.getMail());
+        values.put("Telefono",empleado.getTelefono());
+        values.put("Tipo","EmpleadoSecretaria");
+
+        return db.insert("Usuarios",null,values)>0;
+    }
 
     public static Usuario findUsuario(int idUser, SQLiteDatabase db) {
 
@@ -39,8 +88,8 @@ public class TablaUsuarios implements Tabla {
                     break;
                 }
 
-                case "EmpleadoSec":{
-                    toReturn = new EmpleadoSec(cursor.getString(1), cursor.getString(2), cursor.getString(4), cursor.getString(5), cursor.getInt(3), cursor.getString(6), cursor.getString(7));
+                case "EmpleadoSecretaria":{
+                    toReturn = new EmpleadoSecretaria(cursor.getString(1), cursor.getString(2), cursor.getString(4), cursor.getString(5), cursor.getInt(3), cursor.getString(6), cursor.getString(7));
                     break;
                 }
 

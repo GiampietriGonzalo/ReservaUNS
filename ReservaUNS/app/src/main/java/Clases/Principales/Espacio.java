@@ -44,8 +44,7 @@ public abstract class Espacio
     }
 
     public Edificio getEdificio() {
-        //SOBREESCRIBIR EN CADA CLASE HIJO CON DEPARTAMENTE
-        return null;
+        return DBController.findEdificio(idEdificio);
     }
 
 }

@@ -53,10 +53,10 @@ public abstract class Edificio {
         this.idEncargado = idEncargado;
     }
 
-    /*public void addEspacio(Espacio espacio)
+    public void addEspacio(Espacio espacio)
     {
-        espacios.add(espacio);
-    }*/
+        espacios.add(espacio.getID());
+    }
 
     public int getId()
     {
@@ -82,10 +82,14 @@ public abstract class Edificio {
         return DBController.findUsuario(idEncargado);
     }
 
-    public LinkedList<Integer> getEspacios() {
-        //BUSCAR EN LA BD LOS ESPACIOS CON LOS ID DE LA LISTA, ARMAR UNA LISTA DE ESPACIOS Y RETORNARLA
+    public LinkedList<Espacio> getEspacios() {
+        LinkedList<Integer> idEdficios = DBController.findEspaciosDeEdificio(id);
+        LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
 
-        return espacios;
+        for(Integer id: idEdficios)
+            toReturn.addLast(DBController.findEspacio(id));
+
+        return toReturn;
     }
 
     public void setEspacios(LinkedList<Integer> espacios) {

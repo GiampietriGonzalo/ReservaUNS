@@ -36,7 +36,7 @@ public class TablaEstadosReservas implements Tabla {
     }
 
 
-    public static EstadoPrestamo findEstado(int id, SQLiteDatabase db){
+    public static EstadoPrestamo findEstadoPrestamo(int id, SQLiteDatabase db){
 
         EstadoPrestamo toReturn=null;
         Cursor cursor=db.query("EstadosPrestamos",columns, Columns.Id + " = '" + id ,null,null,null,null,null);

@@ -29,6 +29,8 @@ public abstract class Usuario {
         this.legajo=legajo;
     }
 
+    public abstract boolean actualizarUsuario();
+
     public int getLegajo() {
         return legajo;
     }
@@ -47,7 +49,8 @@ public abstract class Usuario {
 
     public void setPassword(String oldPassword,String newPassword) {
         //CONTROLAR QUE LA CONTRASEÑA VIEJA ES IGUAL A LA ACTUAL
-        this.password = password;
+        if(password==oldPassword)
+            this.password = password;
     }
 
     public void setId(int id) {

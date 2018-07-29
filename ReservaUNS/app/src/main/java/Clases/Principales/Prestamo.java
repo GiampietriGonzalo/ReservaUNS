@@ -40,7 +40,7 @@ public abstract class Prestamo {
 
 
     public EstadoPrestamo getEstado() {
-            return TablaEstadosReservas.findEstado(idEspacio,DBController.getDB());
+            return TablaEstadosReservas.findEstadoPrestamo(idEspacio,DBController.getDB());
     }
 
     public String getDescripcion() {
