@@ -1,7 +1,7 @@
 package Clases.Estados;
 
 import Clases.DataBases.DBController;
-import Clases.DataBases.TablaEstadosReservas;
+import Clases.DataBases.TablaEstadosPrestamos;
 
 /**
  * Created by gonza on 16/07/18.
@@ -15,6 +15,6 @@ public class PrestamoActivo extends  EstadoPrestamo{
 
 
     public boolean guardarEstado() {
-        return TablaEstadosReservas.insertPrestamoActivo(this, DBController.getDB());
+        return TablaEstadosPrestamos.insertPrestamoActivo(this, DBController.getDB());
     }
 }

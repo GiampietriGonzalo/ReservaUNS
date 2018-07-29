@@ -85,7 +85,7 @@ public class TablaHorarios implements Tabla {
 
         public static final String Id= "Id";
         public static final String HoraInicio="HoraInicio";
-        public static final String HoraFin = "";
+        public static final String HoraFin = "HoraFin";
         public static final String IdPrestamo =  "IdPrestamo";
         public static final String DiasSemana = "DiasSemana";
 

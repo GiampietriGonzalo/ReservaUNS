@@ -9,7 +9,7 @@ import Clases.Estados.EstadoPrestamo;
 import Clases.Estados.PrestamoActivo;
 import Clases.Estados.PrestamoCancelado;
 
-public class TablaEstadosReservas implements Tabla {
+public class TablaEstadosPrestamos implements Tabla {
 
     private static String[] columns={Columns.Id,Columns.IdPrestamo,Columns.Tipo};
 

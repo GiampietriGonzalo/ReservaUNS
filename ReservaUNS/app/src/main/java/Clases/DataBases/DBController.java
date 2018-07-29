@@ -1,13 +1,10 @@
 package Clases.DataBases;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.widget.SimpleCursorTreeAdapter;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
-import java.util.ArrayList;
+
 import java.util.LinkedList;
 
 import Clases.Estados.EstadoPrestamo;
@@ -84,15 +81,15 @@ public class DBController {
     }
 
     public static EstadoPrestamo findEstadoPrestamo(int idEstadoPrestamo){
-        return TablaEstadosReservas.findEstadoPrestamo(idEstadoPrestamo,sqlDB);
+        return TablaEstadosPrestamos.findEstadoPrestamo(idEstadoPrestamo,sqlDB);
     }
 
     public static boolean insertPrestamoActivo(EstadoPrestamo estado){
-        return TablaEstadosReservas.insertPrestamoActivo(estado,sqlDB);
+        return TablaEstadosPrestamos.insertPrestamoActivo(estado,sqlDB);
     }
 
     public static boolean insertPrestamoCancelado(EstadoPrestamo estado){
-        return TablaEstadosReservas.insertPrestamoCancelado(estado,sqlDB);
+        return TablaEstadosPrestamos.insertPrestamoCancelado(estado,sqlDB);
     }
 
     public static Edificio findEdificio(int idEdificio){

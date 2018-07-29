@@ -2,7 +2,7 @@ package Clases.Principales;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaEspacios;
-import Clases.DataBases.TablaEstadosReservas;
+import Clases.DataBases.TablaEstadosPrestamos;
 import Clases.DataBases.TablaHorarios;
 import Clases.DataBases.TablaPrestamos;
 import Clases.Estados.EstadoPrestamo;
@@ -40,7 +40,7 @@ public abstract class Prestamo {
 
 
     public EstadoPrestamo getEstado() {
-            return TablaEstadosReservas.findEstadoPrestamo(idEspacio,DBController.getDB());
+            return TablaEstadosPrestamos.findEstadoPrestamo(idEspacio,DBController.getDB());
     }
 
     public String getDescripcion() {

@@ -1,7 +1,7 @@
 package Clases.Estados;
 
 import Clases.DataBases.DBController;
-import Clases.DataBases.TablaEstadosReservas;
+import Clases.DataBases.TablaEstadosPrestamos;
 
 /**
  * Created by gonza on 16/07/18.
@@ -16,10 +16,10 @@ public abstract class EstadoPrestamo {
     public EstadoPrestamo(int id, int idPrestamo){
         this.id=id;
         this.idPrestamo=idPrestamo;
-        TablaEstadosReservas.getNextID(DBController.getDB());
+        TablaEstadosPrestamos.getNextID(DBController.getDB());
 
         if(this.id==9999)
-            this.id= TablaEstadosReservas.getNextID(DBController.getDB());
+            this.id= TablaEstadosPrestamos.getNextID(DBController.getDB());
     }
 
     abstract public boolean guardarEstado();
