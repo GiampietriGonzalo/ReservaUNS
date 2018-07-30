@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `Usuarios` (
 	`Mail`	TEXT UNIQUE,
 	`Tipo`	INTEGER NOT NULL
 );
+INSERT INTO `Usuarios` VALUES (1,'ATR','henrykhe',108644,'Sonie','Ruede','sonie@cs.uns.edu.ar','Docente');
 CREATE TABLE IF NOT EXISTS `Prestamos` (
 	`Id`	INTEGER NOT NULL,
 	`Descripcion`	TEXT,
@@ -38,8 +39,7 @@ CREATE TABLE IF NOT EXISTS `Espacios` (
 	`NombreAnterior`	TEXT,
 	`Tipo`	TEXT
 );
-INSERT INTO `Espacios` VALUES (NULL,'pipen',100,NULL,10,'palihue1','',NULL);
-INSERT INTO `Espacios` VALUES (1,'AulaATR',0,'C',100,1,'AulaNoATR','Aula');
+INSERT INTO `Espacios` VALUES (1,'AulaATR',50,'0','C',1,'AulaNoATR','Aula');
 CREATE TABLE IF NOT EXISTS `EstadosPrestamos` (
 	`Id`	INTEGER NOT NULL UNIQUE,
 	`IdPrestamo`	INTEGER NOT NULL,
@@ -70,4 +70,5 @@ CREATE TABLE IF NOT EXISTS `Edificios` (
 	`Tipo`	TEXT NOT NULL,
 	PRIMARY KEY(`Id`)
 );
+INSERT INTO `Edificios` VALUES (1,'DCIC','Palihue 1','155555555',1,20,'Departamento');
 COMMIT;
