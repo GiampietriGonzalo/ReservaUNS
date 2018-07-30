@@ -1,6 +1,7 @@
 package pipenatr.reservauns;
 
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -83,7 +84,9 @@ public class PantallaPrincipal extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_solicitar_reserva) {
-            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new SolicitarReserva()).commit();
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new SolicitarReserva()).commit();
+            Intent intent = new Intent(this, PantallaReservaEspacios.class);
+            startActivity(intent);
         } else if (id == R.id.nav_consultar_solicitud) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_modificar_prestamo) {
@@ -95,3 +98,4 @@ public class PantallaPrincipal extends AppCompatActivity
         return true;
     }
 }
+

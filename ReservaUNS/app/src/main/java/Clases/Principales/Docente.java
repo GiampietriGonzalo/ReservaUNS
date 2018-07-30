@@ -8,4 +8,8 @@ public class Docente extends Usuario {
         super(cuenta,password,legajo,nombre,apellido,mail,telefono);
     }
 
+    @Override
+    public boolean actualizarUsuario() {
+        return false;
+    }
 }

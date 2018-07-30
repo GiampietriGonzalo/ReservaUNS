@@ -27,7 +27,6 @@
             android:name=".PantallaPrincipal"
             android:label="@string/title_activity_pantalla_principal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PantallaReservaEspacios"></activity>
     </application>
 
 </manifest>

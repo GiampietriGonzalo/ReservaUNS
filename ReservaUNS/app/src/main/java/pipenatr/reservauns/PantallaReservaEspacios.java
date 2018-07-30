@@ -22,7 +22,7 @@ public class PantallaReservaEspacios extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_reserva_espacios);
+        setContentView(R.layout.pantalla_reserva_espacios);
 
         comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
 
@@ -37,9 +37,8 @@ public class PantallaReservaEspacios extends AppCompatActivity {
     }
 
     private void consultarTablaEspacios() {
-        listaEspacios = controller.findEspaciosAReservar("Aula","9999",69);
-        for( int i=0; i<listaEspacios.size();i++)
-        {
+        listaEspacios = controller.findEspaciosAReservar("Aula", "9999", 69);
+        for (int i = 0; i < listaEspacios.size(); i++) {
             listaIds.addLast(listaEspacios.get(i).getNombre());
         }
     }
