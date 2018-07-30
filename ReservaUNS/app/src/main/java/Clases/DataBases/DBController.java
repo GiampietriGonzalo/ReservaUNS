@@ -38,7 +38,7 @@ public class DBController {
         return sqlDB;
     }
 
-    public  DBController getDbC(Context context) {
+    public  DBController getDBController(Context context) {
         if(dbC==null)
             dbC=new DBController(context);
         return dbC;
