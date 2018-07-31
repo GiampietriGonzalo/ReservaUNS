@@ -249,6 +249,7 @@ public class DBController {
 
                 } catch (IOException e) {
 
+
                     throw new Error("Error copiando database");
                 }
             }

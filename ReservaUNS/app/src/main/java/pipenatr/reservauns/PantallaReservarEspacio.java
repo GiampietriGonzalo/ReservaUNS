@@ -1,7 +1,7 @@
 package pipenatr.reservauns;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import Clases.DataBases.DBController;
 import Clases.Principales.Espacio;
 
-public class PantallaReservaEspacios extends AppCompatActivity {
+public class PantallaReservarEspacio extends AppCompatActivity {
 
     Spinner comboEspacios;
     TextView txtId;
@@ -19,9 +19,10 @@ public class PantallaReservaEspacios extends AppCompatActivity {
     LinkedList<Espacio> listaEspacios;
     DBController controller;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.pantalla_reserva_espacios);
+        setContentView(R.layout.activity_pantalla_reservar_espacio);
 
         comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
 
