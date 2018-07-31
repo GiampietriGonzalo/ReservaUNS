@@ -139,7 +139,7 @@ public class TablaEspacios implements Tabla {
 
 
         Espacio toReturn=null;
-        Cursor cursor=db.query("Espacios",columns,Columns.Id +" = '"+idEspacio,null,null,null,null);
+        Cursor cursor=db.query("Espacios",columns,Columns.Id +" = '"+idEspacio+"'",null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
@@ -178,7 +178,7 @@ public class TablaEspacios implements Tabla {
 
         LinkedList<Integer> espacios=null;
 
-        Cursor cursor=db.query("Espacios",columns,Columns.IdEdificio +" = '"+idEdificio,null,null,null,null);
+        Cursor cursor=db.query("Espacios",columns,Columns.IdEdificio +" = '"+idEdificio+"'",null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext())
             espacios.addLast(cursor.getInt(0));

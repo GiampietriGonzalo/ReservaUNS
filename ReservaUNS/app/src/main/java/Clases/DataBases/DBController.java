@@ -31,7 +31,7 @@ import Clases.Principales.Usuario;
 public class DBController {
 
     private final static int DB_VERSION= 1;
-    private final static String DB_NAME="DB";
+    private final static String DB_NAME="DB.sqlite";
     private static String DB_PATH = "/data/data/Clases.DataBases/databases/";
     private static DBController dbC;
     private DBHelper dbHelper;
@@ -42,6 +42,8 @@ public class DBController {
     private DBController(Context context) {
         dbHelper = new DBHelper(context);
         // Esto es para inicializar la BD
+
+        /*
         try {
             dbHelper.createDataBase();
             dbHelper.openDataBase();
@@ -49,7 +51,9 @@ public class DBController {
         } catch (IOException e) {
             System.out.println("Error en create or open database");
         }
-        sqlDB=dbHelper.getWritableDatabase();
+        */
+
+        sqlDB=dbHelper.getReadableDatabase();
 
     }
 
@@ -198,16 +202,18 @@ public class DBController {
 
 
 
-    private class DBHelper extends SQLiteOpenHelper{
+    private class DBHelper extends SQLiteAssetHelper{
 
         private final Context myContext;
         private SQLiteDatabase myDataBase=null;
 
         public DBHelper(Context context){
-            super(context, DB_NAME,null, DB_VERSION);
+            super(context, DB_NAME,context.getExternalFilesDir(null).getAbsolutePath(),null,DB_VERSION);
             myContext=context;
             //super(context, name, factory, version);
         }
+
+        /*
 
         public void onCreate(SQLiteDatabase db){
             //No se hace nada acá
@@ -228,7 +234,7 @@ public class DBController {
 
         /*public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             onUpgrade(db, oldVersion, newVersion);
-        }*/
+        }
 
 
         public void createDataBase() throws IOException {
@@ -312,6 +318,7 @@ public class DBController {
             myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
         }
 
+        */
 
     }
 

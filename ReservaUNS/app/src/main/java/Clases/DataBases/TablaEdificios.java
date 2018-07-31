@@ -25,7 +25,7 @@ public class TablaEdificios implements Tabla {
         Edificio toReturn=null;
         LinkedList<Integer> espacios;
 
-        Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+idEdificio,null,null,null,null);
+        Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+idEdificio+"'",null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
@@ -47,7 +47,7 @@ public class TablaEdificios implements Tabla {
     public static Edificio findEdificio(int idEdificio, SQLiteDatabase db){
 
         Edificio toReturn=null;
-        Cursor cursor=db.query("Edificios",columns, Columns.Id +" = '"+idEdificio,null,null,null,null);
+        Cursor cursor=db.query("Edificios",columns, Columns.Id +" = '"+idEdificio+"'",null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
@@ -76,10 +76,12 @@ public class TablaEdificios implements Tabla {
 
         if( nombreEdificio!="Seleccionar"){
 
-            Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase(),null,null,null,null);
+            Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase()+"'",null,null,null,null);
             if (!cursor.isClosed() && cursor.moveToNext())
                 id=cursor.getInt(0);
         }
+
+        System.out.print("ID= "+id);
 
         return id;
 
@@ -90,7 +92,7 @@ public class TablaEdificios implements Tabla {
 
         public static final String Id= "Id";
         public static final String Nombre = "Nombre";
-        public static final String Direccion= "Direcion";
+        public static final String Direccion= "Direccion";
         public static final String Telefono = "Telefono";
         public static final String IdEncargado= "IdEncargado";
         public static final String Codigo= "Codigo";

@@ -49,7 +49,7 @@ public class TablaHorarios implements Tabla {
     public static Horario findHorario(int idHorario, SQLiteDatabase db){
 
         Horario toReturn=null;
-        Cursor cursor=db.query("Horarios",columns, Columns.Id + " = '" + idHorario ,null,null,null,null,null);
+        Cursor cursor=db.query("Horarios",columns, Columns.Id + " = '" + idHorario+"'" ,null,null,null,null,null);
         LinkedList<String> diasSemanas= new LinkedList<String>();
         JSONObject lista;
 

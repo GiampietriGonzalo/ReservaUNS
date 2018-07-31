@@ -19,7 +19,7 @@ public class TablaSolicitudes implements Tabla {
 
         Solicitud toReturn=null;
 
-        Cursor cursor=db.query("Solicitudes",columns,Columns.Id +" = '"+idSolicitud,null,null,null,null);
+        Cursor cursor=db.query("Solicitudes",columns,Columns.Id +" = '"+idSolicitud+"'",null,null,null,null);
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 

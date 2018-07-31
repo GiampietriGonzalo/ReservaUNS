@@ -72,7 +72,7 @@ public class TablaUsuarios implements Tabla {
 
         Usuario toReturn = null;
 
-        Cursor cursor = db.query("Usuarios", columns, Columns.Id + " = '" + idUser, null, null, null, null);
+        Cursor cursor = db.query("Usuarios", columns, Columns.Id + " = '" + idUser+"'", null, null, null, null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
@@ -104,7 +104,7 @@ public class TablaUsuarios implements Tabla {
 
         Docente docente= null;
 
-        Cursor cursor=db.query("Usuarios",columns,Columns.Id +" = '"+idUser,null,null,null,null);
+        Cursor cursor=db.query("Usuarios",columns,Columns.Id +" = '"+idUser+"'",null,null,null,null);
 
 
         return  docente;

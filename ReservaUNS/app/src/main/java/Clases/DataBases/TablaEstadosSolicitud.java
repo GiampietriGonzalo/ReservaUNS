@@ -20,7 +20,7 @@ public class TablaEstadosSolicitud implements Tabla {
     public static EstadoSolicitud findEstadoSolicitud(int idEstadoSolicitud, SQLiteDatabase db){
 
         EstadoSolicitud toReturn=null;
-        Cursor cursor=db.query("EstadosSolicitudes",columns,Columns.Id +" = '"+idEstadoSolicitud,null,null,null,null);
+        Cursor cursor=db.query("EstadosSolicitudes",columns,Columns.Id +" = '"+idEstadoSolicitud+"'",null,null,null,null);
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 

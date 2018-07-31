@@ -54,7 +54,7 @@ public class TablaPrestamos implements Tabla {
 
         Prestamo toReturn=null;
 
-        Cursor cursor=db.query("Prestamos",columns,Columns.Id +" = '"+id,null,null,null,null);
+        Cursor cursor=db.query("Prestamos",columns,Columns.Id +" = '"+id+"'",null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
