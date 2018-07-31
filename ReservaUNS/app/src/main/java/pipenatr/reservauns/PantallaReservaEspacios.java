@@ -19,7 +19,6 @@ public class PantallaReservaEspacios extends AppCompatActivity {
     LinkedList<Espacio> listaEspacios;
     DBController controller;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pantalla_reserva_espacios);

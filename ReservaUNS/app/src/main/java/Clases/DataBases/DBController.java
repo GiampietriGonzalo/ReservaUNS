@@ -41,7 +41,6 @@ public class DBController {
 
     private DBController(Context context) {
         dbHelper = new DBHelper(context);
-
         // Esto es para inicializar la BD
         try {
             dbHelper.createDataBase();
@@ -58,7 +57,7 @@ public class DBController {
         return sqlDB;
     }
 
-    public  DBController getDBController(Context context) {
+    public static DBController getDBController(Context context) {
         if(dbC==null)
             dbC=new DBController(context);
         return dbC;
