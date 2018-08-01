@@ -37,7 +37,8 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     }
 
     private void consultarTablaEspacios() {
-        listaEspacios = controller.findEspaciosAReservar("Aula", "dcic", 69);
+        listaIds = new LinkedList();
+        listaEspacios = controller.findEspaciosAReservar("aula", "dcic", 69);
         if(listaEspacios.isEmpty())
             System.out.println("LISTA VACIA, NO SE ENCONTRO A dcic");
         for (int i = 0; i < listaEspacios.size(); i++) {
