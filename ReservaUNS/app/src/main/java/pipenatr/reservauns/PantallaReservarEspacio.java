@@ -18,6 +18,8 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     LinkedList<String> listaIds;
     LinkedList<Espacio> listaEspacios;
     DBController controller;
+    String tipoEspacio, nombreEdificioPreferencia;
+    int numAlumnosComision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +40,7 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
     private void consultarTablaEspacios() {
         listaIds = new LinkedList();
-        listaEspacios = controller.findEspaciosAReservar("aula", "dcic", 69);
-        if(listaEspacios.isEmpty())
-            System.out.println("LISTA VACIA, NO SE ENCONTRO A dcic");
+        listaEspacios = controller.findEspaciosAReservar(tipoEspacio.toLowerCase().trim(), nombreEdificioPreferencia.toLowerCase().trim(), numAlumnosComision);
         for (int i = 0; i < listaEspacios.size(); i++) {
             listaIds.addLast(listaEspacios.get(i).getNombre());
         }

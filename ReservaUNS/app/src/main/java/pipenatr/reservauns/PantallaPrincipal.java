@@ -89,8 +89,7 @@ public class PantallaPrincipal extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_solicitar_reserva) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new SolicitarReserva()).commit();
-            Intent intent = new Intent(this, PantallaReservarEspacio.class);
+            Intent intent = new Intent(this, PantallaFormularioReserva.class);
             startActivity(intent);
         } else if (id == R.id.nav_consultar_solicitud) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
