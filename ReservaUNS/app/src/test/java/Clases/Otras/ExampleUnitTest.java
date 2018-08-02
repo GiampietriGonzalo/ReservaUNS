@@ -1,4 +1,4 @@
-package pipenatr.reservauns;
+package Clases.Otras;
 
 import org.junit.Test;
 
