@@ -18,17 +18,18 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     LinkedList<String> listaIds;
     LinkedList<Espacio> listaEspacios;
     DBController controller;
-    String tipoEspacio, nombreEdificioPreferencia;
-    int numAlumnosComision;
+
+    String tipoEspacio, nombreEdificio;
+    int numAlumnosComision, fecha, horaIni, horaFin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(Clases.Otras.R.layout.activity_pantalla_reservar_espacio);
+        setContentView(R.layout.activity_pantalla_reservar_espacio);
 
-        comboEspacios = (Spinner) findViewById(Clases.Otras.R.id.comboEspacios);
+        comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
 
-        txtId = (TextView) findViewById(Clases.Otras.R.id.txtId);
+        txtId = (TextView) findViewById(R.id.txtId);
 
         controller = controller.getDBController(this);
 
@@ -40,7 +41,7 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
     private void consultarTablaEspacios() {
         listaIds = new LinkedList();
-        listaEspacios = controller.findEspaciosAReservar(tipoEspacio.toLowerCase().trim(), nombreEdificioPreferencia.toLowerCase().trim(), numAlumnosComision);
+        listaEspacios = controller.findEspaciosAReservar(tipoEspacio.toLowerCase().trim(), nombreEdificio.toLowerCase().trim(), numAlumnosComision);
         for (int i = 0; i < listaEspacios.size(); i++) {
             listaIds.addLast(listaEspacios.get(i).getNombre());
         }
