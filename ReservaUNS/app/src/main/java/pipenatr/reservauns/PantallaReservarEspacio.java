@@ -24,11 +24,11 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_reservar_espacio);
+        setContentView(Clases.Otras.R.layout.activity_pantalla_reservar_espacio);
 
-        comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
+        comboEspacios = (Spinner) findViewById(Clases.Otras.R.id.comboEspacios);
 
-        txtId = (TextView) findViewById(R.id.txtId);
+        txtId = (TextView) findViewById(Clases.Otras.R.id.txtId);
 
         controller = controller.getDBController(this);
 

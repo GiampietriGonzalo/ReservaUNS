@@ -16,7 +16,7 @@ public class ModificarPrestamo extends Fragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        myView = inflater.inflate(R.layout.modificar_prestamo, container, false);
+        myView = inflater.inflate(Clases.Otras.R.layout.modificar_prestamo, container, false);
         return myView;
     }
 }

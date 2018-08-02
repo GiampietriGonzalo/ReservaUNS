@@ -15,19 +15,17 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import Clases.DataBases.DBController;
-
 public class PantallaPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pantalla_principal);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setContentView(Clases.Otras.R.layout.activity_pantalla_principal);
+        Toolbar toolbar = (Toolbar) findViewById(Clases.Otras.R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(Clases.Otras.R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -36,13 +34,13 @@ public class PantallaPrincipal extends AppCompatActivity
             }
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(Clases.Otras.R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, Clases.Otras.R.string.navigation_drawer_open, Clases.Otras.R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(Clases.Otras.R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
        //DBController controladorDB= DBController.getDBController(this);
@@ -51,7 +49,7 @@ public class PantallaPrincipal extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(Clases.Otras.R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -62,7 +60,7 @@ public class PantallaPrincipal extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.pantalla_principal, menu);
+        getMenuInflater().inflate(Clases.Otras.R.menu.pantalla_principal, menu);
         return true;
     }
 
@@ -74,7 +72,7 @@ public class PantallaPrincipal extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == Clases.Otras.R.id.action_settings) {
             return true;
         }
 
@@ -88,16 +86,16 @@ public class PantallaPrincipal extends AppCompatActivity
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
 
-        if (id == R.id.nav_solicitar_reserva) {
+        if (id == Clases.Otras.R.id.nav_solicitar_reserva) {
             Intent intent = new Intent(this, PantallaFormularioReserva.class);
             startActivity(intent);
-        } else if (id == R.id.nav_consultar_solicitud) {
-            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
-        } else if (id == R.id.nav_modificar_prestamo) {
-            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ModificarPrestamo()).commit();
+        } else if (id == Clases.Otras.R.id.nav_consultar_solicitud) {
+            fragmentManager.beginTransaction().replace(Clases.Otras.R.id.pantalla_principal, new ConsultarSolicitud()).commit();
+        } else if (id == Clases.Otras.R.id.nav_modificar_prestamo) {
+            fragmentManager.beginTransaction().replace(Clases.Otras.R.id.pantalla_principal, new ModificarPrestamo()).commit();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(Clases.Otras.R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
