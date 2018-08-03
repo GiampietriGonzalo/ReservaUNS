@@ -75,7 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="(dd/mm/aa)"
+                android:hint="(dd/mm/aaaa)"
                 android:inputType="date" />
 
             <TextView
@@ -107,6 +107,7 @@
                 android:id="@+id/btnEnviarSolicitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="enviarSolicitud"
                 android:text="Enviar solicitud" />
 
         </LinearLayout>

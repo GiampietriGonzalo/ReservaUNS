@@ -19,8 +19,8 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     LinkedList<Espacio> listaEspacios;
     DBController controller;
 
-    String tipoEspacio, nombreEdificio;
-    int numAlumnosComision, fecha, horaIni, horaFin;
+    String tipoEspacio, nombreEdificio, fecha, horaIni, horaFin;
+    int numAlumnosComision;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +41,9 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
     private void consultarTablaEspacios() {
         listaIds = new LinkedList();
+        tipoEspacio = getIntent().getStringExtra("tipoEspacio");
+        nombreEdificio = getIntent().getStringExtra("nombreEdificio");
+        numAlumnosComision = Integer.parseInt(getIntent().getStringExtra("numAlumnosComision"));
         listaEspacios = controller.findEspaciosAReservar(tipoEspacio.toLowerCase().trim(), nombreEdificio.toLowerCase().trim(), numAlumnosComision);
         for (int i = 0; i < listaEspacios.size(); i++) {
             listaIds.addLast(listaEspacios.get(i).getNombre());

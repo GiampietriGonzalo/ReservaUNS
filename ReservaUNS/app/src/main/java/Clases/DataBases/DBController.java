@@ -71,7 +71,6 @@ public class DBController {
         return TablaUsuarios.findUsuario(idUsuario,sqlDB);
     }
 
-
     public static LinkedList<Espacio> findEspaciosAReservar(String tipo,String nombreEdificioPreferencia, int capacidadEstimada){
 
         LinkedList<Espacio> espacios= new LinkedList<Espacio>();
