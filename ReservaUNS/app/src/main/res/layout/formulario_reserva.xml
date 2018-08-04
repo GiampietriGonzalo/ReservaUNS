@@ -107,7 +107,6 @@
                 android:id="@+id/btnEnviarSolicitud"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="enviarSolicitud"
                 android:text="Enviar solicitud" />
 
         </LinearLayout>

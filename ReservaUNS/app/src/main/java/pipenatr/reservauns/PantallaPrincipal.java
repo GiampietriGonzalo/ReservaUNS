@@ -25,15 +25,6 @@ public class PantallaPrincipal extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -87,8 +78,7 @@ public class PantallaPrincipal extends AppCompatActivity
         FragmentManager fragmentManager = getFragmentManager();
 
         if (id == R.id.nav_solicitar_reserva) {
-            Intent intent = new Intent(this, PantallaFormularioReserva.class);
-            startActivity(intent);
+            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_solicitud) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_modificar_prestamo) {
