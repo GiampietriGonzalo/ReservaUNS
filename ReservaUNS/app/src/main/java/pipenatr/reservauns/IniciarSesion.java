@@ -33,6 +33,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import Clases.DataBases.DBController;
+
 import static android.Manifest.permission.READ_CONTACTS;
 
 /**
@@ -62,6 +64,9 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+
+    //Controlador de base de datos
+    private DBController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +98,9 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        //Inicializa BDController
+        controller = controller.getDBController(this);
     }
 
     private void populateAutoComplete() {
