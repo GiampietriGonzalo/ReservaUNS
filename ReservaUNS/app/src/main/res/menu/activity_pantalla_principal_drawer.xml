@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_solicitar_reserva"
             android:icon="@drawable/ic_menu_send"
@@ -16,6 +17,13 @@
             android:id="@+id/nav_modificar_prestamo"
             android:icon="@drawable/ic_menu_manage"
             android:title="Modificar prestamo" />
+    </group>
+
+    <group
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_cerrar_sesion"
+            android:title="Cerrar sesión"/>
     </group>
 
 </menu>

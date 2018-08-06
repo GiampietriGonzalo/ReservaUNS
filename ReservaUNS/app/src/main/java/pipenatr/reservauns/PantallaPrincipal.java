@@ -15,8 +15,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import Clases.DataBases.DBController;
+
 public class PantallaPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private DBController controller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,7 @@ public class PantallaPrincipal extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-       //DBController controladorDB= DBController.getDBController(this);
-
+        controller= DBController.getDBController(this);
     }
 
     @Override
@@ -83,6 +86,9 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_modificar_prestamo) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ModificarPrestamo()).commit();
+        } else if (id == R.id.nav_modificar_prestamo) {
+            SaveSharedPreference.setUserName(PantallaPrincipal.this, "");
+            finish();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -101,6 +101,10 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         //Inicializa BDController
         controller = controller.getDBController(this);
+
+        //Verifica si el usuario esta logueado
+        if(SaveSharedPreference.getUserName(IniciarSesion.this).length() != 0)
+            iniciarSesion();
     }
 
     private void populateAutoComplete() {
@@ -343,6 +347,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 //finish();
+                SaveSharedPreference.setUserName(IniciarSesion.this,mEmailView.getText().toString());
                 iniciarSesion();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
@@ -360,6 +365,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     public void iniciarSesion()
     {
         Intent intent = new Intent(this, PantallaPrincipal.class);
+        finish();
         startActivity(intent);
     }
 }
