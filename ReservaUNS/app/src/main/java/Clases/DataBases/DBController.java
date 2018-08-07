@@ -198,7 +198,12 @@ public class DBController {
         return TablaHorarios.findHorariosEspacio(e,sqlDB,getDBController(myContext));
     }
 
-    public void open(){
+    public static boolean verificarLogIn(String cuenta, String contraseña){
+        return TablaUsuarios.verificarLogIn(cuenta,contraseña,sqlDB);
+    }
+
+
+        public void open(){
         sqlDB =dbHelper.getWritableDatabase();
     }
 

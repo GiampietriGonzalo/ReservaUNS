@@ -110,6 +110,17 @@ public class TablaUsuarios implements Tabla {
         return  docente;
     }
 
+    public static boolean verificarLogIn(String cuenta, String contraseña, SQLiteDatabase db){
+
+        Cursor cursor=db.query("Usuarios",columns,Columns.Nombre +" = '"+cuenta+"'",null,null,null,null);
+        boolean toReturn=false;
+
+        if (cursor.moveToNext())
+            toReturn = cursor.getString(2) == contraseña;
+
+        return  toReturn;
+    }
+
     public static int getNextID(SQLiteDatabase db){
         int nextID=0;
         Cursor cursor=db.query("Usuarios",columns,null,null,null,null,null);
@@ -120,6 +131,7 @@ public class TablaUsuarios implements Tabla {
 
         return nextID;
     }
+
 
 
     private static class Columns implements BaseColumns {
