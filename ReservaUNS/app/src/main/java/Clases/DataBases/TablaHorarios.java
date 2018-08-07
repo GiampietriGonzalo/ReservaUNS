@@ -11,6 +11,7 @@ import org.json.JSONObject;
 
 import java.util.LinkedList;
 
+import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 
 public class TablaHorarios implements Tabla {
@@ -18,6 +19,42 @@ public class TablaHorarios implements Tabla {
 
     private static String[] columns={Columns.Id,Columns.HoraInicio,Columns.HoraFin,Columns.IdPrestamo,Columns.DiasSemana};
 
+
+    public static LinkedList<Horario> findHorariosEspacio(Espacio espacio, SQLiteDatabase db, DBController dbC){
+
+        LinkedList<Horario> horarios= new LinkedList<Horario>();
+        Horario aux;
+        Cursor cursor=db.query("Horarios",columns,null,null,null,null,null,null);
+
+        try {
+
+            while (!cursor.isClosed() && cursor.moveToNext()) {
+
+                if (dbC.findPrestamo(cursor.getInt(3)).getIdEspacio() == espacio.getID()) {
+
+                    LinkedList<String> diasSemana = new LinkedList<String>();
+                    JSONObject json = new JSONObject(cursor.getString(4));
+
+                    for(int i=0; i<json.length();i++)
+                        diasSemana.addLast(json.getString(""+i));
+
+
+                    aux = new Horario(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3),diasSemana);
+
+                    horarios.addLast(aux);
+                }
+
+            }
+
+        }
+        catch(JSONException e){
+            System.out.println("ERROR EN EL JSON DE TABLAHORARIO DEL METODO FINDHORARIOESPACIO");
+            e.printStackTrace();
+        }
+
+
+        return horarios;
+    }
 
     public static boolean insertHorario(Horario h,SQLiteDatabase db){
 
@@ -60,7 +97,7 @@ public class TablaHorarios implements Tabla {
                 for(int i=0; i<lista.length();i++)
                     diasSemanas.addLast(lista.getString(""+i));
 
-                toReturn = new Horario(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getInt(3), diasSemanas);
+                toReturn = new Horario(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), cursor.getInt(3), diasSemanas);
             }
         }
         catch (JSONException e){System.out.println("ERROR EN EL JSONOject");}

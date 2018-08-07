@@ -12,12 +12,12 @@ import Clases.DataBases.TablaHorarios;
 public class Horario {
 
     protected int id;
-    protected String horaInicio;
-    protected String horaFin;
+    protected int horaInicio;
+    protected int horaFin;
     protected int idPrestamo;
     protected LinkedList<String> diasSemana;
 
-    public Horario(int id, String horaInicio, String horaFin, int idPrestamo, LinkedList<String> diasSemana){
+    public Horario(int id, int horaInicio, int horaFin, int idPrestamo, LinkedList<String> diasSemana){
         this.id=id;
         this.horaInicio=horaInicio;
         this.horaFin=horaFin;
@@ -41,11 +41,11 @@ public class Horario {
         return diasSemana;
     }
 
-    public String getHoraFin() {
+    public int getHoraFin() {
         return horaFin;
     }
 
-    public String getHoraInicio() {
+    public int getHoraInicio() {
         return horaInicio;
     }
 
@@ -61,11 +61,11 @@ public class Horario {
         this.diasSemana = diasSemana;
     }
 
-    public void setHoraFin(String horaFin) {
+    public void setHoraFin(int horaFin) {
         this.horaFin = horaFin;
     }
 
-    public void setHoraInicio(String horaInicio) {
+    public void setHoraInicio(int horaInicio) {
         this.horaInicio = horaInicio;
     }
 

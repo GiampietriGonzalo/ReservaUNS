@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
+import Clases.Principales.Horario;
 import Clases.Principales.Laboratorio;
 import Clases.Principales.SalaConferencias;
 import Clases.Principales.SalaReuniones;
@@ -65,6 +66,17 @@ public class TablaEspacios implements Tabla {
 
     }
 
+
+   public static boolean espacioDisponible(Espacio espacio, int horaInicio, int horaFin,DBController dbC){
+
+        boolean toReturn=false;
+        LinkedList<Horario> horarios=dbC.findHorariosEspacio(espacio);
+
+        while(!toReturn && !horarios.isEmpty())
+            toReturn = ! ( ( horarios.getFirst().getHoraInicio() >= horaInicio && horarios.getFirst().getHoraInicio() < horaFin ) &&  (horarios.getFirst().getHoraFin()<=horaFin && horarios.getFirst().getHoraFin() > horaInicio ) );
+
+        return toReturn;
+   }
 
     public static LinkedList<Espacio> findEspaciosAReservar(String tipo,int idEdificioPreferencia, int capacidadEstimada, SQLiteDatabase db){
 

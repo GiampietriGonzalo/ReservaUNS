@@ -36,11 +36,13 @@ public class DBController {
     private static DBController dbC;
     private DBHelper dbHelper;
     private static SQLiteDatabase sqlDB;
+    private static Context myContext;
 
 
 
     private DBController(Context context) {
         dbHelper = new DBHelper(context);
+        myContext=context;
         // Esto es para inicializar la BD
 
         /*
@@ -56,6 +58,8 @@ public class DBController {
         sqlDB=dbHelper.getReadableDatabase();
 
     }
+
+
 
     public static SQLiteDatabase getDB() {
         return sqlDB;
@@ -188,6 +192,10 @@ public class DBController {
 
     public static boolean insertEmpleadoSecretaria(Usuario empleado){
         return TablaUsuarios.insertEmpleadoSecretaria(empleado,sqlDB);
+    }
+
+    public static LinkedList<Horario> findHorariosEspacio(Espacio e){
+        return TablaHorarios.findHorariosEspacio(e,sqlDB,getDBController(myContext));
     }
 
     public void open(){
