@@ -4,6 +4,7 @@
     tools:showIn="navigation_view">
 
     <group
+        android:id="@+id/grupo1"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_solicitar_reserva"
@@ -20,6 +21,7 @@
     </group>
 
     <group
+        android:id="@+id/grupo2"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cerrar_sesion"

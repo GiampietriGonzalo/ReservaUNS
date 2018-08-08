@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import Clases.DataBases.DBController;
 
@@ -39,6 +40,10 @@ public class PantallaPrincipal extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         controller= DBController.getDBController(this);
+
+        //Modifica nombre y Email de acuerdo al usuarioIniciado
+        //((TextView) findViewById(R.id.txtNombreHeader)).setText();
+
     }
 
     @Override
@@ -86,9 +91,11 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_modificar_prestamo) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ModificarPrestamo()).commit();
-        } else if (id == R.id.nav_modificar_prestamo) {
+        } else if (id == R.id.nav_cerrar_sesion) {
             SaveSharedPreference.setUserName(PantallaPrincipal.this, "");
+            Intent intent = new Intent(this, IniciarSesion.class);
             finish();
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

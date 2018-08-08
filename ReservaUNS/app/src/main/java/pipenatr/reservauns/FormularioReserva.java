@@ -48,56 +48,36 @@ public class FormularioReserva extends Fragment
 
                 if(!fecha.matches("") && !capacidad.matches("") && !horaIni.matches("") && !horaFin.matches("") && spinner.getSelectedItemPosition()!=0)
                 {
-                    //Setea el parametro correspondiente al tipo de espacio que se desea reservar.spinner = (Spinner) findViewById(R.id.spinnerTiposEspacio);
-                    System.out.println(spinner.getSelectedItem().toString());
-                    intent.putExtra("tipoEspacio", spinner.getSelectedItem().toString());
-
-                    //Setea el parametro correspondiente al nombre del edificio de preferencia (si fue seleccionado)
-                    spinner = (Spinner) myView.findViewById(R.id.spinnerEdificios);
-                    if(spinner.getSelectedItemPosition()==0)
-                        intent.putExtra("nombreEdificio", "9999");
+                    //Verifica si la hora de inicio ingresada es menor a la hora de finalizacion
+                    if(Integer.parseInt(horaIni.replace(":",""))>=Integer.parseInt(horaFin.replace(":","")))
+                        mostrarMensajeError("La hora de inicio de la reserva debe ser anterior a la hora de fin.");
                     else
-                        intent.putExtra("nombreEdificio", spinner.getSelectedItem().toString());
+                    {
+                        //Setea el parametro correspondiente al tipo de espacio que se desea reservar.spinner = (Spinner) findViewById(R.id.spinnerTiposEspacio);
+                        intent.putExtra("tipoEspacio", spinner.getSelectedItem().toString());
 
-                    //Setea el parametro correspondiente a la cantidad de alumnos de la comision
-                    intent.putExtra("numAlumnosComision", capacidad);
+                        //Setea el parametro correspondiente al nombre del edificio de preferencia (si fue seleccionado)
+                        spinner = (Spinner) myView.findViewById(R.id.spinnerEdificios);
+                        if(spinner.getSelectedItemPosition()==0)
+                            intent.putExtra("nombreEdificio", "9999");
+                        else
+                            intent.putExtra("nombreEdificio", spinner.getSelectedItem().toString());
 
-                    //Setea el parametro correspondiente a la fecha de la reserva
-                    intent.putExtra("fecha", fecha);
+                        //Setea el parametro correspondiente a la cantidad de alumnos de la comision
+                        intent.putExtra("numAlumnosComision", capacidad);
 
-                    //Setea los parametros correspondientes a la hora de inicio y hora de finalizacion de la reserva (respectivamente)
-                    intent.putExtra("horaIni", horaIni);
-                    intent.putExtra("horaFin", horaFin);
+                        //Setea el parametro correspondiente a la fecha de la reserva
+                        intent.putExtra("fecha", fecha);
 
-                    startActivity(intent);
+                        //Setea los parametros correspondientes a la hora de inicio y hora de finalizacion de la reserva (respectivamente)
+                        intent.putExtra("horaIni", horaIni);
+                        intent.putExtra("horaFin", horaFin);
+
+                        startActivity(intent);
+                    }
                 }
                 else
-                {
-                    AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
-                    alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            //Cierra la ventana
-                        }
-                    });
-                    alerta.setMessage("Debe ingresar toda la información solicitada.");
-                    alerta.setTitle("Formulario incompleto");
-                    alerta.setCancelable(true);
-                    /*
-                    if(Integer.parseInt(horaIni.replace(":",""))<Integer.parseInt(horaFin.replace(":","")))
-                    {
-                        alerta.setMessage("La hora de inicio debe ser menor a la fecha de fin.");
-                        alerta.setTitle("Horario inválido");
-                    }
-                    else
-                    {
-                        alerta.setMessage("Debe ingresar toda la información solicitada.");
-                        alerta.setTitle("Formulario incompleto");
-                    }
-                    */
-                    alerta.create().show();
-                }
-
+                    mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
             }
         });
 
@@ -114,5 +94,20 @@ public class FormularioReserva extends Fragment
         spinner.setAdapter(adapter);
 
         return myView;
+    }
+
+    public void mostrarMensajeError(String mensaje)
+    {
+        AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+        alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Cierra la ventana
+            }
+        });
+        alerta.setMessage(mensaje);
+        alerta.setTitle("Error");
+        alerta.setCancelable(true);
+        alerta.create().show();
     }
 }
