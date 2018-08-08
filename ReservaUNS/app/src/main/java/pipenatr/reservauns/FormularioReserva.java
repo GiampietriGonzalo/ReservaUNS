@@ -74,15 +74,27 @@ public class FormularioReserva extends Fragment
                 else
                 {
                     AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
-                    alerta.setMessage("Debe ingresar toda la información solicitada.");
-                    alerta.setTitle("Formulario incompleto");
                     alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             //Cierra la ventana
                         }
                     });
+                    alerta.setMessage("Debe ingresar toda la información solicitada.");
+                    alerta.setTitle("Formulario incompleto");
                     alerta.setCancelable(true);
+                    /*
+                    if(Integer.parseInt(horaIni.replace(":",""))<Integer.parseInt(horaFin.replace(":","")))
+                    {
+                        alerta.setMessage("La hora de inicio debe ser menor a la fecha de fin.");
+                        alerta.setTitle("Horario inválido");
+                    }
+                    else
+                    {
+                        alerta.setMessage("Debe ingresar toda la información solicitada.");
+                        alerta.setTitle("Formulario incompleto");
+                    }
+                    */
                     alerta.create().show();
                 }
 

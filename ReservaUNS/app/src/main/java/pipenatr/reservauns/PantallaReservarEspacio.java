@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import Clases.DataBases.DBController;
 import Clases.Principales.Aula;
 import Clases.Principales.Espacio;
+import Clases.Principales.Horario;
 
 public class PantallaReservarEspacio extends AppCompatActivity {
 
@@ -22,8 +23,8 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     private LinkedList<Espacio> listaEspacios;
     private DBController controller;
     //Variables del formulario
-    private String tipoEspacio, nombreEdificio, fecha, horaIni, horaFin;
-    private int numAlumnosComision;
+    private String tipoEspacio, nombreEdificio, fecha;
+    private int numAlumnosComision, horaIni, horaFin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,11 +32,11 @@ public class PantallaReservarEspacio extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_reservar_espacio);
 
         //Seteo las variables con los valores insertados en el formulario
-        tipoEspacio = getIntent().getStringExtra("tipoEspacio");
-        nombreEdificio = getIntent().getStringExtra("nombreEdificio");
-        fecha = getIntent().getStringExtra("fecha");
-        horaIni = getIntent().getStringExtra("horaIni");
-        horaFin = getIntent().getStringExtra("horaFin");
+        tipoEspacio = getIntent().getStringExtra("tipoEspacio").toLowerCase().trim();
+        nombreEdificio = getIntent().getStringExtra("nombreEdificio").toLowerCase().trim();
+        fecha = getIntent().getStringExtra("fecha").replace("/","").toLowerCase().trim();
+        horaIni = Integer.parseInt(getIntent().getStringExtra("horaIni").replace(":","").toLowerCase().trim());
+        horaFin = Integer.parseInt(getIntent().getStringExtra("horaFin").replace(":","").toLowerCase().trim());
         numAlumnosComision = Integer.parseInt(getIntent().getStringExtra("numAlumnosComision"));
 
         txtEdificio = (TextView) findViewById(R.id.txtEdificioSpinner);
@@ -65,9 +66,27 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
     private void consultarTablaEspacios() {
         listaIds = new LinkedList();
-        listaEspacios = controller.findEspaciosAReservar(tipoEspacio.toLowerCase().trim(), nombreEdificio.toLowerCase().trim(), numAlumnosComision);
-        for (int i = 0; i < listaEspacios.size(); i++) {
-            listaIds.addLast(listaEspacios.get(i).getNombre());
+        LinkedList<Horario> listaHorarios;
+        Horario horario;
+        LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, numAlumnosComision);
+        for (int i = 0; i < listaEspaciosAux.size(); i++) {
+            listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
+            if(!listaHorarios.isEmpty()) {
+                for( int k = 0; k<listaHorarios.size(); k++) {
+                    horario = listaHorarios.get(k);
+                    boolean encontre = false;
+                    for(int j = 0; j<horario.getDiasSemana().size(); j++) {
+                        if(horario.getDiasSemana().get(j)==fecha) {
+                            if(horario.getHoraFin()<=horaIni || horario.getHoraInicio()>=horaFin) {
+                                listaIds.addLast(listaEspaciosAux.get(i).getNombre());
+                                listaEspacios.addLast(listaEspaciosAux.get(i));
+                            }
+                        }
+                    }
+                }
+            }
+            else
+                listaIds.addLast(listaEspaciosAux.get(i).getNombre());
         }
     }
 
