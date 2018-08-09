@@ -35,7 +35,7 @@ public class DBController {
     private static String DB_PATH = "/data/data/Clases.DataBases/databases/";
     private static DBController dbC;
     private DBHelper dbHelper;
-    private static SQLiteDatabase sqlDB;
+    private static SQLiteDatabase sqlDB,sqlDBW;
     private static Context myContext;
 
 
@@ -56,6 +56,7 @@ public class DBController {
         */
 
         sqlDB=dbHelper.getReadableDatabase();
+        sqlDBW= dbHelper.getWritableDatabase();
 
     }
 
@@ -104,6 +105,30 @@ public class DBController {
 
          return toReturn;
 
+    }
+
+    public static LinkedList<Solicitud> getSolicitudes(){
+        return TablaSolicitudes.getSolicitudes(sqlDB);
+    }
+
+
+    /**
+     * @return True si se ha eliminado la solicitud indicada, false en caso contrario
+     * */
+    public static boolean cancelarSolicitud(int idSolicitud){
+        return TablaSolicitudes.cancelarSolicitud(idSolicitud, sqlDBW);
+    }
+
+
+    /**
+     * @return True si se ha eliminado el prestamo indicado, false en caso contrario
+     * */
+    public static boolean cancelarPrestamo(int idPrestamo){
+        return TablaPrestamos.cancelarPrestamo(idPrestamo, sqlDBW);
+    }
+
+    public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario){
+        return TablaSolicitudes.findSolicitudesUsuario(idUsuario,sqlDB);
     }
 
     public static EstadoPrestamo findEstadoPrestamo(int idEstadoPrestamo){

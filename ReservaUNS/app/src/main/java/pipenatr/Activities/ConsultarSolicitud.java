@@ -15,8 +15,6 @@ public class ConsultarSolicitud extends Fragment
     View myView;
     DBController controller;
 
-    @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         myView = inflater.inflate(R.layout.consultar_solicitud, container, false);

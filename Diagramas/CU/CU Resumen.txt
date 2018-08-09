@@ -11,7 +11,7 @@ Administrador del departamento
 	
 	Consulta listado de intercambios (ultra minima)
 	
-	Anular asignaciòn (alta)
+	Anular asignación (alta)
 	Confirmar asignación (alta)
 	Registrar asignación (alta)
 	Modificar confirmación de asignación (media)
@@ -30,7 +30,7 @@ SGA y autoridades
 
 
 Docentes
-	Eliminar solicitud de reserva (alta)
+	Cancelar solicitud de reserva (alta)
 	Modificar prestamo (alta) 
 	Solicitar prestamo evento (Minima)
 	Consultar solicitudes de prestamos (alta) 

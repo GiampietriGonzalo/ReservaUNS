@@ -50,6 +50,50 @@ public class TablaPrestamos implements Tabla {
         return db.insert("Prestamos",null,values)>0;
     }
 
+    public static boolean cancelarPrestamo(int idPrestamo,SQLiteDatabase db){
+
+        boolean exito=false;
+
+        Cursor cursor=db.query("Prestamos",columns,Columns.Id +" = '"+idPrestamo+"'",null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            exito= db.delete("Prestamos",Columns.Id + " = ?",new String[]{""+idPrestamo}) > 0;}
+
+        return exito;
+    }
+
+    public static boolean actualizarPrestamo(Prestamo prestamo, SQLiteDatabase db){
+
+        boolean exito=false;
+
+        Cursor cursor=db.query("Prestamos",columns,Columns.Id +" = '"+prestamo.getId()+"'",null,null,null,null);
+
+        if (cursor.moveToFirst()) {
+
+            exito = db.delete("Prestamos", Columns.Id + " = ?", new String[]{"" + prestamo.getId()}) > 0;
+
+            switch (cursor.getString(6)){
+
+                case "Reserva":{
+                    if (exito)
+                        insertReserva(prestamo,db);
+                    break;
+                }
+
+                case "Asignacion":{
+                    if (exito)
+                        insertAsignacion(prestamo,db);
+                    break;
+                }
+
+            } //Fin switch
+
+        }
+
+
+        return exito;
+    }
+
     public  static Prestamo findPrestamo(int id, SQLiteDatabase db){
 
         Prestamo toReturn=null;
