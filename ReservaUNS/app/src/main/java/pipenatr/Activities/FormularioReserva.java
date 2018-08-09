@@ -1,4 +1,4 @@
-package pipenatr.reservauns;
+package pipenatr.Activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;

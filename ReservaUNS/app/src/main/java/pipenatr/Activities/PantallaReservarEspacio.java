@@ -1,4 +1,4 @@
-package pipenatr.reservauns;
+package pipenatr.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
-import Clases.Principales.Aula;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 

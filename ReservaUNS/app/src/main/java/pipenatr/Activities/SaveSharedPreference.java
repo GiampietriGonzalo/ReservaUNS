@@ -1,4 +1,4 @@
-package pipenatr.reservauns;
+package pipenatr.Activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;

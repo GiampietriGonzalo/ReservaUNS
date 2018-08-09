@@ -212,8 +212,6 @@ public class DBController {
     }
 
 
-
-
     private class DBHelper extends SQLiteAssetHelper{
 
         private final Context myContext;

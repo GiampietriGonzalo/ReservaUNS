@@ -1,4 +1,4 @@
-package pipenatr.reservauns;
+package pipenatr.Activities;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
