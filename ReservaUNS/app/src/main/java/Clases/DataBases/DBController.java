@@ -112,6 +112,10 @@ public class DBController {
     }
 
 
+    public static boolean actualizarPrestamo(Prestamo prestamo){
+        return TablaPrestamos.actualizarPrestamo(prestamo,sqlDBW);
+    }
+
     /**
      * @return True si se ha eliminado la solicitud indicada, false en caso contrario
      * */
