@@ -231,8 +231,8 @@ public class DBController {
         return TablaHorarios.findHorariosEspacio(e,sqlDB,getDBController(myContext));
     }
 
-    public static boolean verificarLogIn(String cuenta, String contraseña){
-        return TablaUsuarios.verificarLogIn(cuenta,contraseña,sqlDB);
+    public static boolean verificarLogIn(String mail, String contraseña){
+        return TablaUsuarios.verificarLogIn(mail,contraseña,sqlDB);
     }
 
 

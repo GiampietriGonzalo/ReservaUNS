@@ -107,9 +107,9 @@ public class TablaUsuarios implements Tabla {
         return  docente;
     }
 
-    public static boolean verificarLogIn(String cuenta, String contraseña, SQLiteDatabase db){
+    public static boolean verificarLogIn(String mail, String contraseña, SQLiteDatabase db){
 
-        Cursor cursor=db.query("Usuarios",columns,Columns.Nombre +" = '"+cuenta+"'",null,null,null,null);
+        Cursor cursor=db.query("Usuarios",columns,Columns.Mail +" = '"+mail+"'",null,null,null,null);
         boolean toReturn=false;
 
         if (cursor.moveToNext())

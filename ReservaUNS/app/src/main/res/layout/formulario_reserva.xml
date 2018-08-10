@@ -68,21 +68,28 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/txtHoraInicio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Inicio"
-                android:inputType="time" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/txtHoraFin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Fin"
-                android:inputType="time" />
+                <EditText
+                    android:id="@+id/txtHoraInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Inicio"
+                    android:inputType="time" />
+
+                <EditText
+                    android:id="@+id/txtHoraFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Fin"
+                    android:inputType="time" />
+
+            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -108,7 +115,7 @@
                 android:text="Enviar solicitud" />
 
         </LinearLayout>
-    </ScrollView>
 
+    </ScrollView>
 
 </LinearLayout>
