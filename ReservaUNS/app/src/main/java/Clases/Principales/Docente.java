@@ -1,15 +1,17 @@
 package Clases.Principales;
 
+import Clases.DataBases.DBController;
+
 public class Docente extends Usuario {
 
 
 
-    public Docente(String cuenta, String password, String nombre, String apellido, int legajo, String mail, String telefono) {
-        super(cuenta,password,legajo,nombre,apellido,mail,telefono);
+    public Docente(int id,String password, String nombre, String apellido, int legajo, String mail, String telefono) {
+        super(id,password,legajo,nombre,apellido,mail,telefono);
     }
 
-    @Override
+
     public boolean actualizarUsuario() {
-        return false;
+        return DBController.insertDocente(this);
     }
 }

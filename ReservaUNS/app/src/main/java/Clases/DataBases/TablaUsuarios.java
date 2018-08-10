@@ -17,14 +17,13 @@ import Clases.Principales.Usuario;
 public class TablaUsuarios implements Tabla {
 
 
-    private static final String[] columns={Columns.Id, Columns.Cuenta , Columns.Password, Columns.Legajo, Columns.Nombre, Columns.Apellido,Columns.Mail, Columns.Telefono ,Columns.Tipo};
+    private static final String[] columns={Columns.Id, Columns.Password, Columns.Legajo, Columns.Nombre, Columns.Apellido,Columns.Mail, Columns.Telefono ,Columns.Tipo};
 
 
     public static boolean insertDocente(Usuario docente,SQLiteDatabase db){
 
         ContentValues values= new ContentValues();
         values.put("Id",docente.getId());
-        values.put("Cuenta",docente.getCuenta());
         values.put("Password",docente.getPassword());
         values.put("Legajo",docente.getLegajo());
         values.put("Nombre",docente.getNombre());
@@ -40,7 +39,6 @@ public class TablaUsuarios implements Tabla {
 
         ContentValues values= new ContentValues();
         values.put("Id",empleado.getId());
-        values.put("Cuenta",empleado.getCuenta());
         values.put("Password",empleado.getPassword());
         values.put("Legajo",empleado.getLegajo());
         values.put("Nombre",empleado.getNombre());
@@ -56,7 +54,6 @@ public class TablaUsuarios implements Tabla {
 
         ContentValues values= new ContentValues();
         values.put("Id",empleado.getId());
-        values.put("Cuenta",empleado.getCuenta());
         values.put("Password",empleado.getPassword());
         values.put("Legajo",empleado.getLegajo());
         values.put("Nombre",empleado.getNombre());
@@ -76,20 +73,20 @@ public class TablaUsuarios implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(8)) {
+            switch (cursor.getString(7)) {
 
                 case "Docente": {
-                    toReturn = new Docente(cursor.getString(1), cursor.getString(2), cursor.getString(4), cursor.getString(5), cursor.getInt(3), cursor.getString(6), cursor.getString(7));
+                    toReturn = new Docente(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
                     break;
                 }
 
                 case "EmpleadoDepartamento": {
-                    toReturn = new EmpleadoDepartamento(cursor.getString(1), cursor.getString(2), cursor.getString(4), cursor.getString(5), cursor.getInt(3), cursor.getString(6), cursor.getString(7));
+                    toReturn = new EmpleadoDepartamento(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
                     break;
                 }
 
                 case "EmpleadoSecretaria":{
-                    toReturn = new EmpleadoSecretaria(cursor.getString(1), cursor.getString(2), cursor.getString(4), cursor.getString(5), cursor.getInt(3), cursor.getString(6), cursor.getString(7));
+                    toReturn = new EmpleadoSecretaria(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
                     break;
                 }
 
@@ -139,7 +136,6 @@ public class TablaUsuarios implements Tabla {
         public static final String Id = "Id";
         public static final String Nombre = "Nombre";
         public static final String Apellido= "Apellido";
-        public static final String Cuenta= "Cuenta";
         public static final String Password = "Password";
         public static final String Mail = "Mail";
         public static final String Telefono= "Telefono";

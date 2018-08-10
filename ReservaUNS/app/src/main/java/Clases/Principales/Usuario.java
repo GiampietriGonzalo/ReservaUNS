@@ -11,21 +11,23 @@ public abstract class Usuario {
 
     protected int id;
     protected String password;
-    protected String cuenta;
     protected int legajo;
     protected String nombre;
     protected String apellido;
     protected String mail;
     protected String telefono;
 
-    public Usuario(String cuenta, String password, int legajo,String nombre, String apellido,String mail,String telefono){
-        id= TablaUsuarios.getNextID(DBController.getDB());
+    public Usuario(int id, String password, int legajo,String nombre, String apellido,String mail,String telefono){
+
+        if(id==9999)
+            id= TablaUsuarios.getNextID(DBController.getDB());
+        else
+            this.id=id;
         this.mail=mail;
         this.telefono=telefono;
         this.nombre=nombre;
         this.apellido=apellido;
         this.password=password;
-        this.cuenta=cuenta;
         this.legajo=legajo;
     }
 
@@ -43,10 +45,6 @@ public abstract class Usuario {
         return password;
     }
 
-    public String getCuenta() {
-        return cuenta;
-    }
-
     public void setPassword(String oldPassword,String newPassword) {
         //CONTROLAR QUE LA CONTRASEÑA VIEJA ES IGUAL A LA ACTUAL
         if(password==oldPassword)
@@ -55,10 +53,6 @@ public abstract class Usuario {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public void setCuenta(String cuenta) {
-        this.cuenta = cuenta;
     }
 
     public void setLegajo(int legajo) {
