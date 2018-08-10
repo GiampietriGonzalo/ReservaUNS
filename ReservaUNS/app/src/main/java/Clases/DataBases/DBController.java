@@ -111,6 +111,10 @@ public class DBController {
         return TablaSolicitudes.getSolicitudes(sqlDB);
     }
 
+    public static LinkedList<Prestamo> getPrestamos(){
+        return TablaPrestamos.getPrestamos(sqlDB);
+    }
+
 
     public static boolean actualizarPrestamo(Prestamo prestamo){
         return TablaPrestamos.actualizarPrestamo(prestamo,sqlDBW);

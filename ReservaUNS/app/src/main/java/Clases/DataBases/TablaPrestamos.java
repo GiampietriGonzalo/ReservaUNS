@@ -5,6 +5,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 
+import java.util.LinkedList;
+
 import Clases.Principales.Asignacion;
 import Clases.Principales.Prestamo;
 import Clases.Principales.Reserva;
@@ -92,6 +94,37 @@ public class TablaPrestamos implements Tabla {
 
 
         return exito;
+    }
+
+    public static LinkedList<Prestamo> getPrestamos(SQLiteDatabase db){
+
+        Cursor cursor=db.query("Prestamos",columns,null,null,null,null,null);
+        LinkedList<Prestamo> prestamos= new LinkedList<Prestamo>();
+        Prestamo aux=null;
+
+        while(!cursor.isClosed() && cursor.moveToNext()){
+
+            switch (cursor.getString(6)){
+
+                case "Reserva":{
+                    aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
+                    aux.setEstado(cursor.getInt(3));
+                    break;
+                }
+
+                case "Asignacion":{
+                    aux= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
+                    aux.setEstado(cursor.getInt(3));
+                    break;
+                }
+
+            }
+
+            prestamos.addLast(aux);
+
+        }
+
+        return prestamos;
     }
 
     public  static Prestamo findPrestamo(int id, SQLiteDatabase db){
