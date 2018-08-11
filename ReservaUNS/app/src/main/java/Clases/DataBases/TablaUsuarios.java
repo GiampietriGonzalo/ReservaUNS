@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import Clases.Principales.Docente;
 import Clases.Principales.EmpleadoDepartamento;
@@ -113,7 +114,8 @@ public class TablaUsuarios implements Tabla {
         boolean toReturn=false;
 
         if (cursor.moveToNext())
-            toReturn = cursor.getString(2) == contraseña;
+            toReturn = cursor.getString(1).equals(contraseña);
+
 
         return  toReturn;
     }

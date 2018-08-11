@@ -132,7 +132,7 @@ public class TablaEspacios implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            if(cursor.getString(4)=="Aula")
+            if(cursor.getString(4).equals("Aula"))
                 toReturn= new Aula(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(5),cursor.getString(6), cursor.getInt(3), cursor.getString(4));
 
             nombreEdificio= cursor.getString(3);

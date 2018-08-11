@@ -320,7 +320,9 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if(controller.verificarLogIn(mEmail,mPassword))
-                return true;
+                System.out.println("ENCONTRO");
+            else
+                System.out.println("NO ENCONTRO");
             // TODO: register the new account here.
 
             return true;

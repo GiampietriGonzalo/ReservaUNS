@@ -32,7 +32,7 @@ public class TablaEdificios implements Tabla {
             //Busco los espacios vinculados a este edificio
             espacios=TablaEspacios.findEspacios(idEdificio,db);
 
-            if(cursor.getString(5)=="Departamento") {
+            if(cursor.getString(5).equals("Departamento")) {
                 toReturn = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));
                 toReturn.setEspacios(espacios);
             }
