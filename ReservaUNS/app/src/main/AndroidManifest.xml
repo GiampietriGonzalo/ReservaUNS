@@ -14,9 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name="pipenatr.Activities.IniciarSesion"
+            android:name=".IniciarSesion"
             android:label="@string/title_activity_iniciar_sesion">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +24,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="pipenatr.Activities.PantallaPrincipal"
+            android:name=".PantallaPrincipal"
             android:label="@string/title_activity_pantalla_principal"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="pipenatr.Activities.PantallaReservarEspacio" />
-
+        <activity android:name=".PantallaReservarEspacio" />
+        <activity android:name="pipenatr.reservauns.FormularioRegistroUsuario"></activity>
     </application>
 
 </manifest>

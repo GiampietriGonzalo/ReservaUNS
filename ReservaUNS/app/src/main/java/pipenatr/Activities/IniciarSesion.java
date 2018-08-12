@@ -3,6 +3,7 @@ package pipenatr.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.FragmentManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -32,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Clases.DataBases.DBController;
+import pipenatr.reservauns.FormularioRegistroUsuario;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -55,6 +57,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView linkRegistro;
 
     //Controlador de base de datos
     private DBController controller;
@@ -84,6 +87,15 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClick(View view) {
                 attemptLogin();
+            }
+        });
+
+        linkRegistro = findViewById(R.id.linkRegistro);
+        linkRegistro.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FormularioRegistroUsuario.class);
+                startActivity(intent);
             }
         });
 
@@ -320,7 +332,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             }
 
             if(controller.verificarLogIn(mEmail,mPassword))
-                System.out.println("ENCONTRO");
+                return true;
             else
                 System.out.println("NO ENCONTRO");
             // TODO: register the new account here.
