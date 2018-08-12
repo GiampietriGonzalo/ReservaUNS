@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import Clases.Principales.Usuario;
+
 public class SaveSharedPreference
 {
     //Clase pa mantener el usuario loguea3

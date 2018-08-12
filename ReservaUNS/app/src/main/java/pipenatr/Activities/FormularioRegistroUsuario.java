@@ -1,18 +1,19 @@
-package pipenatr.reservauns;
+package pipenatr.Activities;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Principales.Docente;
-import pipenatr.Activities.IniciarSesion;
-import pipenatr.Activities.R;
 
 public class FormularioRegistroUsuario extends AppCompatActivity {
 
@@ -36,14 +37,14 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                registrarUsuario();
+                registrarUsuario(view);
             }
         });
 
         controller = DBController.getDBController(this);
     }
 
-    private void registrarUsuario()
+    private void registrarUsuario(View view)
     {
         View focusView = null;
         boolean error = false;
@@ -107,14 +108,22 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
                 focusView = inputVerificarContraseña;
                 error = true;
             }
+
+            if(contraseña.length()<5)
+            {
+                inputContraseña.setError("La contraseña debe tener más de 4 caracteres");
+                focusView = inputContraseña;
+                error = true;
+            }
         }
 
         if(error)
             focusView.requestFocus();
         else
         {
-            //Docente nuevo = new Docente(13, contraseña, nombre, apellido, Integer.parseInt(legajo), email, telefono);
+            //Docente nuevo = new Docente(, contraseña, nombre, apellido, Integer.parseInt(legajo), email, telefono);
             //controller.insertDocente(nuevo);
+            Toast.makeText(getApplicationContext(), "Su cuenta se creó exitosamente", Toast.LENGTH_LONG).show();
             finish();
         }
     }

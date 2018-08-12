@@ -3,7 +3,6 @@ package pipenatr.Activities;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
-import android.app.FragmentManager;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Intent;
@@ -33,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Clases.DataBases.DBController;
-import pipenatr.reservauns.FormularioRegistroUsuario;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -177,7 +175,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         // Check for a valid password, if the user entered one.
         if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-            mPasswordView.setError(getString(R.string.error_invalid_password));
+            mPasswordView.setError("Esta contraseña es demasiado corta");
             focusView = mPasswordView;
             cancel = true;
         }
@@ -188,7 +186,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.error_invalid_email));
+            mEmailView.setError("Esta dirección de email es inválida");
             focusView = mEmailView;
             cancel = true;
         }
@@ -333,9 +331,6 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
             if(controller.verificarLogIn(mEmail,mPassword))
                 return true;
-            else
-                System.out.println("NO ENCONTRO");
-            // TODO: register the new account here.
 
             return true;
         }
