@@ -121,8 +121,8 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
             focusView.requestFocus();
         else
         {
-            //Docente nuevo = new Docente(, contraseña, nombre, apellido, Integer.parseInt(legajo), email, telefono);
-            //controller.insertDocente(nuevo);
+            Docente nuevo = new Docente(9999, contraseña, nombre, apellido, Integer.parseInt(legajo), email, telefono);
+            controller.insertDocente(nuevo);
             Toast.makeText(getApplicationContext(), "Su cuenta se creó exitosamente", Toast.LENGTH_LONG).show();
             finish();
         }

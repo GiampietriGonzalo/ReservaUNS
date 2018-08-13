@@ -30,7 +30,10 @@ public class Reserva extends Prestamo{
         idHorario = horario.getId();
     }
 
-    /*Hacer
+    public void setIdDocente(int idDocente) {
+        this.idDocente = idDocente;
+    }
+/*Hacer
 
     public void cancelar(){
         estado.cancelar();

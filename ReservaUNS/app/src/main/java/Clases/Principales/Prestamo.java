@@ -60,6 +60,29 @@ public abstract class Prestamo {
         return TablaHorarios.findHorario(idHorario,DBController.getDB());
     }
 
+    public int getIdEspacio() {
+        return idEspacio;
+    }
+
+    public int getIdEstado() {
+        return idEstado;
+    }
+
+    public int getIdHorario() {
+        return idHorario;
+    }
+
+    public void setIdEstado(int idEstado) {
+        this.idEstado = idEstado;
+    }
+
+    public void setIdEspacio(int idEspacio) {
+        this.idEspacio = idEspacio;
+    }
+
+    public void setIdHorario(int idHorario) {
+        this.idHorario = idHorario;
+    }
 
 
     public void setId(int id) {
@@ -78,15 +101,4 @@ public abstract class Prestamo {
         this.fecha = fecha;
     }
 
-    public int getIdEspacio() {
-        return idEspacio;
-    }
-
-    public int getIdEstado() {
-        return idEstado;
-    }
-
-    public int getIdHorario() {
-        return idHorario;
-    }
 }

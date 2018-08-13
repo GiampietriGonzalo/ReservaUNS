@@ -5,14 +5,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.EstadoSolicitud;
+import Clases.Estados.SolicitudActiva;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
+import Clases.Principales.Prestamo;
+import Clases.Principales.Reserva;
+import Clases.Principales.Solicitud;
+import Clases.Principales.SolicitudReserva;
 
 public class PantallaReservarEspacio extends AppCompatActivity {
 
@@ -55,12 +62,47 @@ public class PantallaReservarEspacio extends AppCompatActivity {
             }
         });
 
+        Button boton = (Button) findViewById(R.id.btnSeleccionarEspacio);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                enviarSolicitud();
+            }
+        });
+
         controller = controller.getDBController(this);
 
         consultarTablaEspacios();
 
         ArrayAdapter<CharSequence> adaptador = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listaIds);
         comboEspacios.setAdapter(adaptador);
+    }
+
+    private void enviarSolicitud()
+    {
+        /*
+        LinkedList<String> fechas = new LinkedList<String>();
+        fechas.addLast(fecha);
+
+        Espacio espacioSeleccionado = null;
+        for( int i = 0; i<listaEspacios.size(); i++)
+            if(comboEspacios.getSelectedItem().toString()==listaEspacios.get(i).getNombre())
+                espacioSeleccionado = listaEspacios.get(i);
+
+        SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
+        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), );
+        Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999, );
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), , horarioReserva.getId(), fecha, numAlumnosComision);
+
+
+        estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
+        reservaAula.setIdHorario(horarioReserva.getId());
+
+        controller.insertSolicitudReserva(nuevaSolicitud);
+        controller.insertSolicitudActiva(estadoSolicitud);
+        controller.insertHorario(horarioReserva);
+        controller.insertReserva(reservaAula);
+        */
     }
 
     private void consultarTablaEspacios() {

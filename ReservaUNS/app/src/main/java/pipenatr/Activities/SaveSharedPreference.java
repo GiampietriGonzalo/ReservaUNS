@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import Clases.DataBases.DBController;
 import Clases.Principales.Usuario;
 
 public class SaveSharedPreference
