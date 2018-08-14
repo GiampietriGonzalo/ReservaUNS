@@ -44,6 +44,32 @@ public class TablaEdificios implements Tabla {
 
     }
 
+    public static LinkedList<Edificio> getEdificios(SQLiteDatabase db){
+
+        LinkedList<Edificio> edificios= new LinkedList<Edificio>();
+        Edificio aux= null;
+
+        Cursor cursor= db.query("Edificios",null,null,null,null,null,null);
+
+        while(!cursor.isClosed() && cursor.moveToNext()){
+
+            switch (cursor.getString(6)){
+
+                case "Departamento":{
+                    aux = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));
+                    break;
+                }
+
+                case "EdificioAulas":{
+                    aux= new EdificioAulas(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4));
+                    break;
+                }
+            }
+            edificios.addLast(aux);
+        }
+        return edificios;
+    }
+
     public static Edificio findEdificio(int idEdificio, SQLiteDatabase db){
 
         Edificio toReturn=null;

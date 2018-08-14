@@ -5,6 +5,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
@@ -84,10 +85,20 @@ public class DBController {
         //si idEdificioPreferencia = 9999 --> no se ingresó edificio de preferencia
         if(idEdificioPreferencia==9999)
             espacios= TablaEspacios.findEspaciosAReservarSinEdificioPreferencia(tipo,capacidadEstimada,sqlDB);
-        else
-            espacios= TablaEspacios.findEspaciosAReservar(tipo,idEdificioPreferencia,capacidadEstimada,sqlDB);
+        else {
+            Log.e("E4","ID DE EDIFICOO ENCONTRADO: "+idEdificioPreferencia);
+            Log.e("E5","TIPO DE AULA PASADO: "+tipo);
+            Log.e("E6","CAPACIDAD ESTIMADA PASADA: "+capacidadEstimada);
+
+            espacios = TablaEspacios.findEspaciosAReservar(tipo, idEdificioPreferencia, capacidadEstimada, sqlDB);
+
+        }
 
         return espacios;
+    }
+
+    public static LinkedList<Edificio> getEdificios(){
+        return TablaEdificios.getEdificios(sqlDB);
     }
 
     public static Espacio findEspacio(int idEspacio){
@@ -231,7 +242,7 @@ public class DBController {
         return TablaHorarios.findHorariosEspacio(e,sqlDB,getDBController(myContext));
     }
 
-    public static boolean verificarLogIn(String mail, String contraseña){
+    public static Usuario verificarLogIn(String mail, String contraseña){
         return TablaUsuarios.verificarLogIn(mail,contraseña,sqlDB);
     }
 

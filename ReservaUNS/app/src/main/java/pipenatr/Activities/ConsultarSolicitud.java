@@ -15,13 +15,14 @@ import java.util.LinkedList;
 import Clases.DataBases.DBController;
 import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
+import Clases.Principales.Usuario;
 
-public class ConsultarSolicitud extends Fragment
-{
+public class ConsultarSolicitud extends Fragment {
     View myView;
     LinkedList<Solicitud> listaSolicitudes;
     RecyclerView recyclerViewSolicitudes;
     DBController controller;
+    Usuario usuario;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
@@ -40,9 +41,13 @@ public class ConsultarSolicitud extends Fragment
         return myView;
     }
 
-    private void consultarListaReservas()
-    {
-        ////LinkedList<Solicitud> solicitudes;
+    private void consultarListaReservas() {
+
+        LinkedList<Solicitud> solicitudes=DBController.findSolicitudesUsuario(usuario.getId());
         //Necesito el id del usuario que esta logueado
+        //TODO: AÚN FALTA LIGAR usuario AL USUARIO QUE LOGEO
+
+
+
     }
 }

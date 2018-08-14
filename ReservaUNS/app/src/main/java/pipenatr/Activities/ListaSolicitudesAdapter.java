@@ -23,13 +23,13 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         this.listaSolicitud = listaSolicitud;
     }
 
-    @Override
+    
     public SolicitudsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_solicitudes,null,false);
         return new SolicitudsViewHolder(view);
     }
 
-    @Override
+    
     public void onBindViewHolder(SolicitudsViewHolder holder, int position) {
         holder.id.setText(listaSolicitud.get(position).getId());
         holder.fecha.setText(listaSolicitud.get(position).getFecha());
@@ -37,7 +37,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         //holder.estado.setText(listaSolicitud.get(position).get);
     }
 
-    @Override
+    
     public int getItemCount() {
         return listaSolicitud.size();
     }

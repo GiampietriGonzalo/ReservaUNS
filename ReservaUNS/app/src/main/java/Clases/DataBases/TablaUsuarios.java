@@ -98,26 +98,33 @@ public class TablaUsuarios implements Tabla {
     }
 
 
-    public static Docente getDocente(int idUser, SQLiteDatabase db){
-
-        Docente docente= null;
-
-        Cursor cursor=db.query("Usuarios",columns,Columns.Id +" = '"+idUser+"'",null,null,null,null);
-
-
-        return  docente;
-    }
-
-    public static boolean verificarLogIn(String mail, String contraseña, SQLiteDatabase db){
+    public static Usuario verificarLogIn(String mail, String contraseña, SQLiteDatabase db){
 
         Cursor cursor=db.query("Usuarios",columns,Columns.Mail +" = '"+mail+"'",null,null,null,null);
-        boolean toReturn=false;
+        Usuario usuario=null;
 
-        if (cursor.moveToNext())
-            toReturn = cursor.getString(1).equals(contraseña);
+        if (cursor.moveToNext() && cursor.getString(1).equals(contraseña)){
 
+            switch (cursor.getString(7)) {
 
-        return  toReturn;
+                case "Docente": {
+                    usuario = new Docente(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
+                    break;
+                }
+
+                case "EmpleadoDepartamento": {
+                    usuario = new EmpleadoDepartamento(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
+                    break;
+                }
+
+                case "EmpleadoSecretaria":{
+                    usuario = new EmpleadoSecretaria(cursor.getInt(0), cursor.getString(1), cursor.getString(3), cursor.getString(4), cursor.getInt(2), cursor.getString(5), cursor.getString(6));
+                    break;
+                }
+            }
+        }
+
+        return  usuario;
     }
 
     public static int getNextID(SQLiteDatabase db){

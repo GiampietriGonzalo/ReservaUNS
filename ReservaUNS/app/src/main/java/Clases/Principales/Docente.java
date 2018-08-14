@@ -1,5 +1,4 @@
 package Clases.Principales;
-
 import Clases.DataBases.DBController;
 
 public class Docente extends Usuario {
@@ -14,4 +13,5 @@ public class Docente extends Usuario {
     public boolean actualizarUsuario() {
         return DBController.insertDocente(this);
     }
+
 }

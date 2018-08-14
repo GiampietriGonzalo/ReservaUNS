@@ -2,6 +2,7 @@ package pipenatr.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -32,14 +33,13 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     private String tipoEspacio, nombreEdificio, fecha;
     private int numAlumnosComision, horaIni, horaFin;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_reservar_espacio);
 
         //Seteo las variables con los valores insertados en el formulario
-        tipoEspacio = getIntent().getStringExtra("tipoEspacio").toLowerCase().trim();
-        nombreEdificio = getIntent().getStringExtra("nombreEdificio").toLowerCase().trim();
+        tipoEspacio = getIntent().getStringExtra("tipoEspacio");
+        nombreEdificio = getIntent().getStringExtra("nombreEdificio");
         fecha = getIntent().getStringExtra("fecha").replace("/","").toLowerCase().trim();
         horaIni = Integer.parseInt(getIntent().getStringExtra("horaIni").replace(":","").toLowerCase().trim());
         horaFin = Integer.parseInt(getIntent().getStringExtra("horaFin").replace(":","").toLowerCase().trim());
@@ -49,18 +49,7 @@ public class PantallaReservarEspacio extends AppCompatActivity {
         txtNombre = (TextView) findViewById(R.id.txtNombreSpinner);
 
         comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
-        comboEspacios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                txtEdificio.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getEdificio().getNombre());
-                txtNombre.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getNombre());
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         Button boton = (Button) findViewById(R.id.btnSeleccionarEspacio);
         boton.setOnClickListener(new View.OnClickListener() {
@@ -76,22 +65,36 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
         ArrayAdapter<CharSequence> adaptador = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listaIds);
         comboEspacios.setAdapter(adaptador);
+
+        /*
+        comboEspacios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                txtEdificio.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getEdificio().getNombre());
+                txtNombre.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getNombre());
+            }
+
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+        */
     }
 
-    private void enviarSolicitud()
-    {
+    private void enviarSolicitud() {
         /*
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
 
         Espacio espacioSeleccionado = null;
+
         for( int i = 0; i<listaEspacios.size(); i++)
             if(comboEspacios.getSelectedItem().toString()==listaEspacios.get(i).getNombre())
                 espacioSeleccionado = listaEspacios.get(i);
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
         Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), );
-        Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999, );
+        Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999,new LinkedList<String>());
         SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), , horarioReserva.getId(), fecha, numAlumnosComision);
 
 
@@ -106,12 +109,17 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     }
 
     private void consultarTablaEspacios() {
+
         listaIds = new LinkedList();
         LinkedList<Horario> listaHorarios;
         Horario horario;
         LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, numAlumnosComision);
+
         for (int i = 0; i < listaEspaciosAux.size(); i++) {
+            Log.e("E3","LA LISTA NO ESTA VACIA");
+
             listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
+
             if(!listaHorarios.isEmpty()) {
                 for( int k = 0; k<listaHorarios.size(); k++) {
                     horario = listaHorarios.get(k);
@@ -126,8 +134,10 @@ public class PantallaReservarEspacio extends AppCompatActivity {
                     }
                 }
             }
-            else
+            else{
                 listaIds.addLast(listaEspaciosAux.get(i).getNombre());
+                Log.e("E2","entro bien");
+            }
         }
     }
 

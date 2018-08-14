@@ -19,7 +19,7 @@ public class PantallaPrincipal extends AppCompatActivity
 
     private DBController controller;
 
-    @Override
+    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
@@ -42,7 +42,7 @@ public class PantallaPrincipal extends AppCompatActivity
 
     }
 
-    @Override
+    
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -52,14 +52,14 @@ public class PantallaPrincipal extends AppCompatActivity
         }
     }
 
-    @Override
+    
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.pantalla_principal, menu);
         return true;
     }
 
-    @Override
+    
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -75,7 +75,7 @@ public class PantallaPrincipal extends AppCompatActivity
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
-    @Override
+    
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();

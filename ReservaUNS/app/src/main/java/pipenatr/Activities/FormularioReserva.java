@@ -19,13 +19,16 @@ import java.text.SimpleDateFormat;
 import java.time.YearMonth;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.LinkedList;
 
-public class FormularioReserva extends Fragment
-{
+import Clases.DataBases.DBController;
+import Clases.Estados.EstadoSolicitud;
+import Clases.Principales.Edificio;
+import Clases.Principales.Espacio;
+
+public class FormularioReserva extends Fragment {
     View myView;
 
-    @Nullable
-    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         myView = inflater.inflate(R.layout.formulario_reserva, container, false);
 
@@ -66,7 +69,7 @@ public class FormularioReserva extends Fragment
                             //Setea el parametro correspondiente al nombre del edificio de preferencia (si fue seleccionado)
                             spinner = (Spinner) myView.findViewById(R.id.spinnerEdificios);
                             if(spinner.getSelectedItemPosition()==0)
-                                intent.putExtra("nombreEdificio", "9999");
+                                intent.putExtra("nombreEdificio", "Edificio");
                             else
                                 intent.putExtra("nombreEdificio", spinner.getSelectedItem().toString());
 
@@ -90,13 +93,23 @@ public class FormularioReserva extends Fragment
         });
 
         //Crea spinner que contiene tipos de espacio
+
         String[] aux = new String[] {"Tipo espacio...", "Aula", "Laboratorio", "Sala de conferencias", "Sala de reuniones"};
         Spinner spinner = (Spinner) myView.findViewById(R.id.spinnerTiposEspacio);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, aux);
         spinner.setAdapter(adapter);
 
         //Crea spinner que contiene tipos de edificio
-        aux = new String[] {"Tipo edificio...", "Departamento", "Edificio de aulas"};
+        LinkedList<Edificio> edificios= DBController.getEdificios();
+        aux = new String[edificios.size()+1];
+        int i=1;
+        aux[0]="Edificio";
+        for(Edificio edificio:edificios){
+            aux[i]=edificio.getNombre();
+            i++;
+        }
+        aux[0]="Edificio";
+
         spinner = (Spinner) myView.findViewById(R.id.spinnerEdificios);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, aux);
         spinner.setAdapter(adapter);
@@ -111,6 +124,7 @@ public class FormularioReserva extends Fragment
         Calendar calendario = Calendar.getInstance();
         int diasEnMes, año, mes, dia, diasAux;
         int contador = 0;
+
         //Cuenta si el usuario ingresó la fecha con el formato indicado
         for( int i = 0; i<fecha.length(); i++)
             if(fecha.charAt(i) == '/')
