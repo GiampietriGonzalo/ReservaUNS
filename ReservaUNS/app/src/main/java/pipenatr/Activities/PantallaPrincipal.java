@@ -88,7 +88,7 @@ public class PantallaPrincipal extends AppCompatActivity
         } else if (id == R.id.nav_modificar_prestamo) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ModificarPrestamo()).commit();
         } else if (id == R.id.nav_cerrar_sesion) {
-            SaveSharedPreference.setUserName(PantallaPrincipal.this, "");
+            SaveSharedPreference.setUserId(PantallaPrincipal.this, "");
             Intent intent = new Intent(this, IniciarSesion.class);
             finish();
             startActivity(intent);

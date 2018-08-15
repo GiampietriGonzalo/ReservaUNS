@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Clases.DataBases.DBController;
+import Clases.Principales.Usuario;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -59,6 +60,9 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
     //Controlador de base de datos
     private DBController controller;
+
+    //
+    private Usuario user;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,8 +108,10 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
         controller = controller.getDBController(this);
 
         //Verifica si el usuario esta logueado
-        if(SaveSharedPreference.getUserName(IniciarSesion.this).length() != 0)
+        if(SaveSharedPreference.getUserId(IniciarSesion.this).length() != 0)
             iniciarSesion();
+
+        user = null;
     }
 
     private void populateAutoComplete() {
@@ -329,10 +335,11 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            if(controller.verificarLogIn(mEmail,mPassword)!=null)
+            user = controller.verificarLogIn(mEmail,mPassword);
+            if(user!=null)
                 return true;
 
-            return true;
+            return false;
         }
 
         
@@ -341,7 +348,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                SaveSharedPreference.setUserName(IniciarSesion.this,mEmailView.getText().toString());
+                //SaveSharedPreference.setUserId(IniciarSesion.this,""+user.getId());
                 iniciarSesion();
             } else {
                 mPasswordView.setError("Contraseña incorrecta");

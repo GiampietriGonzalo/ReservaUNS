@@ -66,7 +66,6 @@ public class PantallaReservarEspacio extends AppCompatActivity {
         ArrayAdapter<CharSequence> adaptador = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listaIds);
         comboEspacios.setAdapter(adaptador);
 
-        /*
         comboEspacios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -78,11 +77,9 @@ public class PantallaReservarEspacio extends AppCompatActivity {
 
             }
         });
-        */
     }
 
     private void enviarSolicitud() {
-        /*
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
 
@@ -93,9 +90,9 @@ public class PantallaReservarEspacio extends AppCompatActivity {
                 espacioSeleccionado = listaEspacios.get(i);
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
-        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), );
+        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(this)));
         Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999,new LinkedList<String>());
-        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), , horarioReserva.getId(), fecha, numAlumnosComision);
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(this)), horarioReserva.getId(), fecha, "descripcion",numAlumnosComision);
 
 
         estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
@@ -105,7 +102,6 @@ public class PantallaReservarEspacio extends AppCompatActivity {
         controller.insertSolicitudActiva(estadoSolicitud);
         controller.insertHorario(horarioReserva);
         controller.insertReserva(reservaAula);
-        */
     }
 
     private void consultarTablaEspacios() {
