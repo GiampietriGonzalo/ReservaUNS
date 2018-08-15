@@ -25,6 +25,7 @@ public abstract class EstadoPrestamo {
     abstract public boolean guardarEstado();
 
     public void cancelar(){}
+    public void aceptar(){}
 
     public int getId() {
         return id;

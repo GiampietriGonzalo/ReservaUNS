@@ -60,7 +60,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     //Controlador de base de datos
     private DBController controller;
 
-    @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
@@ -70,7 +70,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
+            
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
                     attemptLogin();
@@ -82,7 +82,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 attemptLogin();
             }
@@ -90,7 +90,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         linkRegistro = findViewById(R.id.linkRegistro);
         linkRegistro.setOnClickListener( new View.OnClickListener() {
-            @Override
+            
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), FormularioRegistroUsuario.class);
                 startActivity(intent);
@@ -126,7 +126,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
         if (shouldShowRequestPermissionRationale(READ_CONTACTS)) {
             Snackbar.make(mEmailView, R.string.permission_rationale, Snackbar.LENGTH_INDEFINITE)
                     .setAction(android.R.string.ok, new View.OnClickListener() {
-                        @Override
+                        
                         @TargetApi(Build.VERSION_CODES.M)
                         public void onClick(View v) {
                             requestPermissions(new String[]{READ_CONTACTS}, REQUEST_READ_CONTACTS);
@@ -141,7 +141,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     /**
      * Callback received when a permissions request has been completed.
      */
-    @Override
+    
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         if (requestCode == REQUEST_READ_CONTACTS) {
@@ -228,7 +228,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
             mLoginFormView.animate().setDuration(shortAnimTime).alpha(
                     show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
-                @Override
+                
                 public void onAnimationEnd(Animator animation) {
                     mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
                 }
@@ -237,7 +237,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
             mProgressView.animate().setDuration(shortAnimTime).alpha(
                     show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
-                @Override
+                
                 public void onAnimationEnd(Animator animation) {
                     mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
                 }
@@ -250,7 +250,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
         }
     }
 
-    @Override
+    
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         return new CursorLoader(this,
                 // Retrieve data rows for the device user's 'profile' contact.
@@ -267,7 +267,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
                 ContactsContract.Contacts.Data.IS_PRIMARY + " DESC");
     }
 
-    @Override
+    
     public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
         List<String> emails = new ArrayList<>();
         cursor.moveToFirst();
@@ -279,7 +279,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
         addEmailsToAutoComplete(emails);
     }
 
-    @Override
+    
     public void onLoaderReset(Loader<Cursor> cursorLoader) {
 
     }
@@ -318,7 +318,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             mPassword = password;
         }
 
-        @Override
+        
         protected Boolean doInBackground(Void... params) {
             // TODO: attempt authentication against a network service.
 
@@ -329,13 +329,13 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
                 return false;
             }
 
-            if(controller.verificarLogIn(mEmail,mPassword))
+            if(controller.verificarLogIn(mEmail,mPassword)!=null)
                 return true;
 
             return true;
         }
 
-        @Override
+        
         protected void onPostExecute(final Boolean success) {
             mAuthTask = null;
             showProgress(false);
@@ -349,7 +349,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             }
         }
 
-        @Override
+        
         protected void onCancelled() {
             mAuthTask = null;
             showProgress(false);
