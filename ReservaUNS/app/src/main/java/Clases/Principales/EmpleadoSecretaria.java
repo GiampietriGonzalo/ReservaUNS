@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import android.content.Context;
+
 import Clases.DataBases.DBController;
 
 public class EmpleadoSecretaria extends Usuario{
@@ -10,6 +12,11 @@ public class EmpleadoSecretaria extends Usuario{
 
     public boolean actualizarUsuario(){
         return DBController.insertEmpleadoSecretaria(this);
+    }
+
+    @Override
+    public void iniciarSesion(Context context) {
+
     }
 
 }

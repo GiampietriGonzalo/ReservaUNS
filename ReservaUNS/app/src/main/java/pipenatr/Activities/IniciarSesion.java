@@ -27,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -109,7 +110,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         //Verifica si el usuario esta logueado
         if(SaveSharedPreference.getUserId(IniciarSesion.this).length() != 0)
-            iniciarSesion();
+            user.iniciarSesion(IniciarSesion.this);
 
         user = null;
     }
@@ -349,11 +350,11 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 //SaveSharedPreference.setUserId(IniciarSesion.this,""+user.getId());
-                iniciarSesion();
-            } else {
-                mPasswordView.setError("Contraseña incorrecta");
-                mPasswordView.requestFocus();
+                finish();
+                user.iniciarSesion(IniciarSesion.this);
             }
+            else
+                Toast.makeText(getApplicationContext(), "No se pudo iniciar sesión, verifique sus datos.", Toast.LENGTH_LONG).show();
         }
 
         
@@ -361,13 +362,6 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask = null;
             showProgress(false);
         }
-    }
-
-    public void iniciarSesion()
-    {
-        Intent intent = new Intent(this, PantallaPrincipal.class);
-        finish();
-        startActivity(intent);
     }
 }
 

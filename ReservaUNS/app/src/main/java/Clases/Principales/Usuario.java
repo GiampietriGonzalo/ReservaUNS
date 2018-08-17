@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import android.content.Context;
+
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaUsuarios;
 
@@ -94,5 +96,7 @@ public abstract class Usuario {
     public String getNombre() {
         return nombre;
     }
+
+    public abstract void iniciarSesion(Context context);
 
 }

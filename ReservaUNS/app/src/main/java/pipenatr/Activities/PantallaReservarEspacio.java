@@ -1,7 +1,7 @@
 package pipenatr.Activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,13 +13,10 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
-import Clases.Estados.EstadoSolicitud;
 import Clases.Estados.SolicitudActiva;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
-import Clases.Principales.Prestamo;
 import Clases.Principales.Reserva;
-import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudReserva;
 
 public class PantallaReservarEspacio extends AppCompatActivity {
@@ -121,7 +118,7 @@ public class PantallaReservarEspacio extends AppCompatActivity {
                     horario = listaHorarios.get(k);
                     boolean encontre = false;
                     for(int j = 0; j<horario.getDiasSemana().size(); j++) {
-                        if(horario.getDiasSemana().get(j)==fecha) {
+                        if(horario.getDiasSemana().get(j).equals(fecha)) {
                             if(horario.getHoraFin()<=horaIni || horario.getHoraInicio()>=horaFin) {
                                 listaIds.addLast(listaEspaciosAux.get(i).getNombre());
                                 listaEspacios.addLast(listaEspaciosAux.get(i));

@@ -10,16 +10,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
+import Clases.Principales.SolicitudReserva;
 import Clases.Principales.Usuario;
 
 public class ConsultarSolicitud extends Fragment {
     View myView;
-    LinkedList<Solicitud> listaSolicitudes;
+    ArrayList<Solicitud> listaSolicitudes;
     RecyclerView recyclerViewSolicitudes;
     DBController controller;
     Usuario usuario;
@@ -31,23 +33,28 @@ public class ConsultarSolicitud extends Fragment {
 
         controller = DBController.getDBController(getActivity());
 
-        listaSolicitudes = new LinkedList<Solicitud>();
+        listaSolicitudes = new ArrayList<Solicitud>();
 
         recyclerViewSolicitudes = (RecyclerView) myView.findViewById(R.id.recyclerReservas);
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         consultarListaReservas();
 
+        ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes);
+        recyclerViewSolicitudes.setAdapter(adapter);
+
         return myView;
     }
 
-    private void consultarListaReservas() {
-
-        LinkedList<Solicitud> solicitudes=DBController.findSolicitudesUsuario(usuario.getId());
-        //Necesito el id del usuario que esta logueado
-        //TODO: AÚN FALTA LIGAR usuario AL USUARIO QUE LOGEO
-
-
-
+    private void consultarListaReservas()
+    {
+        usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
+        LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());
+        SolicitudReserva solicitud;
+        for( int i = 0; i<solicitudes.size(); i++)
+        {
+            solicitud = (SolicitudReserva) solicitudes.get(i);
+            listaSolicitudes.add(solicitud);
+        }
     }
 }
