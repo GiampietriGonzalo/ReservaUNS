@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import android.os.NetworkOnMainThreadException;
+
 import Clases.DataBases.DBController;
 
 public abstract class Espacio
@@ -45,6 +47,10 @@ public abstract class Espacio
 
     public Edificio getEdificio() {
         return DBController.findEdificio(idEdificio);
+    }
+
+    public String toString(){
+        return ""+nombre;
     }
 
 }

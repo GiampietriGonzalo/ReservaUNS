@@ -1,12 +1,13 @@
 package pipenatr.Activities;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -26,11 +27,15 @@ public class PantallaReservarEspacio extends AppCompatActivity {
     private LinkedList<String> listaIds;
     private LinkedList<Espacio> listaEspacios;
     private DBController controller;
+    private ArrayAdapter adapter;
+    private ListView listView;
+
     //Variables del formulario
     private String tipoEspacio, nombreEdificio, fecha;
     private int numAlumnosComision, horaIni, horaFin;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_reservar_espacio);
 
@@ -42,38 +47,40 @@ public class PantallaReservarEspacio extends AppCompatActivity {
         horaFin = Integer.parseInt(getIntent().getStringExtra("horaFin").replace(":","").toLowerCase().trim());
         numAlumnosComision = Integer.parseInt(getIntent().getStringExtra("numAlumnosComision"));
 
-        txtEdificio = (TextView) findViewById(R.id.txtEdificioSpinner);
-        txtNombre = (TextView) findViewById(R.id.txtNombreSpinner);
 
-        comboEspacios = (Spinner) findViewById(R.id.comboEspacios);
+        listView= (ListView) findViewById(R.id.LVReservas);
 
 
-        Button boton = (Button) findViewById(R.id.btnSeleccionarEspacio);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
+        /*boton.setOnClickListener(new View.OnClickListener() {
+
             public void onClick(View view) {
                 enviarSolicitud();
             }
-        });
+        });*/
 
         controller = controller.getDBController(this);
-
         consultarTablaEspacios();
 
-        ArrayAdapter<CharSequence> adaptador = new ArrayAdapter(this, android.R.layout.simple_spinner_item, listaIds);
-        comboEspacios.setAdapter(adaptador);
+        adapter = new ArrayAdapter(this, android.R.layout.activity_list_item, listaEspacios);
+        listView.setAdapter(adapter);
 
-        comboEspacios.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        listaEspacios=controller.findEspaciosAReservar(tipoEspacio,nombreEdificio,numAlumnosComision);
 
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                txtEdificio.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getEdificio().getNombre());
-                txtNombre.setText(listaEspacios.get(comboEspacios.getSelectedItemPosition()).getNombre());
+        if(!listaEspacios.isEmpty())
+            Log.e("E3","listaEspacios NO  ESTA VACIA");
+
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Object listItem = (Espacio) listView.getItemAtPosition(position);
+                Log.e("TAG DEF", "ES UN ESPACIO: "+listItem.toString());
+
             }
 
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
         });
+
+
     }
 
     private void enviarSolicitud() {
@@ -129,6 +136,7 @@ public class PantallaReservarEspacio extends AppCompatActivity {
             }
             else{
                 listaIds.addLast(listaEspaciosAux.get(i).getNombre());
+                //listaEspacios.addLast(listaEspaciosAux.get(i));
                 Log.e("E2","entro bien");
             }
         }

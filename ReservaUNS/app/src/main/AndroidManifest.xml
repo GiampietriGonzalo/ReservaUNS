@@ -29,7 +29,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".PantallaReservarEspacio" />
         <activity android:name=".FormularioRegistroUsuario" />
-        <activity android:name=".MenuDocente"></activity>
+        <activity android:name=".YEO"></activity>
     </application>
 
 </manifest>

@@ -1,115 +1,134 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="pipenatr.Activities.PantallaReservarEspacio">
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/SVReserva"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Seleccione el tipo de espacio deseado"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spinnerTiposEspacio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Seleccione el edificio de preferencia (opcional)"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <Spinner
-            android:id="@+id/spinnerEdificios"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Ingrese fecha de la reserva"
-            android:textSize="17sp"
-            android:textStyle="bold" />
-
-        <EditText
-            android:id="@+id/txtFechaReserva"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="(dd/mm/aaaa)"
-            android:inputType="date" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Ingrese hora de inicio y fin de la reserva "
-            android:textSize="17sp"
-            android:textStyle="bold" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Seleccione el tipo de espacio deseado"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerTiposEspacio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Seleccione el edificio de preferencia (opcional)"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerEdificios"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Ingrese fecha de la reserva"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txtHoraInicio"
+                android:id="@+id/txtFechaReserva"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Inicio"
-                android:inputType="time" />
+                android:hint="(dd/mm/aaaa)"
+                android:inputType="date" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Ingrese hora de inicio y fin de la reserva "
+                android:textSize="17sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/txtHoraInicio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Inicio"
+                    android:inputType="time" />
+
+                <EditText
+                    android:id="@+id/txtHoraFin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="Fin"
+                    android:inputType="time" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="Ingrese la capacidad estimada del espacio a reservar"
+                android:textSize="17sp"
+                android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/txtHoraFin"
+                android:id="@+id/txtCapacidadEspacio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="Fin"
-                android:inputType="time" />
+                android:hint="Tamaño comisión"
+                android:inputType="number" />
+
+            <Button
+                android:id="@+id/btnEnviarSolicitud"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enviar solicitud" />
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="Ingrese la capacidad estimada del espacio a reservar"
-            android:textSize="17sp"
-            android:textStyle="bold" />
+    </ScrollView>
 
-        <EditText
-            android:id="@+id/txtCapacidadEspacio"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Tamaño comisión"
-            android:inputType="number" />
-
-        <Button
-            android:id="@+id/btnEnviarSolicitud"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Enviar solicitud" />
-
-    </LinearLayout>
-
-</ScrollView>
+    <ListView
+        android:id="@+id/LVReservas"
+        style="@android:style/Theme.Holo.Light.NoActionBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="invisible" />
+</android.support.constraint.ConstraintLayout>

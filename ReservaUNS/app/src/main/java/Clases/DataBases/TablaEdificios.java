@@ -98,11 +98,11 @@ public class TablaEdificios implements Tabla {
     public static int getIdEdificio(String nombreEdificio, SQLiteDatabase db){
 
         int id=9999;
-
+        Cursor cursor;
 
         if( nombreEdificio!="Seleccionar"){
 
-            Cursor cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase()+"'",null,null,null,null);
+            cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase()+"'",null,null,null,null);
             if (!cursor.isClosed() && cursor.moveToNext())
                 id=cursor.getInt(0);
         }
