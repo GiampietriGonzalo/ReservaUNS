@@ -16,4 +16,9 @@ public class SolicitudCancelada extends EstadoSolicitud {
         return DBController.insertSolicitudCancelada(this);
     }
 
+    @Override
+    public String getEstado() {
+        return "cancelada";
+    }
+
 }

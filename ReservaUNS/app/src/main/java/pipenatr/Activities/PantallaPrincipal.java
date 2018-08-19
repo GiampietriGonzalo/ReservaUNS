@@ -11,8 +11,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import Clases.DataBases.DBController;
+import Clases.Principales.Usuario;
 
 public class PantallaPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -37,8 +40,11 @@ public class PantallaPrincipal extends AppCompatActivity
 
         controller= DBController.getDBController(this);
 
-        //Modifica nombre y Email de acuerdo al usuarioIniciado
-        //((TextView) findViewById(R.id.txtNombreHeader)).setText();
+        //Modifica nombre y Email de acuerdo al usuario logueado
+        Usuario user = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+        View headerView = (View) navigationView.getHeaderView(0);
+        ((TextView)  headerView.findViewById(R.id.txtEmailHeader)).setText(user.getMail());
+        ((TextView) headerView.findViewById(R.id.txtNombreHeader)).setText(user.getNombre());
 
     }
 

@@ -1,10 +1,10 @@
 package pipenatr.Activities;
 
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,21 +17,25 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.SolicitudActiva;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
+import Clases.Principales.Reserva;
+import Clases.Principales.SolicitudReserva;
 
 public class FormularioReserva extends Fragment {
 
     private View myView;
 
-    private TextView txtNombre, txtEdificio, txtTipo;
     private LinkedList<Espacio> listaEspacios;
+    private LinkedList<String> toAdapter;
     private DBController controller;
     private ArrayAdapter adapter;
     private ListView listView;
@@ -50,8 +54,6 @@ public class FormularioReserva extends Fragment {
 
 
         controller = controller.getDBController(getActivity());
-
-
 
         //Crea oyente del boton para enviar el formulario
 
@@ -92,21 +94,38 @@ public class FormularioReserva extends Fragment {
         private TextView text;
         private String capacidad, fecha, horaIni, horaFin;
 
-        public void onClick(View view) {
+        public void onClick(View view)
+        {
+            listView =(ListView)myView.findViewById(R.id.LVReservas);
 
-            listView=(ListView)myView.findViewById(R.id.LVReservas);
-
+            //Muestra una ventana para verificar si el usuario desea reservar el espacio
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String itemSeleccionado = (String) listView.getItemAtPosition(position);
-                    Log.e("TAG DEF", "ES UN ESPACIO: "+itemSeleccionado.toString());
+                    final int pos = position;
+                    //Muestra ventana para confirmar la reserva del aula
+                    AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                    alerta.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            enviarSolicitud(pos);
+                            Toast.makeText(getActivity(), "Su solicitud fue enviada para revisión", Toast.LENGTH_LONG).show();
+                            getFragmentManager().popBackStack();
+                            getFragmentManager().beginTransaction().commit();
+                        }
+                    });
+                    alerta.setNegativeButton("Cancelar", null);
+                    alerta.setMessage("¿desea reservar este espacio?");
+                    alerta.setTitle("Reservar espacio");
+                    alerta.setCancelable(true);
+                    alerta.create().show();
                 }
             });
 
             //Obtiene la informacion ingresada por el usuario y verifica que la haya ingresado correctamente
-
             text = (TextView) myView.findViewById(R.id.txtFechaReserva);
             fecha = text.getText().toString();
+            //Log.e("FechaFormulario", fecha);
             text = (TextView) myView.findViewById(R.id.txtCapacidadEspacio);
             capacidad = text.getText().toString();
             text = (TextView) myView.findViewById(R.id.txtHoraInicio);
@@ -114,59 +133,44 @@ public class FormularioReserva extends Fragment {
             text = (TextView) myView.findViewById(R.id.txtHoraFin);
             horaFin = text.getText().toString();
             spinnerEspacio = (Spinner) myView.findViewById(R.id.spinnerTiposEspacio);
-            spinnerEdificio= (Spinner) myView.findViewById(R.id.spinnerEdificios);
+            spinnerEdificio = (Spinner) myView.findViewById(R.id.spinnerEdificios);
+            tipoEspacio = spinnerEspacio.getSelectedItem().toString();
+            nombreEdificio = spinnerEdificio.getSelectedItem().toString();
+            capacidadEstimada = Integer.parseInt(capacidad);
 
-            tipoEspacio=spinnerEspacio.getSelectedItem().toString();
-            nombreEdificio= spinnerEdificio.getSelectedItem().toString();
-
-            capacidadEstimada=Integer.parseInt(capacidad);
-            listaEspacios=controller.findEspaciosAReservar(tipoEspacio,nombreEdificio,capacidadEstimada);
-
-            LinkedList<String> toAdapter= new LinkedList<String>();
-
-            for(Espacio espacio: listaEspacios)
-                toAdapter.addLast(espacio.toString());
-
-
-            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, toAdapter);
-
-
-            listView.setAdapter(adapter);
-
-            if(!listaEspacios.isEmpty())
-                Log.e("E3","listaEspacios NO  ESTA VACIA");
-
-
-            if(!fecha.matches("") && !capacidad.matches("") && !horaIni.matches("") && !horaFin.matches("") && spinnerEspacio.getSelectedItemPosition()!=0) {
-
+            if(!fecha.matches("") && !capacidad.matches("") && !horaIni.matches("") && !horaFin.matches("") && spinnerEspacio.getSelectedItemPosition()!=0)
+            {
                 //Verifica si la hora de inicio ingresada es menor a la hora de finalizacion
                 if(Integer.parseInt(horaIni.replace(":",""))>=Integer.parseInt(horaFin.replace(":","")))
                     mostrarMensajeError("La hora de inicio de la reserva debe ser anterior a la hora de fin.");
-                else {
-                    if(verificarFecha(fecha) && verificarHorario(horaIni) && verificarHorario(horaFin)){
+                else
+                    //Verifica que la fecha y las horas de inicio y fin sean validas
+                    if(verificarFecha(fecha) && verificarHorario(horaIni) && verificarHorario(horaFin))
+                    {
+                        //Inicializo listas donde se almacenaran los ids de los espacios para mostrar en la lista y los espacios para reservar
+                        listaEspacios = new LinkedList<Espacio>();
+                        toAdapter= new LinkedList<String>();
 
-                        spinnerEdificio = (Spinner) myView.findViewById(R.id.spinnerEdificios);
+                        //Consulto los espacios disponibles de acuerdo a las especificaciones del usuario
+                        consultarTablaEspacios();
 
+                        //Seteo el adapter para mostrar en el listView
+                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, toAdapter);
+                        listView.setAdapter(adapter);
+
+                        //HABILITAR LISTVIEW
+                        listView.setVisibility(View.VISIBLE);
+                        listView.setEnabled(true);
+
+                        //DESHABILITAR EL RESTO
+                        scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
+                        scrollView.setVisibility(view.INVISIBLE);
+                        scrollView.setEnabled(false);
                     }
-                }
             }
             else
                 mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
-
-
-
-            //TODO HABILITAR LISTVIEW
-            listView.setVisibility(View.VISIBLE);
-            listView.setEnabled(true);
-
-            //TODO DESHABILITAR EL RESTO
-            scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
-            scrollView.setVisibility(view.INVISIBLE);
-            scrollView.setEnabled(false);
-
         }
-
-
     }
 
 
@@ -176,7 +180,7 @@ public class FormularioReserva extends Fragment {
         boolean fechaValida = false;
         String[] valores = fecha.split("/");
         Calendar calendario = Calendar.getInstance();
-        int diasEnMes, año, mes, dia, diasAux;
+        int año, mes, dia, diasAux;
         int contador = 0;
 
         //Cuenta si el usuario ingresó la fecha con el formato indicado
@@ -252,71 +256,73 @@ public class FormularioReserva extends Fragment {
         alerta.create().show();
     }
 
-    /*
-    private void enviarSolicitud() {
+    private void consultarTablaEspacios()
+    {
+        boolean encontre;
+        LinkedList<Horario> listaHorarios;
+        Horario horario;
+        LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, capacidadEstimada);
+        Log.e("ConsultarTE","Entro");
+
+        //Para todos los espacios que cumplen las restricciones del formulario
+        for (int i = 0; i < listaEspaciosAux.size(); i++) {
+            listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
+
+            //Si el espacio no tiene reservas asignadas se guarda en la lista, caso contrario, se verifica que ninguna coincida con la fecha y horario introducidos por el usuario
+            if(!listaHorarios.isEmpty()) {
+                Log.e("ConsultarTE","lista no vacia");
+                for( int k = 0; k<listaHorarios.size(); k++) {
+                    horario = listaHorarios.get(k);
+                    encontre = false;
+                    Log.e("ConsultarTE", "Va a mirar dias horario");
+                    for(int j = 0; j<horario.getDiasSemana().size(); j++) {
+                        Log.e("fechaReserva", horario.getDiasSemana().get(j));
+                        Log.e("FechaIngresada", fecha);
+                        if(horario.getDiasSemana().get(j).equals(fecha)) {
+                            if (horario.getHoraFin() <= horaIni || horario.getHoraInicio() >= horaFin) {
+                                toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                                listaEspacios.addLast(listaEspaciosAux.get(i));
+                            }
+                            encontre = true;
+                        }
+                        if(!encontre){
+                            toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                            listaEspacios.addLast(listaEspaciosAux.get(i));
+                        }
+                    }
+                }
+            }
+            else {
+                toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                listaEspacios.addLast(listaEspaciosAux.get(i));
+            }
+        }
+    }
+
+    private void enviarSolicitud(int position)
+    {
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
 
         Espacio espacioSeleccionado = null;
 
         for( int i = 0; i<listaEspacios.size(); i++)
-            if(comboEspacios.getSelectedItem().toString()==listaEspacios.get(i).getNombre())
+            if(listView.getItemAtPosition(position).toString()==listaEspacios.get(i).getNombre())
                 espacioSeleccionado = listaEspacios.get(i);
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
-        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(this)));
-        Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999,new LinkedList<String>());
-        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(this)), horarioReserva.getId(), fecha, "descripcion",numAlumnosComision);
+        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
+        Horario horarioReserva = new Horario(9999, horaIni, horaFin, 9999, fechas);
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), horarioReserva.getId(), fecha, "descripcion", capacidadEstimada);
 
 
         estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
         reservaAula.setIdHorario(horarioReserva.getId());
+        horarioReserva.setIdPrestamo(reservaAula.getId());
 
         controller.insertSolicitudReserva(nuevaSolicitud);
         controller.insertSolicitudActiva(estadoSolicitud);
         controller.insertHorario(horarioReserva);
         controller.insertReserva(reservaAula);
-    }*/
-
-    private void consultarTablaEspacios() {
-
-
-        LinkedList<Horario> listaHorarios;
-        Horario horario;
-        LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, capacidadEstimada);
-
-        /*
-
-        for (int i = 0; i < listaEspaciosAux.size(); i++) {
-            Log.e("E3","LA LISTA NO ESTA VACIA");
-
-            listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
-
-            if(!listaHorarios.isEmpty()) {
-                for( int k = 0; k<listaHorarios.size(); k++) {
-                    horario = listaHorarios.get(k);
-                    boolean encontre = false;
-                    for(int j = 0; j<horario.getDiasSemana().size(); j++) {
-                        if(horario.getDiasSemana().get(j).equals(fecha)) {
-                            if(horario.getHoraFin()<=horaIni || horario.getHoraInicio()>=horaFin) {
-                                listaIds.addLast(listaEspaciosAux.get(i).getNombre());
-                                listaEspacios.addLast(listaEspaciosAux.get(i));
-                            }
-                        }
-                    }
-                }
-            }
-            else{
-                listaIds.addLast(listaEspaciosAux.get(i).getNombre());
-                //listaEspacios.addLast(listaEspaciosAux.get(i));
-                Log.e("E2","entro bien");
-            }
-        }
-        */
     }
-
-
-
-
-
 }

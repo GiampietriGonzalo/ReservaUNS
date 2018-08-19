@@ -16,4 +16,9 @@ public class SolicitudAceptada extends EstadoSolicitud {
         return DBController.insertSolicitudAceptada(this);
     }
 
+    @Override
+    public String getEstado() {
+        return "aceptada";
+    }
+
 }

@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.SolicitudActiva;
 import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudReserva;
@@ -40,7 +42,7 @@ public class ConsultarSolicitud extends Fragment {
 
         consultarListaReservas();
 
-        ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes);
+        ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity());
         recyclerViewSolicitudes.setAdapter(adapter);
 
         return myView;
@@ -50,11 +52,7 @@ public class ConsultarSolicitud extends Fragment {
     {
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());
-        SolicitudReserva solicitud;
         for( int i = 0; i<solicitudes.size(); i++)
-        {
-            solicitud = (SolicitudReserva) solicitudes.get(i);
-            listaSolicitudes.add(solicitud);
-        }
+            listaSolicitudes.add(solicitudes.get(i));
     }
 }

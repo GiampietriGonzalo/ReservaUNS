@@ -38,4 +38,9 @@ public class SolicitudActiva extends EstadoSolicitud{
         nuevo.guardarEstadoSolicitud();
         solicitud.setIdEstado(nuevo.getId());
     }
+
+    @Override
+    public String getEstado() {
+        return "activa";
+    }
 }

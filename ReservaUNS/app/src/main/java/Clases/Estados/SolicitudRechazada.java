@@ -16,5 +16,10 @@ public class SolicitudRechazada  extends EstadoSolicitud{
         return DBController.insertSolicitudRechazada(this);
     }
 
+    @Override
+    public String getEstado() {
+        return "rechazada";
+    }
+
 }
 

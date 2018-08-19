@@ -109,8 +109,11 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
         controller = controller.getDBController(this);
 
         //Verifica si el usuario esta logueado
-        if(SaveSharedPreference.getUserId(IniciarSesion.this).length() != 0)
+        if(SaveSharedPreference.getUserId(IniciarSesion.this).length() != 0) {
+            user = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+            finish();
             user.iniciarSesion(IniciarSesion.this);
+        }
 
         user = null;
     }
@@ -327,7 +330,6 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         
         protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
 
             try {
                 // Simulate network access.
@@ -349,7 +351,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                //SaveSharedPreference.setUserId(IniciarSesion.this,""+user.getId());
+                SaveSharedPreference.setUserId(IniciarSesion.this,""+user.getId());
                 finish();
                 user.iniciarSesion(IniciarSesion.this);
             }

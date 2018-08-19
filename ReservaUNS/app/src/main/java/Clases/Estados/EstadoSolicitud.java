@@ -45,4 +45,6 @@ public abstract class EstadoSolicitud {
     public void cancelar(){}
     public void aceptar(){}
     public void rechazar(){}
+
+    public abstract String getEstado();
 }
