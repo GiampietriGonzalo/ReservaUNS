@@ -122,13 +122,13 @@ public class FormularioReserva extends Fragment {
 
             //Obtiene la informacion ingresada por el usuario y verifica que la haya ingresado correctamente
             text = (TextView) myView.findViewById(R.id.txtFechaReserva);
-            fecha = text.getText().toString();
+            fecha = text.getText().toString().trim();
             text = (TextView) myView.findViewById(R.id.txtCapacidadEspacio);
-            capacidad = text.getText().toString();
+            capacidad = text.getText().toString().trim();
             text = (TextView) myView.findViewById(R.id.txtHoraInicio);
-            horaIni = text.getText().toString();
+            horaIni = text.getText().toString().trim();
             text = (TextView) myView.findViewById(R.id.txtHoraFin);
-            horaFin = text.getText().toString();
+            horaFin = text.getText().toString().trim();
             spinnerEspacio = (Spinner) myView.findViewById(R.id.spinnerTiposEspacio);
             spinnerEdificio = (Spinner) myView.findViewById(R.id.spinnerEdificios);
             tipoEspacio = spinnerEspacio.getSelectedItem().toString();
@@ -269,7 +269,7 @@ public class FormularioReserva extends Fragment {
                     horario = listaHorarios.get(k);
                     encontre = false;
                     for(int j = 0; j<horario.getDiasSemana().size(); j++) {
-                        if(horario.getDiasSemana().get(j).equals(fecha)) {
+                        if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
                             if (horario.getHoraFin() <= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() >= Integer.parseInt(horaFin.replace(":",""))) {
                                 toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
                                 listaEspacios.addLast(listaEspaciosAux.get(i));

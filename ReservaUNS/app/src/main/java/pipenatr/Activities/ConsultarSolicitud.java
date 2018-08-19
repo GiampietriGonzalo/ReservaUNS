@@ -1,9 +1,9 @@
 package pipenatr.Activities;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,10 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
-import Clases.Estados.SolicitudActiva;
-import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
-import Clases.Principales.SolicitudReserva;
 import Clases.Principales.Usuario;
 
 public class ConsultarSolicitud extends Fragment {
@@ -34,7 +31,7 @@ public class ConsultarSolicitud extends Fragment {
 
         controller = DBController.getDBController(getActivity());
 
-        listaSolicitudes = new ArrayList<Solicitud>();
+        listaSolicitudes = new ArrayList<>();
 
         recyclerViewSolicitudes = myView.findViewById(R.id.recyclerReservas);
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
