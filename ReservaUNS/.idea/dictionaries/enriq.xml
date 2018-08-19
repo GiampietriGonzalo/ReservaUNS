@@ -3,6 +3,7 @@
     <words>
       <w>alumnos</w>
       <w>comision</w>
+      <w>consultar</w>
       <w>edificio</w>
       <w>enviar</w>
       <w>espacio</w>
@@ -10,9 +11,12 @@
       <w>formulario</w>
       <w>lista</w>
       <w>nombre</w>
+      <w>reservas</w>
       <w>seleccionado</w>
       <w>solicitud</w>
+      <w>solicitudes</w>
       <w>tipo</w>
+      <w>usuario</w>
     </words>
   </dictionary>
 </component>

@@ -31,13 +31,12 @@ public class ConsultarSolicitud extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
         myView = inflater.inflate(R.layout.consultar_solicitud, container, false);
-        controller = DBController.getDBController(getActivity());
 
         controller = DBController.getDBController(getActivity());
 
         listaSolicitudes = new ArrayList<Solicitud>();
 
-        recyclerViewSolicitudes = (RecyclerView) myView.findViewById(R.id.recyclerReservas);
+        recyclerViewSolicitudes = myView.findViewById(R.id.recyclerReservas);
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         consultarListaReservas();
@@ -52,7 +51,9 @@ public class ConsultarSolicitud extends Fragment {
     {
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());
-        for( int i = 0; i<solicitudes.size(); i++)
+        for( int i = 0; i<solicitudes.size(); i++) {
+            Log.e("IDSol", ""+solicitudes.get(i).getId());
             listaSolicitudes.add(solicitudes.get(i));
+        }
     }
 }
