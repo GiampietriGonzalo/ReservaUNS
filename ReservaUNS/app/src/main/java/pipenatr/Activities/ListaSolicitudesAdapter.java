@@ -38,14 +38,17 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
     
     public void onBindViewHolder(SolicitudesViewHolder holder, int position) {
-        holder.id.setText(""+listaSolicitud.get(position).getId());
-        holder.fecha.setText(listaSolicitud.get(position).getFecha());
 
-        Horario horario = controller.findHorario(listaSolicitud.get(position).getIdHorario());
+        Solicitud miSolicitud=listaSolicitud.get(position);
+
+        holder.id.setText(""+miSolicitud.getId());
+        holder.fecha.setText(miSolicitud.getFecha());
+        Horario horario = controller.findHorario(miSolicitud.getIdHorario());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
-        EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
-        //holder.estado.setText(estado.getEstado());
+        EstadoSolicitud estado = controller.findEstadoSolicitud(miSolicitud.getIdEstado());
+        if(estado!=null)
+            holder.estado.setText(estado.getEstado());
     }
 
     

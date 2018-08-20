@@ -318,5 +318,6 @@ public class FormularioReserva extends Fragment {
         controller.insertSolicitudActiva(estadoSolicitud);
         controller.insertHorario(horarioReserva);
         controller.insertReserva(reservaAula);
+
     }
 }
