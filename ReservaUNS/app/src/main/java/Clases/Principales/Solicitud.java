@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import java.util.LinkedList;
+
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaSolicitudes;
 import Clases.Estados.EstadoSolicitud;
@@ -13,16 +15,16 @@ public abstract class Solicitud {
     protected int id;
     protected int idEstado;
     protected int idAutor;
-    protected int idHorario;
+    protected LinkedList<Integer> horarios;
     protected String fecha;
     protected String descripcion;
     protected int capacidadEstimada;
 
-    public Solicitud(int id,int idEstado,int idAutor, int idHorario, String fecha, String descripcion, int capacidadEstimada){
+    public Solicitud(int id,int idEstado,int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada){
 
         this.idEstado=idEstado;
         this.idAutor=idAutor;
-        this.idHorario=idHorario;
+        this.horarios=horarios;
         this.fecha=fecha;
         this.descripcion=descripcion;
         this.capacidadEstimada=capacidadEstimada;
@@ -68,8 +70,8 @@ public abstract class Solicitud {
         this.id = id;
     }
 
-    public int getIdHorario() {
-        return idHorario;
+    public LinkedList<Integer> getHorarios() {
+        return horarios;
     }
 
     public int getIdEstado() {
@@ -88,8 +90,8 @@ public abstract class Solicitud {
         this.idEstado = idEstado;
     }
 
-    public void setIdHorario(int idHorario) {
-        this.idHorario = idHorario;
+    public void setIdHorario(LinkedList<Integer> horarios) {
+        this.horarios = horarios;
     }
 
     public void setCapacidadEstimada(int capacidadEstimada) {

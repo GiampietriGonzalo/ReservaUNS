@@ -10,6 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import Clases.DataBases.DBController;
@@ -23,6 +26,7 @@ public class ConsultarSolicitud extends Fragment {
     RecyclerView recyclerViewSolicitudes;
     DBController controller;
     Usuario usuario;
+    Button boton;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -38,6 +42,16 @@ public class ConsultarSolicitud extends Fragment {
         ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity());
         recyclerViewSolicitudes.setAdapter(adapter);
 
+        boton = getActivity().findViewById(R.id.btnCancelar);
+        boton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                TextView idSolicitud = getActivity().findViewById(R.id.txtIdItemList);
+                Solicitud solicitud = controller.findSolicitud(Integer.parseInt(idSolicitud.getText().toString()));
+                //Cancelar solicitud
+            }
+        });
+
         return myView;
     }
 
@@ -46,9 +60,7 @@ public class ConsultarSolicitud extends Fragment {
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());
 
-        for( int i = 0; i<solicitudes.size(); i++) {
-            Log.e("IDSol", ""+solicitudes.get(i).getId());
+        for( int i = 0; i<solicitudes.size(); i++)
                 listaSolicitudes.add(solicitudes.get(i));
-        }
     }
 }

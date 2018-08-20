@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import java.util.LinkedList;
+
 import Clases.DataBases.DBController;
 
 /**
@@ -8,8 +10,8 @@ import Clases.DataBases.DBController;
 
 public class SolicitudReserva extends Solicitud{
 
-    public SolicitudReserva(int id,int idEstado,int idAutor, int idHorario, String fecha, String descripcion, int capacidadEstimada) {
-        super(id,idEstado,idAutor,idHorario,fecha,descripcion,capacidadEstimada);
+    public SolicitudReserva(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada) {
+        super(id,idEstado,idAutor,horarios,fecha,descripcion,capacidadEstimada);
     }
 
 

@@ -43,7 +43,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         holder.id.setText(""+miSolicitud.getId());
         holder.fecha.setText(miSolicitud.getFecha());
-        Horario horario = controller.findHorario(miSolicitud.getIdHorario());
+        Horario horario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
         EstadoSolicitud estado = controller.findEstadoSolicitud(miSolicitud.getIdEstado());

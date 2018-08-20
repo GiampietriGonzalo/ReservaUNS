@@ -1,5 +1,7 @@
 package Clases.Principales;
 
+import java.util.LinkedList;
+
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaSolicitudes;
 
@@ -9,8 +11,8 @@ import Clases.DataBases.TablaSolicitudes;
 
 public class SolicitudAsignacion extends Solicitud {
 
-    public SolicitudAsignacion(int id,int idEstado,int idAutor, int idHorario, String fecha, String descripcion, int capacidadEstimada) {
-        super(id,idEstado,idAutor,idHorario,fecha,descripcion,capacidadEstimada);
+    public SolicitudAsignacion(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada) {
+        super(id,idEstado,idAutor,horarios,fecha,descripcion,capacidadEstimada);
     }
 
     public boolean guardarSolicitud(){

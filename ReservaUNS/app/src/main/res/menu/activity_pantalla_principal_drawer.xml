@@ -14,10 +14,6 @@
             android:id="@+id/nav_consultar_solicitud"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Consultar solicitud" />
-        <item
-            android:id="@+id/nav_modificar_prestamo"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Modificar prestamo" />
     </group>
 
     <group

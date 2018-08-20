@@ -269,22 +269,19 @@ public class FormularioReserva extends Fragment {
 
             //Si el espacio no tiene reservas asignadas se guarda en la lista, caso contrario, se verifica que ninguna coincida con la fecha y horario introducidos por el usuario
             if(!listaHorarios.isEmpty()) {
-                for( int k = 0; k<listaHorarios.size(); k++) {
+                encontre = false;
+                for( int k = 0; k<listaHorarios.size() && !encontre; k++) {
                     horario = listaHorarios.get(k);
-                    encontre = false;
                     for(int j = 0; j<horario.getDiasSemana().size(); j++) {
                         if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
-                            if (horario.getHoraFin() <= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() >= Integer.parseInt(horaFin.replace(":",""))) {
-                                toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
-                                listaEspacios.addLast(listaEspaciosAux.get(i));
-                            }
-                            encontre = true;
+                            if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
+                                encontre = true;
                         }
                     }
-                    if(!encontre){
-                        toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
-                        listaEspacios.addLast(listaEspaciosAux.get(i));
-                    }
+                }
+                if(!encontre){
+                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                    listaEspacios.addLast(listaEspaciosAux.get(i));
                 }
             }
             else {
@@ -296,6 +293,7 @@ public class FormularioReserva extends Fragment {
 
     private void enviarSolicitud(int position)
     {
+        LinkedList<Integer> idHorarios = new LinkedList<>();
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
 
@@ -307,12 +305,15 @@ public class FormularioReserva extends Fragment {
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
-        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), horarioReserva.getId(), fecha, "descripcion", Integer.parseInt(capacidad));
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, "descripcion", Integer.parseInt(capacidad));
         Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, horarioReserva.getId(), espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
 
         estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
         reservaAula.setIdHorario(horarioReserva.getId());
         horarioReserva.setIdPrestamo(reservaAula.getId());
+
+        idHorarios.addLast(horarioReserva.getId());
+        nuevaSolicitud.setIdHorario(idHorarios);
 
         controller.insertSolicitudReserva(nuevaSolicitud);
         controller.insertSolicitudActiva(estadoSolicitud);

@@ -115,14 +115,13 @@
 
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imageFlecha"
-        android:layout_width="30dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_menu_send"
-        android:layout_alignBottom="@+id/linearLayout"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"/>
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/btnCancelar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="24dp"
+        android:padding="12dp"
+        android:text="Cancelar"/>
 
 </RelativeLayout>
