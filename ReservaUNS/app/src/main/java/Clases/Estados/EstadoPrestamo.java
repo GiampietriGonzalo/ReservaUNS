@@ -14,12 +14,14 @@ public abstract class EstadoPrestamo {
 
 
     public EstadoPrestamo(int id, int idPrestamo){
-        this.id=id;
+
         this.idPrestamo=idPrestamo;
         TablaEstadosPrestamos.getNextID(DBController.getDB());
 
         if(this.id==9999)
             this.id= TablaEstadosPrestamos.getNextID(DBController.getDB());
+        else
+            this.id=id;
     }
 
     abstract public boolean guardarEstado();

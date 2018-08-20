@@ -42,10 +42,10 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         holder.fecha.setText(listaSolicitud.get(position).getFecha());
 
         Horario horario = controller.findHorario(listaSolicitud.get(position).getIdHorario());
-        holder.horario.setText(""+horario.getHoraInicio());
-
+        holder.horarioIncio.setText(horario.horaInicioConFormato());
+        holder.horarioFin.setText(horario.horaFinConFormato());
         EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
-//        holder.estado.setText(estado.getEstado());
+        //holder.estado.setText(estado.getEstado());
     }
 
     
@@ -55,13 +55,14 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
     public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, fecha, horario, estado;
+        TextView id, fecha, horarioIncio, horarioFin,estado;
 
         public SolicitudesViewHolder(View itemView) {
             super(itemView);
             id = (TextView) itemView.findViewById(R.id.txtIdItemList);
             fecha = (TextView) itemView.findViewById(R.id.txtFechaItemList);
-            horario = (TextView) itemView.findViewById(R.id.txtHorarioItemList);
+            horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemList);
+            horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemList);
             estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
         }
     }

@@ -63,8 +63,8 @@ public class TablaEstadosPrestamos implements Tabla {
 
 
     public static int getNextID(SQLiteDatabase db){
-        int toReturn=0;
 
+        int toReturn=0;
         Cursor cursor=db.query("EstadosPrestamos",columns, null ,null,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {

@@ -3,6 +3,7 @@ package Clases.Principales;
 import android.os.NetworkOnMainThreadException;
 
 import Clases.DataBases.DBController;
+import Clases.DataBases.TablaEspacios;
 
 public abstract class Espacio
 {
@@ -14,12 +15,18 @@ public abstract class Espacio
     protected String cuerpo;
 
     public Espacio(int id, String nombre, int capacidad, int idEdificio, int piso, String cuerpo) {
-        this.id = id;
+
         this.nombre= nombre;
         this.capacidad = capacidad;
         this.idEdificio = idEdificio;
         this.piso=piso;
         this.cuerpo=cuerpo;
+
+        if(id==9999)
+            this.id= TablaEspacios.getNextID(DBController.getDB());
+        else
+            this.id=id;
+
     }
 
     public int getID()

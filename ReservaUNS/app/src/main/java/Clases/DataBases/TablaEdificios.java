@@ -3,6 +3,7 @@ package Clases.DataBases;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.security.PublicKey;
 import java.util.LinkedList;
@@ -113,6 +114,17 @@ public class TablaEdificios implements Tabla {
 
     }
 
+    public static int getNextID(SQLiteDatabase db){
+
+        int nextID=0;
+        Cursor cursor=db.query("Edificios",columns,null,null,null,null,null);
+
+        while (!cursor.isClosed() && cursor.moveToNext())
+            nextID++;
+
+
+        return nextID;
+    }
 
     private static class Columns implements BaseColumns {
 

@@ -113,7 +113,6 @@ public class TablaHorarios implements Tabla {
         while (!cursor.isClosed() && cursor.moveToNext())
             nextID++;
 
-
         return nextID;
     }
 

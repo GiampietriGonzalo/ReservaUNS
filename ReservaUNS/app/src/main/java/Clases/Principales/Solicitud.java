@@ -28,7 +28,7 @@ public abstract class Solicitud {
         this.capacidadEstimada=capacidadEstimada;
 
         if(id==9999)
-            id=TablaSolicitudes.getNextID(DBController.getDB());
+            this.id=TablaSolicitudes.getNextID(DBController.getDB());
         else
             this.id=id;
 

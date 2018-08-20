@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.DataBases.TablaEdificios;
 
 public abstract class Edificio {
     protected int id;
@@ -13,14 +14,20 @@ public abstract class Edificio {
     protected int idEncargado;
     protected LinkedList<Integer> espacios;
 
-    public Edificio(int id, String nombre, String direccion, String telefono, int idEncargado)
-    {
-        this.id = id;
+    public Edificio(int id, String nombre, String direccion, String telefono, int idEncargado){
+
         this.nombre = nombre;
         this.direccion = direccion; this.telefono = telefono;
         this.idEncargado = idEncargado;
         espacios = new LinkedList<Integer>();
+
+        if(id==9999)
+            this.id= TablaEdificios.getNextID(DBController.getDB());
+        else
+            this.id=id;
     }
+
+
 
     public Edificio(int id, String nombre)
     {

@@ -128,12 +128,12 @@ public class TablaUsuarios implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
+
         int nextID=0;
         Cursor cursor=db.query("Usuarios",columns,null,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext())
             nextID++;
-
 
         return nextID;
     }

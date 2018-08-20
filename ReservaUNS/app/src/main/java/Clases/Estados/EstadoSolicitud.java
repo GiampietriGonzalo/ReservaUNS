@@ -18,7 +18,7 @@ public abstract class EstadoSolicitud {
         this.idSolicitud=idSolicitud;
 
         if(id==9999)
-            id= TablaEstadosSolicitud.getNextID(DBController.getDB());
+            this.id= TablaEstadosSolicitud.getNextID(DBController.getDB());
         else
             this.id=id;
 

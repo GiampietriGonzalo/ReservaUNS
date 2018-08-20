@@ -2,6 +2,7 @@ package pipenatr.Activities;
 
 import android.app.Fragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -110,6 +111,9 @@ public class FormularioReserva extends Fragment {
                             Toast.makeText(getActivity(), "Su solicitud fue enviada para revisión", Toast.LENGTH_LONG).show();
                             getFragmentManager().popBackStack();
                             getFragmentManager().beginTransaction().commit();
+                            Intent intent = new Intent(myView.getContext(), PantallaPrincipal.class);
+                            getActivity().finish();
+                            startActivity(intent);
                         }
                     });
                     alerta.setNegativeButton("Cancelar", null);
@@ -302,9 +306,9 @@ public class FormularioReserva extends Fragment {
                 espacioSeleccionado = listaEspacios.get(i);
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
-        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, 9999, espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
         SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), horarioReserva.getId(), fecha, "descripcion", Integer.parseInt(capacidad));
+        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, horarioReserva.getId(), espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
 
         estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
         reservaAula.setIdHorario(horarioReserva.getId());

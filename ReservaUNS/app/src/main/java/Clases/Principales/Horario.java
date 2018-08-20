@@ -18,7 +18,8 @@ public class Horario {
     protected LinkedList<String> diasSemana;
 
     public Horario(int id, int horaInicio, int horaFin, int idPrestamo, LinkedList<String> diasSemana){
-        this.id=id;
+
+
         this.horaInicio=horaInicio;
         this.horaFin=horaFin;
         this.idPrestamo=idPrestamo;
@@ -26,12 +27,11 @@ public class Horario {
 
         if(this.id==9999)
             this.id= TablaHorarios.getNextID(DBController.getDB());
+        else
+            this.id=id;
 
     }
 
-    public boolean guardarHorario(){
-        return TablaHorarios.insertHorario(this,DBController.getDB());
-    }
 
     public int getId() {
         return id;
@@ -71,5 +71,28 @@ public class Horario {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String horaInicioConFormato(){
+
+        String toReturn;
+        if(horaInicio%100==0)
+            toReturn=horaInicio/100+":00";
+        else
+            toReturn=horaInicio/100+":"+horaInicio%100;
+
+        return toReturn;
+    }
+
+    public String horaFinConFormato(){
+
+        String toReturn;
+
+        if(horaFin%100==0)
+            toReturn=horaFin/100+":00";
+        else
+            toReturn=horaFin/100+":"+horaFin%100;
+
+        return toReturn;
     }
 }

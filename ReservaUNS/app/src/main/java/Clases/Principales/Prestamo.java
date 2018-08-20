@@ -21,13 +21,15 @@ public abstract class Prestamo {
     protected int idHorario;
 
     public Prestamo(int id, String descripcion, String fecha, int idEspacio,int idHorario){
-        this.id=id;
+
         this.descripcion=descripcion;
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;
 
         if(id==9999)
-            id = TablaPrestamos.getNextID(DBController.getDB());
+            this.id = TablaPrestamos.getNextID(DBController.getDB());
+        else
+            this.id=id;
     }
 
      abstract public  boolean guardarPrestamo();

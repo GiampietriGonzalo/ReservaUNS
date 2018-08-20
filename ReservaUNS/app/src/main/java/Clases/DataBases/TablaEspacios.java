@@ -198,7 +198,15 @@ public class TablaEspacios implements Tabla {
 
     }
 
+    public static int getNextID(SQLiteDatabase db){
+        int nextID=0;
+        Cursor cursor=db.query("Espacios",columns,null,null,null,null,null);
 
+        while (!cursor.isClosed() && cursor.moveToNext())
+            nextID++;
+
+        return nextID;
+    }
 
 
     private static class Columns implements BaseColumns {

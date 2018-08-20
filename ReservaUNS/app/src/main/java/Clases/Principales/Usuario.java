@@ -22,9 +22,10 @@ public abstract class Usuario {
     public Usuario(int id, String password, int legajo,String nombre, String apellido,String mail,String telefono){
 
         if(id==9999)
-            id= TablaUsuarios.getNextID(DBController.getDB());
+            this.id= TablaUsuarios.getNextID(DBController.getDB());
         else
             this.id=id;
+
         this.mail=mail;
         this.telefono=telefono;
         this.nombre=nombre;

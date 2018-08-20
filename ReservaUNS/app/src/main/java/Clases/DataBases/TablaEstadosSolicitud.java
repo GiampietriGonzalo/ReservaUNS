@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import Clases.Estados.EstadoSolicitud;
 import Clases.Estados.SolicitudAceptada;
@@ -93,16 +94,15 @@ public class TablaEstadosSolicitud implements Tabla {
         return db.insert("EstadosSolicitudes",null,values) > 0;
     }
 
-
-
-
     public static int getNextID(SQLiteDatabase db){
+
         int nextID=0;
         Cursor cursor=db.query("EstadosSolicitudes",columns,null,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext())
             nextID++;
 
+        Log.e("E7","IdRetornado: "+nextID);
         return nextID;
     }
 

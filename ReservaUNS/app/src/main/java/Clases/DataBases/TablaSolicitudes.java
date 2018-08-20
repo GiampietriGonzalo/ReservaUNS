@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import java.net.ConnectException;
 import java.util.LinkedList;
@@ -150,6 +151,7 @@ public class TablaSolicitudes implements Tabla {
             nextID++;
 
 
+        Log.e("E7","IdRetornado: "+nextID);
         return nextID;
     }
 

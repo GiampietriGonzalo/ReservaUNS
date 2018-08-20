@@ -155,12 +155,12 @@ public class TablaPrestamos implements Tabla {
 
 
     public static int getNextID(SQLiteDatabase db){
+
         int nextID=0;
         Cursor cursor=db.query("Prestamos",columns,null,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext())
             nextID++;
-
 
         return nextID;
     }
