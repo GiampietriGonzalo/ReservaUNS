@@ -26,7 +26,7 @@ public class ConsultarSolicitud extends Fragment {
     RecyclerView recyclerViewSolicitudes;
     DBController controller;
     Usuario usuario;
-    Button boton;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -37,21 +37,19 @@ public class ConsultarSolicitud extends Fragment {
         recyclerViewSolicitudes = myView.findViewById(R.id.recyclerReservas);
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        consultarListaReservas();
 
         ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity());
         recyclerViewSolicitudes.setAdapter(adapter);
 
-        boton = getActivity().findViewById(R.id.btnCancelar);
-        boton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView idSolicitud = getActivity().findViewById(R.id.txtIdItemList);
-                Solicitud solicitud = controller.findSolicitud(Integer.parseInt(idSolicitud.getText().toString()));
-                //Cancelar solicitud
-            }
-        });
 
+        Button botonCancelar = (Button) myView.findViewById(R.id.btnCancelar);
+        /**
+         * TODO: EXPLOTA ACÁ.
+         * TODO: CREO QUE ES PORQUE EL BOTON NO SE TERMINO DE CREAR EN EL
+        botonCancelar.setOnClickListener(new OyenteBotonCancelar());
+        */
+
+        consultarListaReservas();
         return myView;
     }
 
@@ -62,5 +60,14 @@ public class ConsultarSolicitud extends Fragment {
 
         for( int i = 0; i<solicitudes.size(); i++)
                 listaSolicitudes.add(solicitudes.get(i));
+    }
+
+    private class OyenteBotonCancelar implements View.OnClickListener{
+
+        public void onClick(View view) {
+            TextView idSolicitud = getActivity().findViewById(R.id.txtIdItemList);
+            Solicitud solicitud = controller.findSolicitud(Integer.parseInt(idSolicitud.getText().toString()));
+            //Cancelar solicitud
+        }
     }
 }

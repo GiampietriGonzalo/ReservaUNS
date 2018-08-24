@@ -20,7 +20,6 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
     TextView inputNombre, inputApellido, inputLegajo, inputTelefono, inputEmail, inputContraseña, inputVerificarContraseña;
     DBController controller;
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_registro_usuario);
@@ -35,7 +34,7 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
 
         Button btnRegistrarse = (Button) findViewById(R.id.btnRegistrarse);
         btnRegistrarse.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
                 registrarUsuario(view);
             }

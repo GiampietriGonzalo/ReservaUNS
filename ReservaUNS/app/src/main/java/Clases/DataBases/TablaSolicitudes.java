@@ -6,7 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.util.Log;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.net.ConnectException;
+import java.util.Iterator;
 import java.util.LinkedList;
 
 import Clases.Principales.Solicitud;
@@ -15,31 +19,47 @@ import Clases.Principales.SolicitudReserva;
 
 public class TablaSolicitudes implements Tabla {
 
-    private static final String[] columns={Columns.Id, Columns.IdEstado , Columns.IdAutor, Columns.IdHorario, Columns.Fecha, Columns.Descripcion, Columns.CapacidadEstimada,Columns.Tipo};
+    private static final String[] columns={Columns.Id, Columns.IdEstado , Columns.IdAutor, Columns.IdHorarios, Columns.Fecha, Columns.Descripcion, Columns.CapacidadEstimada,Columns.Tipo};
 
 
     public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario, SQLiteDatabase db){
 
         LinkedList<Solicitud> solicitudes=new LinkedList<Solicitud>();
+        JSONObject jsonIdHorarios;
+        LinkedList<Integer> idHorarios;
 
         Cursor cursor=db.query("Solicitudes",columns,Columns.IdAutor +" = '"+idUsuario+"'",null,null,null,null);
 
-        while(!cursor.isClosed() && cursor.moveToNext()){
+        try {
+            while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(7)){
+                jsonIdHorarios = new JSONObject(cursor.getString(3));
+                idHorarios = new LinkedList<Integer>();
+                Iterator<String> iteratorJsonHorarios = jsonIdHorarios.keys();
 
-                case "SolicitudReserva":{
-                    solicitudes.addLast(new SolicitudReserva (cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
-                    break;
+                while (iteratorJsonHorarios.hasNext()) {
+                    idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                case "SolicitudAsignacion":{
-                    solicitudes.addLast(new SolicitudAsignacion (cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6)));
-                    break;
-                }
+                switch (cursor.getString(7)) {
 
-            } //Fin switch
-        } //Fin while
+                    case "SolicitudReserva": {
+                        solicitudes.addLast(new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6)));
+                        break;
+                    }
+
+                    case "SolicitudAsignacion": {
+                        solicitudes.addLast(new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6)));
+                        break;
+                    }
+
+                } //Fin switch
+            } //Fin while
+        }
+        catch (JSONException e){
+            Log.e("E7","Error en JsonObject de idHorarios en findSolicitudesUsuario");
+            e.printStackTrace();
+        }
 
         return solicitudes;
 
@@ -48,24 +68,40 @@ public class TablaSolicitudes implements Tabla {
     public static Solicitud findSolicitud(int idSolicitud,SQLiteDatabase db){
 
         Solicitud toReturn=null;
+        JSONObject jsonIdHorarios;
+        LinkedList<Integer> idHorarios;
 
         Cursor cursor=db.query("Solicitudes",columns,Columns.Id +" = '"+idSolicitud+"'",null,null,null,null);
 
-        while(!cursor.isClosed() && cursor.moveToNext()){
+        try {
+            while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(7)){
+                jsonIdHorarios = new JSONObject(cursor.getString(3));
+                idHorarios = new LinkedList<Integer>();
+                Iterator<String> iteratorJsonHorarios = jsonIdHorarios.keys();
 
-                case "SolicitudReserva":{
-                    toReturn= new SolicitudReserva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
-                    break;
+                while (iteratorJsonHorarios.hasNext()) {
+                    idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                case "SolicitudAsignacion":{
-                    toReturn= new SolicitudAsignacion(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
-                    break;
-                }
+                switch (cursor.getString(7)) {
 
-            }//Fin switch
+                    case "SolicitudReserva": {
+                        toReturn = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+                        break;
+                    }
+
+                    case "SolicitudAsignacion": {
+                        toReturn = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+                        break;
+                    }
+
+                }//Fin switch
+            }
+        }
+        catch (JSONException e){
+            Log.e("E7","Error en JsonObject de idHorarios en findSolicitud");
+            e.printStackTrace();
         }
 
         return toReturn;
@@ -87,26 +123,44 @@ public class TablaSolicitudes implements Tabla {
 
         LinkedList<Solicitud> solicitudes= new LinkedList<Solicitud>();
         Solicitud aux=null;
+        JSONObject jsonIdHorarios;
+        LinkedList<Integer> idHorarios;
 
         Cursor cursor=db.query("Solicitudes",columns,null,null,null,null,null);
 
-        while (!cursor.isClosed() && cursor.moveToNext()){
+        try {
 
-            switch (cursor.getString(7)){
+            while (!cursor.isClosed() && cursor.moveToNext()) {
 
-                case "Reserva":{
-                    aux=new SolicitudReserva(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
-                    break;
+                jsonIdHorarios = new JSONObject(cursor.getString(3));
+                idHorarios= new LinkedList<Integer>();
+                Iterator<String> iteratorJsonHorarios=jsonIdHorarios.keys();
+
+                while(iteratorJsonHorarios.hasNext()) {
+                    idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                case "Asignacion":{
-                    aux=new SolicitudAsignacion(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getInt(6));
+                switch (cursor.getString(7)) {
+
+                    case "Reserva": {
+                        aux = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+                        break;
+                    }
+
+                    case "Asignacion": {
+                        aux = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getString(5), cursor.getInt(6));
+
+                    }
 
                 }
-
+                solicitudes.addLast(aux);
             }
-            solicitudes.addLast(aux);
         }
+        catch (JSONException e){
+            Log.e("E7","Error en JsonObject de idHorarios en getSolicitudes");
+            e.printStackTrace();
+        }
+
 
         return  solicitudes;
 
@@ -115,30 +169,63 @@ public class TablaSolicitudes implements Tabla {
 
     public static boolean insertSolicitudReserva(Solicitud solicitud, SQLiteDatabase db){
 
+        JSONObject idHorarios= new JSONObject();
+        int i=0;
         ContentValues values= new ContentValues();
-        values.put("Id",solicitud.getId());
-        values.put("IdEstado",solicitud.getIdEstado());
-        values.put("IdAutor",solicitud.getIdAutor());
-        values.put("IdHorario",solicitud.getIdHorario());
-        values.put("Fecha",solicitud.getFecha());
-        values.put("Descripcion",solicitud.getDescripcion());
-        values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
-        values.put("Tipo","SolicitudReserva");
+
+        try {
+
+            for (int idHorario : solicitud.getHorarios()) {
+                idHorarios.put("" + i, idHorario);
+                i++;
+            }
+
+            values.put("Id",solicitud.getId());
+            values.put("IdEstado",solicitud.getIdEstado());
+            values.put("IdAutor",solicitud.getIdAutor());
+            values.put("IdHorarios",idHorarios.toString());
+            values.put("Fecha",solicitud.getFecha());
+            values.put("Descripcion",solicitud.getDescripcion());
+            values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
+            values.put("Tipo","SolicitudReserva");
+
+        }
+        catch (JSONException e){
+            Log.e("E7","Error en JsonObject de idHorarios en insertSoliciudReserva");
+            e.printStackTrace();
+        }
+
+
 
         return db.insert("Solicitudes",null,values) >0 ;
     }
 
     public static boolean insertSolicitudAsignacion(Solicitud solicitud, SQLiteDatabase db){
 
+        JSONObject idHorarios= new JSONObject();
+        int i=0;
         ContentValues values= new ContentValues();
-        values.put("Id",solicitud.getId());
-        values.put("IdEstado",solicitud.getIdEstado());
-        values.put("IdAutor",solicitud.getIdAutor());
-        values.put("IdHorario",solicitud.getIdHorario());
-        values.put("Fecha",solicitud.getFecha());
-        values.put("Descripcion",solicitud.getDescripcion());
-        values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
-        values.put("Tipo","SolicitudAsignacion");
+
+        try {
+
+            for (int idHorario : solicitud.getHorarios()) {
+                idHorarios.put("" + i, idHorario);
+                i++;
+            }
+
+            values.put("Id",solicitud.getId());
+            values.put("IdEstado",solicitud.getIdEstado());
+            values.put("IdAutor",solicitud.getIdAutor());
+            values.put("IdHorarios",idHorarios.toString());
+            values.put("Fecha",solicitud.getFecha());
+            values.put("Descripcion",solicitud.getDescripcion());
+            values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
+            values.put("Tipo","SolicitudAsignacion");
+        }
+        catch (JSONException e){
+            Log.e("E7","Error en JsonObject de idHorarios en insertSoliciudAsignacion");
+            e.printStackTrace();
+        }
 
         return db.insert("Solicitudes",null,values) >0 ;
     }
@@ -160,7 +247,7 @@ public class TablaSolicitudes implements Tabla {
         public static final String Id= "Id";
         public static final String IdEstado = "IdEstado";
         public static final String IdAutor = "IdAutor";
-        public static final String IdHorario = "IdHorario";
+        public static final String IdHorarios = "IdHorarios";
         public static final String Fecha = "Fecha";
         public static final String Descripcion = "Descripcion";
         public static final String CapacidadEstimada = "CapacidadEstimada";

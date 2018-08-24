@@ -1,3 +1,5 @@
+PRESTAMO = RESERVA Y ASIGNACION
+
 Público
 
 	Consultar horarios de profesor (Minima)
