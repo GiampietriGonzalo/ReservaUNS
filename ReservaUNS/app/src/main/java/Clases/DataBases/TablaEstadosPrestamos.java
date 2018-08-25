@@ -74,6 +74,18 @@ public class TablaEstadosPrestamos implements Tabla {
         return toReturn;
     }
 
+    public static boolean EliminarEstadoPrestamo(int idEstadoPrestamo,SQLiteDatabase db){
+
+        boolean exito=false;
+
+        Cursor cursor=db.query("EstadosPrestamos",columns,Columns.Id +" = '"+idEstadoPrestamo+"'",null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            exito= db.delete("EstadosPrestamos",Columns.Id + " = ?",new String[]{""+idEstadoPrestamo}) > 0;}
+
+        return exito;
+    }
+
     private class Columns implements BaseColumns {
 
         public static final String Id= "Id";

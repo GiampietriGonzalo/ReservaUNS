@@ -95,6 +95,19 @@ public class TablaEstadosSolicitud implements Tabla {
         return db.insert("EstadosSolicitudes",null,values) > 0;
     }
 
+
+    public static boolean EliminarEstadoSolicitud(int idEstadoSolicitud,SQLiteDatabase db){
+
+        boolean exito=false;
+
+        Cursor cursor=db.query("EstadosSolicitudes",columns,Columns.Id +" = '"+idEstadoSolicitud+"'",null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            exito= db.delete("EstadosSolicitudes",Columns.Id + " = ?",new String[]{""+idEstadoSolicitud}) > 0;}
+
+        return exito;
+    }
+
     public static int getNextID(SQLiteDatabase db){
 
         int nextID=0;

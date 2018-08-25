@@ -1,18 +1,11 @@
 package Clases.DataBases;
 
 import android.content.Context;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.LinkedList;
 
 import Clases.Estados.EstadoPrestamo;
@@ -143,7 +136,7 @@ public class DBController {
      * @return True si se ha eliminado el prestamo indicado, false en caso contrario
      * */
     public static boolean cancelarPrestamo(int idPrestamo){
-        return TablaPrestamos.cancelarPrestamo(idPrestamo, sqlDBW);
+        return TablaPrestamos.eliminarPrestamo(idPrestamo, sqlDBW);
     }
 
     public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario){

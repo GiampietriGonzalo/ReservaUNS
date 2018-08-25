@@ -52,7 +52,7 @@ public class TablaPrestamos implements Tabla {
         return db.insert("Prestamos",null,values)>0;
     }
 
-    public static boolean cancelarPrestamo(int idPrestamo,SQLiteDatabase db){
+    public static boolean eliminarPrestamo(int idPrestamo, SQLiteDatabase db){
 
         boolean exito=false;
 

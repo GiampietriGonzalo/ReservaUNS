@@ -116,6 +116,18 @@ public class TablaHorarios implements Tabla {
         return nextID;
     }
 
+    public static boolean eliminarHorario(int idHorario,SQLiteDatabase db){
+
+        boolean exito=false;
+
+        Cursor cursor=db.query("Horarios",columns,Columns.Id +" = '"+idHorario+"'",null,null,null,null);
+
+        if (cursor.moveToFirst()){
+            exito= db.delete("Horarios",Columns.Id + " = ?",new String[]{""+idHorario}) > 0;}
+
+        return exito;
+    }
+
 
     private class Columns implements BaseColumns {
 
