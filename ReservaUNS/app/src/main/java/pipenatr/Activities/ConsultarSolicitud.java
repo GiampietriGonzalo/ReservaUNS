@@ -31,7 +31,6 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
     ListaSolicitudesAdapter adapter;
     DBController controller;
     Usuario usuario;
-    int position;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,35 +42,8 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
         recyclerViewSolicitudes = myView.findViewById(R.id.recyclerReservas);
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-
         adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity(), this);
         recyclerViewSolicitudes.setAdapter(adapter);
-
-        View view = inflater.inflate(R.layout.list_item_solicitudes, container, false);
-
-        Button botonCancelar = (Button) view.findViewById(R.id.btnCancelarSolicitud);
-        botonCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Muestra mensaje para confirmar la cancelacion de la solicitud
-                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
-                alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(cancelarSolicitud())
-                            Toast.makeText(getActivity(), "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
-                        else
-                            Toast.makeText(getActivity(), "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
-                    }
-                });
-                alerta.setNegativeButton("Cancelar", null);
-                alerta.setMessage("¿desea cancelar la solicitud?");
-                alerta.setTitle("Cancelar solicitud");
-                alerta.setCancelable(true);
-                alerta.create().show();
-            }
-        });
-        botonCancelar.setText("ke wea");
 
         consultarListaReservas();
         return myView;
@@ -86,12 +58,7 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
                 listaSolicitudes.add(solicitudes.get(i));
     }
 
-    private boolean cancelarSolicitud(){
-        int id = adapter.getSelectedItemId(position);
-        return controller.cancelarSolicitud(id);
-    }
-
-    public void recyclerViewListClicked(View v, int position) {
-        this.position = position;
+    public boolean recyclerViewListClicked(int position) {
+        return controller.cancelarSolicitud(adapter.getSelectedItemId(position));
     }
 }

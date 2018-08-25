@@ -1,8 +1,6 @@
 package pipenatr.Activities;
 
-import android.view.View;
-
 public interface RecyclerViewClickListener {
 
-    public void recyclerViewListClicked(View v, int position);
+    public boolean recyclerViewListClicked(int position);
 }
