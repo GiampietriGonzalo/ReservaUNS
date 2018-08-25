@@ -3,7 +3,6 @@ package pipenatr.Activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,10 +23,12 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
     DBController controller;
     ArrayList<Solicitud> listaSolicitud;
+    RecyclerViewClickListener listener;
 
-    public ListaSolicitudesAdapter(ArrayList<Solicitud> listaSolicitud, Context context) {
+    public ListaSolicitudesAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener) {
         this.listaSolicitud = listaSolicitud;
         controller = DBController.getDBController(context);
+        this.listener = listener;
     }
 
     
@@ -51,14 +52,17 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             holder.estado.setText(estado.getEstado());
     }
 
-    
     public int getItemCount() {
         return listaSolicitud.size();
     }
 
+    public int getSelectedItemId(int position) {
+        return listaSolicitud.get(position).getId();
+    }
+
     public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, fecha, horarioIncio, horarioFin,estado;
+        TextView id, fecha, horarioIncio, horarioFin, estado;
 
         public SolicitudesViewHolder(View itemView) {
             super(itemView);
@@ -67,6 +71,10 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemList);
             horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemList);
             estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
+        }
+
+        public void onClick(View view) {
+            listener.recyclerViewListClicked(view, this.getLayoutPosition());
         }
     }
 }

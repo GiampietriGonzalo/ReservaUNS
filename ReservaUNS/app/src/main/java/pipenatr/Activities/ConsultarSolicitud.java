@@ -1,9 +1,12 @@
 package pipenatr.Activities;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -19,13 +23,15 @@ import Clases.DataBases.DBController;
 import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
 
-public class ConsultarSolicitud extends Fragment {
+public class ConsultarSolicitud extends Fragment implements RecyclerViewClickListener {
 
     View myView;
     ArrayList<Solicitud> listaSolicitudes;
     RecyclerView recyclerViewSolicitudes;
+    ListaSolicitudesAdapter adapter;
     DBController controller;
     Usuario usuario;
+    int position;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -38,16 +44,34 @@ public class ConsultarSolicitud extends Fragment {
         recyclerViewSolicitudes.setLayoutManager(new LinearLayoutManager(getActivity()));
 
 
-        ListaSolicitudesAdapter adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity());
+        adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity(), this);
         recyclerViewSolicitudes.setAdapter(adapter);
 
+        View view = inflater.inflate(R.layout.list_item_solicitudes, container, false);
 
-        Button botonCancelar = (Button) myView.findViewById(R.id.btnCancelar);
-        /**
-         * TODO: EXPLOTA ACÁ.
-         * TODO: CREO QUE ES PORQUE EL BOTON NO SE TERMINO DE CREAR EN EL
-        botonCancelar.setOnClickListener(new OyenteBotonCancelar());
-        */
+        Button botonCancelar = (Button) view.findViewById(R.id.btnCancelarSolicitud);
+        botonCancelar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Muestra mensaje para confirmar la cancelacion de la solicitud
+                AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if(cancelarSolicitud())
+                            Toast.makeText(getActivity(), "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
+                        else
+                            Toast.makeText(getActivity(), "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
+                    }
+                });
+                alerta.setNegativeButton("Cancelar", null);
+                alerta.setMessage("¿desea cancelar la solicitud?");
+                alerta.setTitle("Cancelar solicitud");
+                alerta.setCancelable(true);
+                alerta.create().show();
+            }
+        });
+        botonCancelar.setText("ke wea");
 
         consultarListaReservas();
         return myView;
@@ -62,12 +86,12 @@ public class ConsultarSolicitud extends Fragment {
                 listaSolicitudes.add(solicitudes.get(i));
     }
 
-    private class OyenteBotonCancelar implements View.OnClickListener{
+    private boolean cancelarSolicitud(){
+        int id = adapter.getSelectedItemId(position);
+        return controller.cancelarSolicitud(id);
+    }
 
-        public void onClick(View view) {
-            TextView idSolicitud = getActivity().findViewById(R.id.txtIdItemList);
-            Solicitud solicitud = controller.findSolicitud(Integer.parseInt(idSolicitud.getText().toString()));
-            //Cancelar solicitud
-        }
+    public void recyclerViewListClicked(View v, int position) {
+        this.position = position;
     }
 }
