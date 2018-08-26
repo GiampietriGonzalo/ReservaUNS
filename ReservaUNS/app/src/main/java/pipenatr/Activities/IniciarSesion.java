@@ -110,12 +110,10 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
         //Verifica si el usuario esta logueado
         if(SaveSharedPreference.getUserId(IniciarSesion.this).length() != 0) {
-            user = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(this)));
+            Intent intent = new Intent(this, PantallaPrincipal.class);
             finish();
-            user.iniciarSesion(IniciarSesion.this);
+            startActivity(intent);
         }
-
-        user = null;
     }
 
     private void populateAutoComplete() {
@@ -351,9 +349,10 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
             showProgress(false);
 
             if (success) {
-                SaveSharedPreference.setUserId(IniciarSesion.this,""+user.getId());
+                SaveSharedPreference.setUserId(getApplicationContext(), ""+user.getId());
+                Intent intent = new Intent(getApplicationContext(), PantallaPrincipal.class);
                 finish();
-                user.iniciarSesion(IniciarSesion.this);
+                startActivity(intent);
             }
             else
                 Toast.makeText(getApplicationContext(), "No se pudo iniciar sesión, verifique sus datos.", Toast.LENGTH_LONG).show();

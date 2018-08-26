@@ -46,6 +46,8 @@ public class PantallaPrincipal extends AppCompatActivity
         ((TextView)  headerView.findViewById(R.id.txtEmailHeader)).setText(user.getMail());
         ((TextView) headerView.findViewById(R.id.txtNombreHeader)).setText(user.getNombre());
 
+        //Hace visibles en el drawer las operaciones especificas del usuario
+        user.actualizarNavView(navigationView);
     }
 
     

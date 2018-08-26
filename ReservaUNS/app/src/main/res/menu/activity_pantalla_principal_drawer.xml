@@ -4,8 +4,9 @@
     tools:showIn="navigation_view">
 
     <group
-        android:id="@+id/grupo1"
-        android:checkableBehavior="single">
+        android:id="@+id/grupoDocente"
+        android:checkableBehavior="single"
+        android:visible="false">
         <item
             android:id="@+id/nav_solicitar_reserva"
             android:icon="@drawable/ic_menu_send"
@@ -17,7 +18,43 @@
     </group>
 
     <group
-        android:id="@+id/grupo2"
+        android:id="@+id/grupoEmpSecretaria"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/consultar_asignaciones"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Consultar asignaciones" />
+        <item
+            android:id="@+id/nav_anular_prestamo"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Anular prestamo" />
+        <item
+            android:id="@+id/nav_evaluar_prestamo"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Evaluar prestamo" />
+        <item
+            android:id="@+id/nav_consultar_prestamos"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Consultar prestamos" />
+    </group>
+
+    <group
+        android:id="@+id/grupoEmpDepartamento"
+        android:checkableBehavior="single"
+        android:visible="false">
+        <item
+            android:id="@+id/nav_administrar_asignaciones"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Administrar asignaciones" />
+        <item
+            android:id="@+id/nav_administrar_docenter"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Administrar docentes" />
+    </group>
+
+    <group
+        android:id="@+id/grupoMisc"
         android:checkableBehavior="single">
         <item
             android:id="@+id/nav_cerrar_sesion"

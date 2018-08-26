@@ -1,8 +1,12 @@
 package Clases.Principales;
 
 import android.content.Context;
+import android.support.design.widget.NavigationView;
+
+import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import pipenatr.Activities.R;
 
 public class EmpleadoSecretaria extends Usuario{
 
@@ -15,8 +19,12 @@ public class EmpleadoSecretaria extends Usuario{
     }
 
     @Override
-    public void iniciarSesion(Context context) {
-
+    public void actualizarNavView(NavigationView navigationView) {
+        navigationView.getMenu().findItem(R.id.grupoEmpSecretaria).setVisible(true);
     }
 
+    @Override
+    public LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes) {
+        return null;
+    }
 }

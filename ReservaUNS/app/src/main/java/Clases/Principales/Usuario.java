@@ -1,6 +1,9 @@
 package Clases.Principales;
 
 import android.content.Context;
+import android.support.design.widget.NavigationView;
+
+import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaUsuarios;
@@ -98,6 +101,8 @@ public abstract class Usuario {
         return nombre;
     }
 
-    public abstract void iniciarSesion(Context context);
+    public abstract void actualizarNavView(NavigationView navigationView);
+
+    public abstract LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes);
 
 }

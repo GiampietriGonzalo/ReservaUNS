@@ -1,9 +1,13 @@
 package Clases.Principales;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.NavigationView;
+
+import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import pipenatr.Activities.PantallaPrincipal;
+import pipenatr.Activities.R;
 
 public class Docente extends Usuario {
 
@@ -16,11 +20,13 @@ public class Docente extends Usuario {
         return DBController.insertDocente(this);
     }
 
-    @Override
-    public void iniciarSesion(Context context)
-    {
-        Intent intent = new Intent(context, PantallaPrincipal.class);
-        context.startActivity(intent);
+    public void actualizarNavView(NavigationView navigationView) {
+        navigationView.getMenu().findItem(R.id.nav_solicitar_reserva).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_consultar_solicitud).setVisible(true);
     }
 
+    @Override
+    public LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes) {
+        return null;
+    }
 }
