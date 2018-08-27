@@ -96,7 +96,7 @@ public class TablaEstadosSolicitud implements Tabla {
     }
 
 
-    public static boolean EliminarEstadoSolicitud(int idEstadoSolicitud,SQLiteDatabase db){
+    public static boolean eliminarEstadoSolicitud(int idEstadoSolicitud,SQLiteDatabase db){
 
         boolean exito=false;
 

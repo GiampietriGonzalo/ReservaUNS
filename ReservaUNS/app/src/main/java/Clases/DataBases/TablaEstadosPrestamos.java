@@ -74,7 +74,7 @@ public class TablaEstadosPrestamos implements Tabla {
         return toReturn;
     }
 
-    public static boolean EliminarEstadoPrestamo(int idEstadoPrestamo,SQLiteDatabase db){
+    public static boolean eliminarEstadoPrestamo(int idEstadoPrestamo,SQLiteDatabase db){
 
         boolean exito=false;
 

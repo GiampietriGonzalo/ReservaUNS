@@ -130,13 +130,24 @@ public class DBController {
     public static boolean cancelarSolicitud(int idSolicitud){
         return TablaSolicitudes.cancelarSolicitud(idSolicitud, sqlDBW);
     }
-
-
+    
     /**
      * @return True si se ha eliminado el prestamo indicado, false en caso contrario
      * */
     public static boolean cancelarPrestamo(int idPrestamo){
         return TablaPrestamos.eliminarPrestamo(idPrestamo, sqlDBW);
+    }
+
+    public static boolean eliminarHorario(int idHorario){
+        return TablaHorarios.eliminarHorario(idHorario,sqlDB);
+    }
+
+    public static boolean eliminarEstadoPrestamo(int idEstadoPrestamo){
+        return TablaEstadosPrestamos.eliminarEstadoPrestamo(idEstadoPrestamo,sqlDB);
+    }
+
+    public static boolean eliminarEstadoSolicitud(int idEstadoSolicitud){
+        return TablaEstadosSolicitud.eliminarEstadoSolicitud(idEstadoSolicitud,sqlDB);
     }
 
     public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario){
