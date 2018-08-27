@@ -305,8 +305,8 @@ public class FormularioReserva extends Fragment {
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
-        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, "descripcion", Integer.parseInt(capacidad));
-        Reserva reservaAula = new Reserva(9999, "Descripcion", fecha, horarioReserva.getId(), espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, espacioSeleccionado.getID(), Integer.parseInt(capacidad));
+        Reserva reservaAula = new Reserva(9999, fecha, horarioReserva.getId(), espacioSeleccionado.getID(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
 
         estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
         reservaAula.setIdHorario(horarioReserva.getId());

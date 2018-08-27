@@ -17,16 +17,16 @@ public abstract class Solicitud {
     protected int idAutor;
     protected LinkedList<Integer> horarios;
     protected String fecha;
-    protected String descripcion;
+    protected int idEspacio ;
     protected int capacidadEstimada;
 
-    public Solicitud(int id,int idEstado,int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada){
+    public Solicitud(int id,int idEstado,int idAutor, LinkedList<Integer> horarios, String fecha, int idEspacio, int capacidadEstimada){
 
         this.idEstado=idEstado;
         this.idAutor=idAutor;
         this.horarios=horarios;
         this.fecha=fecha;
-        this.descripcion=descripcion;
+        this.idEspacio=idEspacio;
         this.capacidadEstimada=capacidadEstimada;
 
         if(id==9999)
@@ -39,8 +39,8 @@ public abstract class Solicitud {
     public abstract boolean guardarSolicitud();
 
 
-    public String getDescripcion() {
-        return descripcion;
+    public int getIdEspacio() {
+        return idEspacio;
     }
 
     public String getFecha() {
@@ -62,8 +62,8 @@ public abstract class Solicitud {
     }
 
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setIdEspacio(String descripcion) {
+        this.idEspacio=idEspacio;
     }
 
     public void setId(int id) {
@@ -98,8 +98,4 @@ public abstract class Solicitud {
         this.capacidadEstimada = capacidadEstimada;
     }
 
-
-    //public void cancelar(){estado.cancelar();}
-    //public void rechazar(){estado.rechazar();}
-    //public void aceptar(){estado.aceptar();}
 }

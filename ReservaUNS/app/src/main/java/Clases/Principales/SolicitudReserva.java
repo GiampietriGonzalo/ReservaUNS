@@ -10,8 +10,8 @@ import Clases.DataBases.DBController;
 
 public class SolicitudReserva extends Solicitud{
 
-    public SolicitudReserva(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada) {
-        super(id,idEstado,idAutor,horarios,fecha,descripcion,capacidadEstimada);
+    public SolicitudReserva(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, int idEspacio, int capacidadEstimada) {
+        super(id,idEstado,idAutor,horarios,fecha,idEspacio,capacidadEstimada);
     }
 
 

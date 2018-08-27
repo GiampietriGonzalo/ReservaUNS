@@ -11,8 +11,8 @@ public class Reserva extends Prestamo{
 
     protected int idDocente;
 
-    public Reserva(int id, String descripcion,String fecha, int idHorario, int idEspacio, int idDocente) {
-        super(id,descripcion,fecha,idEspacio,idHorario);
+    public Reserva(int id, String fecha, int idHorario, int idEspacio, int idDocente) {
+        super(id,fecha,idEspacio,idHorario);
         this.idHorario=idHorario;
         this.idEspacio = idEspacio;
         this.idDocente = idDocente;

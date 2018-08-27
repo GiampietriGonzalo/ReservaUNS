@@ -12,8 +12,8 @@ public class Asignacion extends Prestamo{
     protected String fechaDesde;
     protected String fechaHasta;
 
-    public Asignacion(int id, String descripcion, String fecha, int idHorario, int idEspacio, String fechaDesde, String fechaHasta){
-        super(id,descripcion,fecha,idEspacio,idHorario);
+    public Asignacion(int id, String fecha, int idHorario, int idEspacio, String fechaDesde, String fechaHasta){
+        super(id,fecha,idEspacio,idHorario);
         this.fechaDesde=fechaDesde;
         this.fechaHasta=fechaHasta;
     }

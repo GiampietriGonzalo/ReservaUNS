@@ -11,8 +11,8 @@ import Clases.DataBases.TablaSolicitudes;
 
 public class SolicitudAsignacion extends Solicitud {
 
-    public SolicitudAsignacion(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, String descripcion, int capacidadEstimada) {
-        super(id,idEstado,idAutor,horarios,fecha,descripcion,capacidadEstimada);
+    public SolicitudAsignacion(int id, int idEstado, int idAutor, LinkedList<Integer> horarios, String fecha, int idEspacio, int capacidadEstimada) {
+        super(id,idEstado,idAutor,horarios,fecha,idEspacio,capacidadEstimada);
     }
 
     public boolean guardarSolicitud(){

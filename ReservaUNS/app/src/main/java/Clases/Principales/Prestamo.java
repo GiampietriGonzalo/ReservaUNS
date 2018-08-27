@@ -14,15 +14,13 @@ import Clases.Estados.EstadoPrestamo;
 public abstract class Prestamo {
 
     protected int id;
-    protected String descripcion;
     protected String fecha;
     protected int idEstado;
     protected int idEspacio;
     protected int idHorario;
 
-    public Prestamo(int id, String descripcion, String fecha, int idEspacio,int idHorario){
+    public Prestamo(int id, String fecha, int idEspacio,int idHorario){
 
-        this.descripcion=descripcion;
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;
 
@@ -45,9 +43,6 @@ public abstract class Prestamo {
             return TablaEstadosPrestamos.findEstadoPrestamo(idEspacio,DBController.getDB());
     }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
 
     public String getFecha() {
         return fecha;
@@ -91,9 +86,6 @@ public abstract class Prestamo {
         this.id = id;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     public void setEstado(int idEstado) {
         this.idEstado = idEstado;

@@ -17,14 +17,13 @@ import Clases.Principales.Reserva;
 
 public class TablaPrestamos implements Tabla {
 
-    private static String[] columns={Columns.Id, Columns.Descripcion, Columns.Fecha, Columns.IdEstado, Columns.IdHorario,Columns.IdEspacio,Columns.Tipo,Columns.IdTitular, Columns.FechaDesde, Columns.FechaHasta};
+    private static String[] columns={Columns.Id, Columns.Fecha, Columns.IdEstado, Columns.IdHorario,Columns.IdEspacio,Columns.Tipo,Columns.IdTitular, Columns.FechaDesde, Columns.FechaHasta};
 
 
     public  static boolean insertReserva(Prestamo p,SQLiteDatabase db){
 
         ContentValues values= new ContentValues();
         values.put("Id",p.getId());
-        values.put("Descripcion",p.getDescripcion());
         values.put("Fecha",p.getFecha());
         values.put("IdEstado",p.getIdEstado());
         values.put("IdEspacio",p.getIdEspacio());
@@ -40,7 +39,6 @@ public class TablaPrestamos implements Tabla {
 
         ContentValues values= new ContentValues();
         values.put("Id",p.getId());
-        values.put("Descripcion",p.getDescripcion());
         values.put("Fecha",p.getFecha());
         values.put("IdEstado",p.getIdEstado());
         values.put("IdEspacio",p.getIdEspacio());
@@ -107,13 +105,13 @@ public class TablaPrestamos implements Tabla {
             switch (cursor.getString(6)){
 
                 case "Reserva":{
-                    aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
+                    aux= new Reserva(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
                     aux.setEstado(cursor.getInt(3));
                     break;
                 }
 
                 case "Asignacion":{
-                    aux= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
+                    aux= new Asignacion(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
                     aux.setEstado(cursor.getInt(3));
                     break;
                 }
@@ -138,13 +136,13 @@ public class TablaPrestamos implements Tabla {
             switch (cursor.getString(6)){
 
                 case "Reserva":{
-                    toReturn= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
+                    toReturn= new Reserva(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
                     toReturn.setEstado(cursor.getInt(3));
                     break;
                 }
 
                 case "Asignacion":{
-                    toReturn= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
+                    toReturn= new Asignacion(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
                     break;
                 }
             }
@@ -169,7 +167,6 @@ public class TablaPrestamos implements Tabla {
     private class Columns implements BaseColumns {
 
         public static final String Id= "Id";
-        public static final String Descripcion =  "Descripcion";
         public static final String Fecha = "Fecha";
         public static final String IdEstado = "IdEstado";
         public static final String IdHorario= "IdHorario";
