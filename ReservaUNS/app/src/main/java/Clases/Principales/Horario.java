@@ -25,7 +25,7 @@ public class Horario {
         this.idPrestamo=idPrestamo;
         this.diasSemana=diasSemana;
 
-        if(this.id==9999)
+        if(id==9999)
             this.id= TablaHorarios.getNextID(DBController.getDB());
         else
             this.id=id;

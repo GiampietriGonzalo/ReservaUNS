@@ -72,7 +72,7 @@ public class TablaPrestamos implements Tabla {
 
             exito = db.delete("Prestamos", Columns.Id + " = ?", new String[]{"" + prestamo.getId()}) > 0;
 
-            switch (cursor.getString(6)){
+            switch (cursor.getString(5)){
 
                 case "Reserva":{
                     if (exito)
@@ -102,17 +102,17 @@ public class TablaPrestamos implements Tabla {
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 
-            switch (cursor.getString(6)){
+            switch (cursor.getString(5)){
 
                 case "Reserva":{
-                    aux= new Reserva(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
-                    aux.setEstado(cursor.getInt(3));
+                    aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getInt(3),cursor.getInt(4),cursor.getInt(6));
+                    aux.setEstado(cursor.getInt(2));
                     break;
                 }
 
                 case "Asignacion":{
-                    aux= new Asignacion(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
-                    aux.setEstado(cursor.getInt(3));
+                    aux= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getInt(3),cursor.getInt(4),cursor.getString(7),cursor.getString(8));
+                    aux.setEstado(cursor.getInt(2));
                     break;
                 }
 
@@ -133,16 +133,17 @@ public class TablaPrestamos implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(6)){
+            switch (cursor.getString(5)){
 
                 case "Reserva":{
-                    toReturn= new Reserva(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getInt(7));
-                    toReturn.setEstado(cursor.getInt(3));
+                    toReturn= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getInt(3),cursor.getInt(4),cursor.getInt(6));
+                    toReturn.setEstado(cursor.getInt(2));
                     break;
                 }
 
                 case "Asignacion":{
-                    toReturn= new Asignacion(cursor.getInt(0),cursor.getString(2),cursor.getInt(4),cursor.getInt(5),cursor.getString(8),cursor.getString(9));
+                    toReturn= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getInt(3),cursor.getInt(4),cursor.getString(7),cursor.getString(8));
+                    toReturn.setEstado(cursor.getInt(2));
                     break;
                 }
             }

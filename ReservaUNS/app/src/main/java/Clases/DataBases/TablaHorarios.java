@@ -13,6 +13,7 @@ import java.util.LinkedList;
 
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
+import Clases.Principales.Prestamo;
 
 public class TablaHorarios implements Tabla {
 
@@ -25,11 +26,12 @@ public class TablaHorarios implements Tabla {
         LinkedList<Horario> horarios= new LinkedList<Horario>();
         Horario aux;
         Cursor cursor=db.query("Horarios",columns,null,null,null,null,null,null);
+        Prestamo p;
 
         try {
 
             while (!cursor.isClosed() && cursor.moveToNext()) {
-
+                p=dbC.findPrestamo(cursor.getInt(3));
                 if (dbC.findPrestamo(cursor.getInt(3)).getIdEspacio() == espacio.getID()) {
 
                     LinkedList<String> diasSemana = new LinkedList<String>();
