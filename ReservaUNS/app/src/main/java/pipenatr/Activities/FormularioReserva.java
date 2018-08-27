@@ -313,7 +313,6 @@ public class FormularioReserva extends Fragment {
         horarioReserva.setIdPrestamo(reservaAula.getId());
 
         idHorarios.addLast(horarioReserva.getId());
-        Log.e("E9","id de horarioReserva = "+horarioReserva.getId());
         nuevaSolicitud.setIdHorario(idHorarios);
 
         controller.insertSolicitudReserva(nuevaSolicitud);
