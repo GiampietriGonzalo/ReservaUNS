@@ -11,31 +11,26 @@ Los siguientes participantes heredan los CU del Público
 
 Administrador del departamento
 	
-	Consulta listado de intercambios (ultra minima)
-	
-	Anular asignación (alta)
-	Confirmar asignación (alta)
-	Registrar asignación (alta)
-	Modificar confirmación de asignación (media)
+	Consultar asignaciones.
+	Rechazar Reserva (alta)
+	Aceptar Reserva (alta)
 	Modificar habilitación de docente (minima)
 	Consultar docentes habilitados (minima)
 
 SGA y autoridades
-	Consultar comisiones sin aulas asignadas (DESCARTABLE)
-	Obtener reporte de reservas por departamente (POSIBLE DESCARTABLE)
-	Obtener reporte de reservas por aula
-	Obtener reporte de reservas por materia (POSIBLE DESCARTABLE)
-	Consultar asignaciones no confirmadas y evaluar(alta)
-	Anular prestamo (alta)
-	Evaluar prestamo (alta)
+
+	Cancelar asignación (alta)
+	Registrar asignación (alta)
+	Consultar asignaciones.
+	Rechazar Reserva (alta)
+	Aceptar Reserva (alta)
 	Obtener lista de prestamos (reservas y asignaciones) (alta)
 
 
 Docentes
 	Cancelar solicitud de reserva (alta)
-	Modificar prestamo (alta) 
-	Solicitar prestamo evento (Minima)
-	Consultar solicitudes de prestamos (alta) 
+	Solicitar reserva (Minima)
+	Consultar solicitudes de reservas (alta) 
 
 ¿Diferencia entre prestamo parcial y final?
 	
