@@ -93,6 +93,18 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_solicitud) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
+        } else if (id == R.id.nav_consultar_asignaciones) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_anular_prestamo) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_evaluar_prestamo) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_consultar_prestamo) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_administrar_asignaciones) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_administrar_docentes) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_cerrar_sesion) {
             SaveSharedPreference.setUserId(PantallaPrincipal.this, "");
             Intent intent = new Intent(this, IniciarSesion.class);

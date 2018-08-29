@@ -22,7 +22,7 @@
         android:checkableBehavior="single"
         android:visible="false">
         <item
-            android:id="@+id/consultar_asignaciones"
+            android:id="@+id/nav_consultar_asignaciones"
             android:icon="@drawable/ic_menu_send"
             android:title="Consultar asignaciones" />
         <item
@@ -34,7 +34,7 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Evaluar prestamo" />
         <item
-            android:id="@+id/nav_consultar_prestamos"
+            android:id="@+id/nav_consultar_prestamo"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Consultar prestamos" />
     </group>
@@ -48,7 +48,7 @@
             android:icon="@drawable/ic_menu_send"
             android:title="Administrar asignaciones" />
         <item
-            android:id="@+id/nav_administrar_docenter"
+            android:id="@+id/nav_administrar_docentes"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Administrar docentes" />
     </group>

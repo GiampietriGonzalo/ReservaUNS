@@ -1,25 +1,21 @@
 package pipenatr.Activities;
 
 import android.app.Fragment;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import Clases.DataBases.DBController;
+import Clases.Principales.Horario;
+import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
 
@@ -59,6 +55,17 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
     }
 
     public boolean recyclerViewListClicked(int position) {
-        return controller.cancelarSolicitud(adapter.getSelectedItemId(position));
+        Solicitud miSolicitud = listaSolicitudes.get(position);
+        Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
+        Reserva miReserva = null;
+
+        if(miHorario.getIdPrestamo() != 9999) {
+            miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
+
+            controller.eliminarEstadoPrestamo(miReserva.getIdEstado());
+            controller.cancelarPrestamo(miReserva.getId());
+        }
+
+        return controller.cancelarSolicitud(adapter.getSelectedItemId(position)) && controller.eliminarHorario(miHorario.getId()) && controller.eliminarEstadoSolicitud(miSolicitud.getIdEstado());
     }
 }

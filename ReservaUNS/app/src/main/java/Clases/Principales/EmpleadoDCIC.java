@@ -5,6 +5,7 @@ import android.content.Context;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import pipenatr.Activities.SaveSharedPreference;
 
 public class EmpleadoDCIC extends EmpleadoDepartamento {
 
@@ -16,18 +17,16 @@ public class EmpleadoDCIC extends EmpleadoDepartamento {
     public LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes) {
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudesDCIC = new LinkedList<>();
-        Solicitud solicitud = null;
-        LinkedList<Solicitud> solicitudesUsuario = null;
-        boolean encontre = false;
+        Edificio edificio;
+        Solicitud solicitud ;
 
+        //Para cada elemento de la lista de solicitudes recibida
         for(int i = 0; i<solicitudes.size(); i++) {
             solicitud = solicitudes.get(i);
-            solicitudesUsuario = controller.findSolicitudesUsuario(solicitud.getIdAutor());
-            for( int j = 0; j<solicitudesUsuario.size() && !encontre; j++) {
-                if(solicitudesUsuario.get(j).getId() == solicitud.getId()) {
-
-                }
-            }
+            edificio = controller.findEdificio(solicitud.getIdEspacio());
+            //Verifica que el encargado del edificio de la reserva sea el usuario
+            if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
+                solicitudesDCIC.addLast(solicitud);
         }
         return solicitudesDCIC;
     }

@@ -20,7 +20,10 @@ public class EmpleadoSecretaria extends Usuario{
 
     @Override
     public void actualizarNavView(NavigationView navigationView) {
-        navigationView.getMenu().findItem(R.id.grupoEmpSecretaria).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_consultar_asignaciones).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_anular_prestamo).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_evaluar_prestamo).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
     }
 
     @Override

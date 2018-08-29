@@ -50,6 +50,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         holder.id.setText(""+miSolicitud.getId());
         holder.fecha.setText(miSolicitud.getFecha());
+
         Horario horario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
@@ -68,6 +69,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                         if(listener.recyclerViewListClicked(holder.position)) {
                             Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
                             EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
+                            holder.btnCancelarSolicitud.setEnabled(false);
                             if(estado!=null)
                                 holder.estado.setText(estado.getEstado());
                         }
