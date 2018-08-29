@@ -3,6 +3,7 @@ package Clases.DataBases;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -81,39 +82,46 @@ public class TablaEspacios implements Tabla {
     public static LinkedList<Espacio> findEspaciosAReservar(String tipo,int idEdificioPreferencia, int capacidadEstimada, SQLiteDatabase db){
 
         LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
-        Espacio aux=null;
+        Espacio aux;
+        int capacidad;
+
+        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ? AND idEdificio= ? ", new String[] {tipo, ""+idEdificioPreferencia});
 
 
-        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ? AND idEdificio= ? AND Capacidad = ?", new String[] {tipo, ""+idEdificioPreferencia, ""+capacidadEstimada});
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
-            
-            switch (tipo){
 
-                case "Aula":{
-                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+            aux=null;
+            capacidad=cursor.getInt(2);
+            if (capacidad >= capacidadEstimada && capacidad < (capacidadEstimada * 2 - (capacidadEstimada / 2))) {
 
-                case "Laboratorio":{
-                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+                switch (tipo) {
 
-                case "SalaReuniones":{
-                    aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+                    case "Aula": {
+                        aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
-                case "SalaConferencias":{
-                    aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
-                
-            } //fin switch
+                    case "Laboratorio": {
+                        aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
-            toReturn.addLast(aux);
+                    case "SalaReuniones": {
+                        aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
+                    case "SalaConferencias": {
+                        aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
+
+                } //fin switch
+
+                if(aux!=null)
+                    toReturn.addLast(aux);
+            }
         }
 
         return toReturn;

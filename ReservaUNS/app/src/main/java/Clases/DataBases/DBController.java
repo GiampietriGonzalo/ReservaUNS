@@ -35,19 +35,9 @@ public class DBController {
 
 
     private DBController(Context context) {
+
         dbHelper = new DBHelper(context);
         myContext=context;
-        // Esto es para inicializar la BD
-
-        /*
-        try {
-            dbHelper.createDataBase();
-            dbHelper.openDataBase();
-
-        } catch (IOException e) {
-            System.out.println("Error en create or open database");
-        }
-        */
 
         sqlDB=dbHelper.getReadableDatabase();
         sqlDBW= dbHelper.getWritableDatabase();
@@ -72,20 +62,9 @@ public class DBController {
 
     public static LinkedList<Espacio> findEspaciosAReservar(String tipo,String nombreEdificioPreferencia, int capacidadEstimada){
 
-        LinkedList<Espacio> espacios= new LinkedList<Espacio>();
+        LinkedList<Espacio> espacios;
         int idEdificioPreferencia= TablaEdificios.getIdEdificio(nombreEdificioPreferencia,sqlDB);
-
-        //si idEdificioPreferencia = 9999 --> no se ingresó edificio de preferencia
-        if(idEdificioPreferencia==9999)
-            espacios= TablaEspacios.findEspaciosAReservarSinEdificioPreferencia(tipo,capacidadEstimada,sqlDB);
-        else {
-            Log.e("E4","ID DE EDIFICOO ENCONTRADO: "+idEdificioPreferencia);
-            Log.e("E5","TIPO DE AULA PASADO: "+tipo);
-            Log.e("E6","CAPACIDAD ESTIMADA PASADA: "+capacidadEstimada);
-
-            espacios = TablaEspacios.findEspaciosAReservar(tipo, idEdificioPreferencia, capacidadEstimada, sqlDB);
-
-        }
+        espacios = TablaEspacios.findEspaciosAReservar(tipo, idEdificioPreferencia, capacidadEstimada, sqlDB);
 
         return espacios;
     }
@@ -271,116 +250,8 @@ public class DBController {
             //super(context, name, factory, version);
         }
 
-        /*
-
-        public void onCreate(SQLiteDatabase db){
-            //No se hace nada acá
-        }
-
-
-
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            //db.execSQL("DROP TABLE IF EXISTS " + ProductServiceTable.getName());
-            //db.execSQL("DROP TABLE IF EXISTS " + CommercesTable.getName());
-            //db.execSQL("DROP TABLE IF EXISTS " + CityTable.getName());
-            //db.execSQL("DROP TABLE IF EXISTS " + SectorTable.getName());
-            // db.execSQL("drop table if exists " +  CommercesAuxTable.getName());
-            //db.execSQL("drop table if exists " + UsersTable.getName());
-
-            //onCreate(db);   // Llamamos al método onCreate para volver a crear las tablas.
-        }
-
-        /*public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            onUpgrade(db, oldVersion, newVersion);
-        }
-
-
-        public void createDataBase() throws IOException {
-
-            boolean dbExist = checkDataBase();
-
-            if (dbExist) {
-                // Si existe, no se hace nada
-            } else {
-                // Llamando a este método se crea la base de datos vacía en la ruta
-                // por defecto del sistema de nuestra aplicación por lo que
-                // podremos sobreescribirla con nuestra base de datos.
-                this.getReadableDatabase();
-
-                try {
-
-                    copyDataBase();
-
-                } catch (IOException e) {
-
-
-                    throw new Error("Error copiando database");
-                }
-            }
-        }
-
-
-        private boolean checkDataBase() {
-
-            SQLiteDatabase checkDB = null;
-
-            try {
-                String myPath = DB_PATH + DB_NAME;
-                checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
-
-            } catch (SQLiteException e) {
-                System.out.println("Base de datos no creada todavia");
-            }
-
-            if (checkDB != null) {
-                checkDB.close();
-            }
-
-            return checkDB != null ? true : false;
-
-        }
-
-        private void copyDataBase() throws IOException {
-
-            OutputStream databaseOutputStream = new FileOutputStream("" + DB_PATH + DB_NAME);
-            InputStream databaseInputStream;
-
-            byte[] buffer = new byte[1024];
-            int length;
-
-            databaseInputStream = myContext.getAssets().open("BD.sql");
-            length=databaseInputStream.read(buffer);
-
-            while (length > 0) {
-                databaseOutputStream.write(buffer);
-            }
-
-            databaseInputStream.close();
-            databaseOutputStream.flush();
-            databaseOutputStream.close();
-        }
-
-
-        public synchronized void close() {
-
-            if (myDataBase != null)
-                myDataBase.close();
-
-            super.close();
-        }
-
-        public void openDataBase() throws SQLException {
-
-            // Open the database
-            String myPath = DB_PATH + DB_NAME;
-            myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
-        }
-
-        */
 
     }
-
-
 
 
 }

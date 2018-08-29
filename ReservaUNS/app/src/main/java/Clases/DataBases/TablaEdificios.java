@@ -103,12 +103,11 @@ public class TablaEdificios implements Tabla {
 
         if( nombreEdificio!="Seleccionar"){
 
-            cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim().toLowerCase()+"'",null,null,null,null);
+            cursor=db.query("Edificios",columns, Columns.Nombre +" = '"+nombreEdificio.trim()+"'",null,null,null,null);
             if (!cursor.isClosed() && cursor.moveToNext())
                 id=cursor.getInt(0);
         }
 
-        System.out.print("ID= "+id);
 
         return id;
 
