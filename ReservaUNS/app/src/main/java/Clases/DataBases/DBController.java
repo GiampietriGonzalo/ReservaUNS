@@ -64,7 +64,11 @@ public class DBController {
 
         LinkedList<Espacio> espacios;
         int idEdificioPreferencia= TablaEdificios.getIdEdificio(nombreEdificioPreferencia,sqlDB);
-        espacios = TablaEspacios.findEspaciosAReservar(tipo, idEdificioPreferencia, capacidadEstimada, sqlDB);
+
+        if(nombreEdificioPreferencia.equals("Edificio"))
+            espacios=TablaEspacios.findEspaciosAReservarSinEdificioPreferencia(tipo,capacidadEstimada,sqlDB);
+        else
+            espacios = TablaEspacios.findEspaciosAReservar(tipo, idEdificioPreferencia, capacidadEstimada, sqlDB);
 
         return espacios;
     }

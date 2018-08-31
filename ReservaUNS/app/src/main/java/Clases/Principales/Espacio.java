@@ -60,4 +60,7 @@ public abstract class Espacio
         return ""+nombre;
     }
 
+    public int getIdEdificio() {
+        return idEdificio;
+    }
 }

@@ -54,7 +54,7 @@ public class TablaEdificios implements Tabla {
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 
-            switch (cursor.getString(6)){
+            switch (cursor.getString(5)){
 
                 case "Departamento":{
                     aux = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));
@@ -78,7 +78,7 @@ public class TablaEdificios implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(6)){
+            switch (cursor.getString(5)){
 
                 case "Departamento":{
                     toReturn = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));

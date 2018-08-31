@@ -30,36 +30,44 @@ public class TablaEspacios implements Tabla {
 
         LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
         Espacio aux=null;
+        int capacidad;
+        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ? ", new String[] {tipo});
 
-        Cursor cursor=db.rawQuery("SELECT * FROM Espacios WHERE Tipo = ?  AND Capacidad = ?", new String[] {tipo, ""+capacidadEstimada});
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (tipo){
+            aux=null;
+            capacidad=cursor.getInt(2);
 
-                case "Aula":{
-                    aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+            if (capacidad >= capacidadEstimada && capacidad <= (capacidadEstimada * 2 - (capacidadEstimada / 2))) {
 
-                case "Laboratorio":{
-                    aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+                switch (tipo) {
 
-                case "SalaReuniones":{
-                    aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+                    case "Aula": {
+                        aux = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
-                case "SalaConferencias":{
-                    aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
-                    break;
-                }
+                    case "Laboratorio": {
+                        aux = new Laboratorio(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
-            } //fin switch
+                    case "SalaReuniones": {
+                        aux = new SalaReuniones(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
 
-            toReturn.addLast(aux);
+                    case "SalaConferencias": {
+                        aux = new SalaConferencias(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getInt(3), cursor.getString(4));
+                        break;
+                    }
+
+                } //fin switch
+
+                if(aux!=null)
+                    toReturn.addLast(aux);
+            }
 
         }
 
@@ -93,7 +101,8 @@ public class TablaEspacios implements Tabla {
 
             aux=null;
             capacidad=cursor.getInt(2);
-            if (capacidad >= capacidadEstimada && capacidad < (capacidadEstimada * 2 - (capacidadEstimada / 2))) {
+
+            if (capacidad >= capacidadEstimada && capacidad <= (capacidadEstimada * 2 - (capacidadEstimada / 2))) {
 
                 switch (tipo) {
 
@@ -163,7 +172,7 @@ public class TablaEspacios implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(4)) {
+            switch (cursor.getString(6)) {
 
                 case "Aula":{
                             toReturn = new Aula(cursor.getInt(0), cursor.getString(1), cursor.getInt(2), cursor.getInt(5), cursor.getString(6), cursor.getInt(3), cursor.getString(4));
@@ -224,7 +233,7 @@ public class TablaEspacios implements Tabla {
         public static final String Capacidad = "Capacidad";
         public static final String Piso= "Piso";
         public static final String Cuerpo= "Cuerpo";
-        public static final String IdEdificio = "NombreEdificio";
+        public static final String IdEdificio = "idEdificio";
         public static final String NombreAnterior= "NombreAnterior";
         public static final String Tipo= "Tipo";
 

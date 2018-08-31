@@ -280,7 +280,7 @@ public class FormularioReserva extends Fragment {
                     }
                 }
                 if(!encontre){
-                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+" - "+listaEspaciosAux.get(i).getEdificio().getNombre());
                     listaEspacios.addLast(listaEspaciosAux.get(i));
                 }
             }

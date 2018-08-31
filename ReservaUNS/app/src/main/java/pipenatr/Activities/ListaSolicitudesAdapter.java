@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import java.util.ArrayList;
 
 import Clases.DataBases.DBController;
 import Clases.Estados.EstadoSolicitud;
+import Clases.Principales.Edificio;
+import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 import Clases.Principales.Solicitud;
 
@@ -48,21 +51,31 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         final Solicitud miSolicitud = listaSolicitud.get(position);
 
+        Espacio miEspacio= controller.findEspacio(miSolicitud.getIdEspacio());
+        Edificio miEdificio= miEspacio.getEdificio();
+
+        if(miEdificio==null)
+            Log.e("asdasd", "el edificio es nulo, id:"+miEspacio.getIdEdificio());
+
         holder.id.setText(""+miSolicitud.getId());
         holder.fecha.setText(miSolicitud.getFecha());
-
+        holder.espacio.setText(miEspacio.getNombre());
+        holder.edificio.setText(miEdificio.getNombre());
         Horario horario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
         EstadoSolicitud estado = controller.findEstadoSolicitud(miSolicitud.getIdEstado());
+
         if(estado!=null)
             holder.estado.setText(estado.getEstado());
 
         holder.btnCancelarSolicitud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 //Muestra mensaje para confirmar la cancelacion de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
@@ -77,6 +90,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                             Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
                     }
                 });
+
                 alerta.setNegativeButton("Cancelar", null);
                 alerta.setMessage("¿desea cancelar la solicitud?");
                 alerta.setTitle("Cancelar solicitud");
@@ -95,7 +109,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
     public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, fecha, horarioIncio, horarioFin, estado;
+        TextView id, fecha, horarioIncio, horarioFin, estado, edificio,espacio;
         Button btnCancelarSolicitud;
         int position;
 
@@ -106,6 +120,8 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemList);
             horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemList);
             estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
+            espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemList);
+            edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
             btnCancelarSolicitud = (Button) itemView.findViewById(R.id.btnCancelarSolicitud);
         }
 
