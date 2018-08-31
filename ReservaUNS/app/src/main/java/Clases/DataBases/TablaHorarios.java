@@ -32,7 +32,8 @@ public class TablaHorarios implements Tabla {
 
             while (!cursor.isClosed() && cursor.moveToNext()) {
                 p=dbC.findPrestamo(cursor.getInt(3));
-                if (dbC.findPrestamo(cursor.getInt(3)).getIdEspacio() == espacio.getID()) {
+
+                if (p!=null && p.getIdEspacio() == espacio.getID()) {
 
                     LinkedList<String> diasSemana = new LinkedList<String>();
                     JSONObject json = new JSONObject(cursor.getString(4));

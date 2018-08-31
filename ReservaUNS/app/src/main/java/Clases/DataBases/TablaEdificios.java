@@ -19,7 +19,7 @@ import Clases.Principales.Espacio;
 
 public class TablaEdificios implements Tabla {
 
-    private static final String[] columns={Columns.Id, Columns.Nombre , Columns.Direccion, Columns.Telefono, Columns.IdEncargado,Columns.Tipo ,Columns.Codigo};
+    private static final String[] columns={Columns.Id, Columns.Nombre , Columns.Direccion, Columns.Telefono, Columns.IdEncargado,Columns.Codigo,Columns.Tipo};
 
     public static Edificio findDepartamento(int idEdificio, SQLiteDatabase db) {
 
@@ -33,7 +33,7 @@ public class TablaEdificios implements Tabla {
             //Busco los espacios vinculados a este edificio
             espacios=TablaEspacios.findEspacios(idEdificio,db);
 
-            if(cursor.getString(5).equals("Departamento")) {
+            if(cursor.getString(6).equals("Departamento")) {
                 toReturn = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));
                 toReturn.setEspacios(espacios);
             }
@@ -54,7 +54,7 @@ public class TablaEdificios implements Tabla {
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 
-            switch (cursor.getString(5)){
+            switch (cursor.getString(6)){
 
                 case "Departamento":{
                     aux = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));
@@ -66,7 +66,9 @@ public class TablaEdificios implements Tabla {
                     break;
                 }
             }
-            edificios.addLast(aux);
+
+            if(aux!=null)
+                edificios.addLast(aux);
         }
         return edificios;
     }
@@ -78,7 +80,7 @@ public class TablaEdificios implements Tabla {
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 
-            switch (cursor.getString(5)){
+            switch (cursor.getString(6)){
 
                 case "Departamento":{
                     toReturn = new Departamento(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getInt(4), cursor.getInt(6));

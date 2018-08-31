@@ -69,9 +69,11 @@ public class FormularioReserva extends Fragment {
 
         //Crea spinner que contiene tipos de edificio
         LinkedList<Edificio> edificios= DBController.getEdificios();
+
         aux = new String[edificios.size()+1];
         int i=1;
         aux[0]="Edificio";
+        Log.e("e1","edificios: "+edificios.size());
         for(Edificio edificio:edificios){
             aux[i]=edificio.getNombre();
             i++;
@@ -285,7 +287,7 @@ public class FormularioReserva extends Fragment {
                 }
             }
             else {
-                toAdapter.addLast(listaEspaciosAux.get(i).getNombre());
+                toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+" - "+listaEspaciosAux.get(i).getEdificio().getNombre());
                 listaEspacios.addLast(listaEspaciosAux.get(i));
             }
         }
