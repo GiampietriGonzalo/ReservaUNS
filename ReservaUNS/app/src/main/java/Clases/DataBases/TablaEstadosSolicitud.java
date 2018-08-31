@@ -116,7 +116,6 @@ public class TablaEstadosSolicitud implements Tabla {
         while (!cursor.isClosed() && cursor.moveToNext())
             nextID++;
 
-        Log.e("E7","IdRetornado: "+nextID);
         return nextID;
     }
 

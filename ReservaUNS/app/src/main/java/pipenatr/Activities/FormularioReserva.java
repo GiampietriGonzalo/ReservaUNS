@@ -282,12 +282,12 @@ public class FormularioReserva extends Fragment {
                     }
                 }
                 if(!encontre){
-                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+" - "+listaEspaciosAux.get(i).getEdificio().getNombre());
+                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+"-----"+listaEspaciosAux.get(i).getEdificio().getNombre());
                     listaEspacios.addLast(listaEspaciosAux.get(i));
                 }
             }
             else {
-                toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+" - "+listaEspaciosAux.get(i).getEdificio().getNombre());
+                toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+"-----"+listaEspaciosAux.get(i).getEdificio().getNombre());
                 listaEspacios.addLast(listaEspaciosAux.get(i));
             }
         }
@@ -298,12 +298,17 @@ public class FormularioReserva extends Fragment {
         LinkedList<Integer> idHorarios = new LinkedList<>();
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
-
+        String nombreEspacioSeleccionado;
         Espacio espacioSeleccionado = null;
 
-        for( int i = 0; i<listaEspacios.size(); i++)
-            if(listView.getItemAtPosition(position).toString().equals(listaEspacios.get(i).getNombre()))
+        for( int i = 0; i<listaEspacios.size(); i++){
+            nombreEspacioSeleccionado= recuperarNombre(listView.getItemAtPosition(position).toString());
+            if(nombreEspacioSeleccionado.equals(listaEspacios.get(i).getNombre()))
                 espacioSeleccionado = listaEspacios.get(i);
+        }
+
+
+        Log.e("e2", "Posicion: "+position);
 
         SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
@@ -317,5 +322,18 @@ public class FormularioReserva extends Fragment {
         controller.insertSolicitudReserva(nuevaSolicitud);
         controller.insertSolicitudActiva(estadoSolicitud);
         controller.insertHorario(horarioReserva);
+    }
+
+    private String recuperarNombre(String nombreEspacioEdificio){
+
+        int i=0;
+        String toReturn=new String();
+
+        while(nombreEspacioEdificio.charAt(i)!='-'){
+            toReturn=toReturn+nombreEspacioEdificio.charAt(i);
+            i++;
+        }
+
+        return toReturn;
     }
 }

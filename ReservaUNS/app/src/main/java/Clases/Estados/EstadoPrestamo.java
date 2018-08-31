@@ -18,7 +18,7 @@ public abstract class EstadoPrestamo {
         this.idPrestamo=idPrestamo;
         TablaEstadosPrestamos.getNextID(DBController.getDB());
 
-        if(this.id==9999)
+        if(id==9999)
             this.id= TablaEstadosPrestamos.getNextID(DBController.getDB());
         else
             this.id=id;
