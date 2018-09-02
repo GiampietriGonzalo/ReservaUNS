@@ -21,5 +21,10 @@ public class SolicitudRechazada  extends EstadoSolicitud{
         return "rechazada";
     }
 
+    @Override
+    public boolean estaActivo() {
+        return false;
+    }
+
 }
 

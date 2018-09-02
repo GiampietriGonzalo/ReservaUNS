@@ -1,6 +1,5 @@
 package pipenatr.Activities;
 
-
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -22,27 +21,27 @@ import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 import Clases.Principales.Solicitud;
 
-public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitudesAdapter.SolicitudesViewHolder> {
+public class ListaSolicitudesDepartamentoAdapter extends RecyclerView.Adapter<ListaSolicitudesDepartamentoAdapter.SolicitudesViewHolder> {
 
     DBController controller;
     ArrayList<Solicitud> listaSolicitud;
     RecyclerViewClickListener listener;
     Context context;
 
-    public ListaSolicitudesAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener) {
+    public ListaSolicitudesDepartamentoAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener) {
         this.listaSolicitud = listaSolicitud;
         controller = DBController.getDBController(context);
         this.listener = listener;
         this.context = context;
     }
 
-    
+
     public SolicitudesViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_solicitudes,null,false);
         return new SolicitudesViewHolder(view);
     }
 
-    
+
     public void onBindViewHolder(final SolicitudesViewHolder holder, final int position) {
 
         final Solicitud miSolicitud = listaSolicitud.get(position);
@@ -64,10 +63,9 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         if(estado!=null)
             holder.estado.setText(estado.getEstado());
-        else
-            holder.estado.setText("Fulatea3");
 
-        holder.btnCancelarSolicitud.setOnClickListener(new View.OnClickListener() {
+        holder.btnRechazarSolicitud.setText("Rechazar");
+        holder.btnRechazarSolicitud.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -77,11 +75,12 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(listener.cancelarSolicitud(holder.position)) {
-                            Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
+                        if(listener.rechazarSolicitud(holder.position)) {
+                            Toast.makeText(context, "La solicitud fue rechazada", Toast.LENGTH_LONG).show();
                             EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
-                            holder.btnCancelarSolicitud.setEnabled(false);
-                            holder.estado.setText(estado.getEstado());
+                            holder.btnRechazarSolicitud.setEnabled(false);
+                            if(estado!=null)
+                                holder.estado.setText(estado.getEstado());
                         }
                         else
                             Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
@@ -94,6 +93,27 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                 alerta.setCancelable(true);
                 alerta.create().show();
             }        });
+
+        holder.btnAceptarSolicitud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+
+                alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                });
+
+                alerta.setNegativeButton("Cancelar", null);
+                alerta.setMessage("¿desea aceptar la solicitud?");
+                alerta.setTitle("Aceptar solicitud");
+                alerta.setCancelable(true);
+                alerta.create().show();
+            }
+        });
     }
 
     public int getItemCount() {
@@ -107,7 +127,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
     public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
 
         TextView id, fecha, horarioIncio, horarioFin, estado, edificio,espacio;
-        Button btnCancelarSolicitud;
+        Button btnRechazarSolicitud, btnAceptarSolicitud;
         int position;
 
         public SolicitudesViewHolder(View itemView) {
@@ -119,7 +139,8 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
             espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemList);
             edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
-            btnCancelarSolicitud = (Button) itemView.findViewById(R.id.btnCancelarSolicitud);
+            btnRechazarSolicitud = (Button) itemView.findViewById(R.id.btnCancelarSolicitud);
+            btnAceptarSolicitud = (Button) itemView.findViewById(R.id.btnAceptarSolicitud);
         }
 
         public void onClick(View view) {

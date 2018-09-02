@@ -21,7 +21,7 @@ public class EmpleadoDepartamento extends Usuario{
     @Override
     public void actualizarNavView(NavigationView navigationView) {
         navigationView.getMenu().findItem(R.id.nav_administrar_docentes).setVisible(true);
-        navigationView.getMenu().findItem(R.id.nav_administrar_asignaciones);
+        navigationView.getMenu().findItem(R.id.nav_administrar_solicitudes_departamento);
     }
 
     @Override

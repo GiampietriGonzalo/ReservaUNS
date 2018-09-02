@@ -43,4 +43,9 @@ public class SolicitudActiva extends EstadoSolicitud{
     public String getEstado() {
         return "activa";
     }
+
+    @Override
+    public boolean estaActivo() {
+        return false;
+    }
 }

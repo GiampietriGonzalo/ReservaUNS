@@ -24,11 +24,13 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.EstadoSolicitud;
 import Clases.Estados.SolicitudActiva;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 import Clases.Principales.Reserva;
+import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudReserva;
 
 public class FormularioReserva extends Fragment {
@@ -264,6 +266,8 @@ public class FormularioReserva extends Fragment {
         LinkedList<Horario> listaHorarios;
         Horario horario;
         LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, Integer.parseInt(capacidad));
+        LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
+        EstadoSolicitud estado;
 
         //Para todos los espacios que cumplen las restricciones del formulario
         for (int i = 0; i < listaEspaciosAux.size(); i++) {
@@ -274,10 +278,19 @@ public class FormularioReserva extends Fragment {
                 encontre = false;
                 for( int k = 0; k<listaHorarios.size() && !encontre; k++) {
                     horario = listaHorarios.get(k);
-                    for(int j = 0; j<horario.getDiasSemana().size(); j++) {
-                        if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
-                            if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
-                                encontre = true;
+                    //Busca la solicitud correspondiente al horario
+                    for( int n = 0; n<solicitudes.size(); n++) {
+                        if(solicitudes.get(n).getHorarios().getFirst() == horario.getId()) {
+                            estado = controller.findEstadoSolicitud(solicitudes.get(n).getIdEstado());
+                            //Si la solicitud se encuentra activa la tiene en cuenta, sino la saltea
+                            if(!estado.estaActivo()) {
+                                for(int j = 0; j<horario.getDiasSemana().size(); j++) {
+                                    if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
+                                        if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
+                                            encontre = true;
+                                    }
+                                }
+                            }
                         }
                     }
                 }

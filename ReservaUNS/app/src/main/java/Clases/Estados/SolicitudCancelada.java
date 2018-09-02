@@ -21,4 +21,9 @@ public class SolicitudCancelada extends EstadoSolicitud {
         return "cancelada";
     }
 
+    @Override
+    public boolean estaActivo() {
+        return false;
+    }
+
 }

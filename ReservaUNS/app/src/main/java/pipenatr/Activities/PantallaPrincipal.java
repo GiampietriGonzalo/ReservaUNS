@@ -101,7 +101,7 @@ public class PantallaPrincipal extends AppCompatActivity
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_prestamo) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
-        } else if (id == R.id.nav_administrar_asignaciones) {
+        } else if (id == R.id.nav_administrar_solicitudes_departamento) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_administrar_docentes) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();

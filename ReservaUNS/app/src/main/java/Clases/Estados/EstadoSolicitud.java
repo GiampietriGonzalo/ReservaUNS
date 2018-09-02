@@ -47,4 +47,5 @@ public abstract class EstadoSolicitud {
     public void rechazar(){}
 
     public abstract String getEstado();
+    public abstract boolean estaActivo();
 }

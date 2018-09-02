@@ -44,7 +44,7 @@
         android:checkableBehavior="single"
         android:visible="false">
         <item
-            android:id="@+id/nav_administrar_asignaciones"
+            android:id="@+id/nav_administrar_solicitudes_departamento"
             android:icon="@drawable/ic_menu_send"
             android:title="Administrar asignaciones" />
         <item

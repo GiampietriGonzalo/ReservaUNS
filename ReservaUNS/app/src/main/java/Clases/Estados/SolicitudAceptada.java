@@ -21,4 +21,9 @@ public class SolicitudAceptada extends EstadoSolicitud {
         return "aceptada";
     }
 
+    @Override
+    public boolean estaActivo() {
+        return true;
+    }
+
 }
