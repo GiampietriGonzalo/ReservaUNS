@@ -15,7 +15,7 @@ import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 import Clases.Principales.Prestamo;
 
-public class TablaHorarios implements Tabla {
+public class TablaHorarios extends Tabla {
 
 
     private static String[] columns={Columns.Id,Columns.HoraInicio,Columns.HoraFin,Columns.IdPrestamo,Columns.DiasSemana};
@@ -110,13 +110,7 @@ public class TablaHorarios implements Tabla {
 
 
     public static int getNextID(SQLiteDatabase db){
-        int nextID=0;
-        Cursor cursor=db.query("Horarios",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"Horarios",columns);
     }
 
     public static boolean eliminarHorario(int idHorario,SQLiteDatabase db){

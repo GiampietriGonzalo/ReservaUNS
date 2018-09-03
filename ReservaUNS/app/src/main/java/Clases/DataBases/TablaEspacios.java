@@ -21,7 +21,7 @@ import Clases.Principales.SalaReuniones;
  * Created by gonza on 16/07/18.
  */
 
-public class TablaEspacios implements Tabla {
+public class TablaEspacios extends Tabla {
 
     private static final String[] columns={Columns.Id, Columns.Nombre , Columns.Capacidad, Columns.Piso, Columns.Cuerpo, Columns.IdEdificio, Columns.Tipo ,Columns.NombreAnterior};
 
@@ -216,13 +216,7 @@ public class TablaEspacios implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
-        int nextID=0;
-        Cursor cursor=db.query("Espacios",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"Espacios",columns);
     }
 
 

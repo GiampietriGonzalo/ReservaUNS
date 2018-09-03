@@ -15,7 +15,7 @@ import Clases.Principales.Reserva;
  * Created by gonza on 16/07/18.
  */
 
-public class TablaPrestamos implements Tabla {
+public class TablaPrestamos extends Tabla {
 
     private static String[] columns={Columns.Id, Columns.Fecha, Columns.IdEstado, Columns.IdHorario,Columns.IdEspacio,Columns.Tipo,Columns.IdTitular, Columns.FechaDesde, Columns.FechaHasta};
 
@@ -154,14 +154,7 @@ public class TablaPrestamos implements Tabla {
 
 
     public static int getNextID(SQLiteDatabase db){
-
-        int nextID=0;
-        Cursor cursor=db.query("Prestamos",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"Prestamos",columns);
     }
 
 

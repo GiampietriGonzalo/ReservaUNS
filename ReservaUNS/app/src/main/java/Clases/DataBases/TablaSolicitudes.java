@@ -17,7 +17,7 @@ import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudAsignacion;
 import Clases.Principales.SolicitudReserva;
 
-public class TablaSolicitudes implements Tabla {
+public class TablaSolicitudes extends Tabla {
 
     private static final String[] columns={Columns.Id, Columns.IdEstado , Columns.IdAutor, Columns.IdHorarios, Columns.Fecha, Columns.IdEspacio, Columns.CapacidadEstimada,Columns.Tipo};
 
@@ -231,13 +231,7 @@ public class TablaSolicitudes implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
-        int nextID=0;
-        Cursor cursor=db.query("Solicitudes",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"Solicitudes",columns);
     }
 
     private static class Columns implements BaseColumns {

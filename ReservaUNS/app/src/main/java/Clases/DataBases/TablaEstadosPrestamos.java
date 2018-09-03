@@ -9,7 +9,7 @@ import Clases.Estados.EstadoPrestamo;
 import Clases.Estados.PrestamoActivo;
 import Clases.Estados.PrestamoCancelado;
 
-public class TablaEstadosPrestamos implements Tabla {
+public class TablaEstadosPrestamos extends Tabla {
 
     private static String[] columns={Columns.Id,Columns.IdPrestamo,Columns.Tipo};
 
@@ -63,15 +63,7 @@ public class TablaEstadosPrestamos implements Tabla {
 
 
     public static int getNextID(SQLiteDatabase db){
-
-        int toReturn=0;
-        Cursor cursor=db.query("EstadosPrestamos",columns, null ,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext()) {
-            toReturn++;
-        }
-
-        return toReturn;
+        return getNextID(db,"EstadosPrestamos",columns);
     }
 
     public static boolean eliminarEstadoPrestamo(int idEstadoPrestamo,SQLiteDatabase db){

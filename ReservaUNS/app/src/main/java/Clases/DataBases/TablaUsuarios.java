@@ -15,7 +15,7 @@ import Clases.Principales.Usuario;
  * Created by gonza on 16/07/18.
  */
 
-public class TablaUsuarios implements Tabla {
+public class TablaUsuarios extends Tabla {
 
 
     private static final String[] columns={Columns.Id, Columns.Password, Columns.Legajo, Columns.Nombre, Columns.Apellido,Columns.Mail, Columns.Telefono ,Columns.Tipo};
@@ -128,14 +128,7 @@ public class TablaUsuarios implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
-
-        int nextID=0;
-        Cursor cursor=db.query("Usuarios",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"Usuarios",columns);
     }
 
 

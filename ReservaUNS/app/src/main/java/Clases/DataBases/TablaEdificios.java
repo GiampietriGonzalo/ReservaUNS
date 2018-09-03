@@ -17,7 +17,7 @@ import Clases.Principales.Espacio;
  * Created by gonza on 16/07/18.
  */
 
-public class TablaEdificios implements Tabla {
+public class TablaEdificios extends Tabla {
 
     private static final String[] columns={Columns.Id, Columns.Nombre , Columns.Direccion, Columns.Telefono, Columns.IdEncargado,Columns.Codigo,Columns.Tipo};
 
@@ -116,15 +116,7 @@ public class TablaEdificios implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
-
-        int nextID=0;
-        Cursor cursor=db.query("Edificios",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-
-        return nextID;
+        return getNextID(db,"Edificios",columns);
     }
 
     private static class Columns implements BaseColumns {

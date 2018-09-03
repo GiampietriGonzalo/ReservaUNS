@@ -68,20 +68,22 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             holder.estado.setText("Fulatea3");
 
         holder.btnCancelarSolicitud.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
 
                 //Muestra mensaje para confirmar la cancelacion de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
 
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
+
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if(listener.cancelarSolicitud(holder.position)) {
-                            Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
-                            EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
+                        if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
+                            EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(holder.getAdapterPosition()).getIdEstado());
                             holder.btnCancelarSolicitud.setEnabled(false);
-                            holder.estado.setText(estado.getEstado());
+                            Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
+
+                            if(estado!=null)
+                                holder.estado.setText(estado.getEstado());
                         }
                         else
                             Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();

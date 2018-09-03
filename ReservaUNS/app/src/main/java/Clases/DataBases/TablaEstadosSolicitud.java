@@ -13,7 +13,7 @@ import Clases.Estados.SolicitudCancelada;
 import Clases.Estados.SolicitudRechazada;
 import Clases.Principales.Solicitud;
 
-public class TablaEstadosSolicitud implements Tabla {
+public class TablaEstadosSolicitud extends Tabla {
 
     private static final String[] columns={Columns.Id, Columns.IdSolicitud , Columns.Tipo};
 
@@ -109,14 +109,7 @@ public class TablaEstadosSolicitud implements Tabla {
     }
 
     public static int getNextID(SQLiteDatabase db){
-
-        int nextID=0;
-        Cursor cursor=db.query("EstadosSolicitudes",columns,null,null,null,null,null);
-
-        while (!cursor.isClosed() && cursor.moveToNext())
-            nextID++;
-
-        return nextID;
+        return getNextID(db,"EstadosSolicitudes",columns);
     }
 
 
