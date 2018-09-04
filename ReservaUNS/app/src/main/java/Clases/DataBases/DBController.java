@@ -2,14 +2,16 @@ package Clases.DataBases;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.LinkedList;
 
-import Clases.Estados.EstadoPrestamo;
-import Clases.Estados.EstadoSolicitud;
+import Clases.Estados.Aceptado;
+import Clases.Estados.Activo;
+import Clases.Estados.Cancelado;
+import Clases.Estados.Estado;
+import Clases.Estados.Rechazado;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
@@ -31,7 +33,10 @@ public class DBController {
     private DBHelper dbHelper;
     private static SQLiteDatabase sqlDB,sqlDBW;
     private static Context myContext;
-
+    private static Estado activo;
+    private static Estado aceptado;
+    private static Estado cancelado;
+    private static Estado rechazado;
 
 
     private DBController(Context context) {
@@ -41,6 +46,12 @@ public class DBController {
 
         sqlDB=dbHelper.getReadableDatabase();
         sqlDBW= dbHelper.getWritableDatabase();
+
+        activo= new Activo();
+        cancelado= new Cancelado();
+        rechazado= new Rechazado();
+        aceptado= new Aceptado();
+
 
     }
 
@@ -125,53 +136,16 @@ public class DBController {
         return TablaHorarios.eliminarHorario(idHorario,sqlDB);
     }
 
-    public static boolean eliminarEstadoPrestamo(int idEstadoPrestamo){
-        return TablaEstadosPrestamos.eliminarEstadoPrestamo(idEstadoPrestamo,sqlDB);
-    }
-
-    public static boolean eliminarEstadoSolicitud(int idEstadoSolicitud){
-        return TablaEstadosSolicitud.eliminarEstadoSolicitud(idEstadoSolicitud,sqlDB);
-    }
 
     public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario){
         return TablaSolicitudes.findSolicitudesUsuario(idUsuario,sqlDB);
     }
 
-    public static EstadoPrestamo findEstadoPrestamo(int idEstadoPrestamo){
-        return TablaEstadosPrestamos.findEstadoPrestamo(idEstadoPrestamo,sqlDB);
-    }
-
-    public static boolean insertPrestamoActivo(EstadoPrestamo estado){
-        return TablaEstadosPrestamos.insertPrestamoActivo(estado,sqlDB);
-    }
-
-    public static boolean insertPrestamoCancelado(EstadoPrestamo estado){
-        return TablaEstadosPrestamos.insertPrestamoCancelado(estado,sqlDB);
-    }
 
     public static Edificio findEdificio(int idEdificio){
         return TablaEdificios.findEdificio(idEdificio,sqlDB);
     }
 
-    public static EstadoSolicitud findEstadoSolicitud(int idEstadoSolicitud){
-        return TablaEstadosSolicitud.findEstadoSolicitud(idEstadoSolicitud,sqlDB);
-    }
-
-    public static boolean insertSolicitudActiva(EstadoSolicitud estado){
-        return TablaEstadosSolicitud.insertSolicitudActiva(estado,sqlDB);
-    }
-
-    public static boolean insertSolicitudAceptada(EstadoSolicitud estado){
-        return TablaEstadosSolicitud.insertSolicitudAceptada(estado,sqlDB);
-    }
-
-    public static boolean insertSolicitudRechazada(EstadoSolicitud estado){
-        return TablaEstadosSolicitud.insertSolicitudRechazada(estado,sqlDB);
-    }
-
-    public static boolean insertSolicitudCancelada(EstadoSolicitud estado){
-        return TablaEstadosSolicitud.insertSolicitudCancelada(estado,sqlDB);
-    }
 
     public static LinkedList<Integer> findEspaciosDeEdificio(int idEdificio){
        return TablaEspacios.findEspacios(idEdificio, sqlDB);
@@ -233,8 +207,23 @@ public class DBController {
         return TablaUsuarios.verificarLogIn(mail,contraseña,sqlDB);
     }
 
+    public static Estado getEstadoAceptado() {
+        return aceptado;
+    }
 
-        public void open(){
+    public static Estado getEstadoActivo() {
+        return activo;
+    }
+
+    public static Estado getEstadoRechazado() {
+        return rechazado;
+    }
+
+    public static Estado getEstadoCancelado() {
+        return cancelado;
+    }
+
+    public void open(){
         sqlDB =dbHelper.getWritableDatabase();
     }
 

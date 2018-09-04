@@ -2,10 +2,9 @@ package Clases.Principales;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaEspacios;
-import Clases.DataBases.TablaEstadosPrestamos;
 import Clases.DataBases.TablaHorarios;
 import Clases.DataBases.TablaPrestamos;
-import Clases.Estados.EstadoPrestamo;
+import Clases.Estados.Estado;
 
 /**
  * Created by gonza on 16/07/18.
@@ -15,11 +14,11 @@ public abstract class Prestamo {
 
     protected int id;
     protected String fecha;
-    protected int idEstado;
     protected int idEspacio;
     protected int idHorario;
+    protected Estado estado;
 
-    public Prestamo(int id, String fecha, int idEspacio,int idHorario){
+    public Prestamo(int id, String fecha, int idEspacio,int idHorario,Estado estado){
 
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;
@@ -28,20 +27,19 @@ public abstract class Prestamo {
             this.id = TablaPrestamos.getNextID(DBController.getDB());
         else
             this.id=id;
+
+        this.estado=estado;
     }
 
      abstract public  boolean guardarPrestamo();
 
-    public void cancelar(){}
+    public void cancelar(){estado=estado.cancelar();}
 
     public int getId() {
         return id;
     }
 
-
-    public EstadoPrestamo getEstado() {
-            return TablaEstadosPrestamos.findEstadoPrestamo(idEspacio,DBController.getDB());
-    }
+    public String getEstado(){return estado.toString();}
 
 
     public String getFecha() {
@@ -61,24 +59,8 @@ public abstract class Prestamo {
         return idEspacio;
     }
 
-    public int getIdEstado() {
-        return idEstado;
-    }
-
     public int getIdHorario() {
         return idHorario;
-    }
-
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-
-    public void setIdEspacio(int idEspacio) {
-        this.idEspacio = idEspacio;
-    }
-
-    public void setIdHorario(int idHorario) {
-        this.idHorario = idHorario;
     }
 
 
@@ -86,10 +68,6 @@ public abstract class Prestamo {
         this.id = id;
     }
 
-
-    public void setEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
 
     public void setFecha(String fecha) {
         this.fecha = fecha;

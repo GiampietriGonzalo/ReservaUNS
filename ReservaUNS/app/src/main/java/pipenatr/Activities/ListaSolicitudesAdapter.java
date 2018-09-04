@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Clases.DataBases.DBController;
-import Clases.Estados.EstadoSolicitud;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
@@ -50,9 +49,6 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         Espacio miEspacio= controller.findEspacio(miSolicitud.getIdEspacio());
         Edificio miEdificio= miEspacio.getEdificio();
 
-        if(miEdificio==null)
-            Log.e("asdasd", "el edificio es nulo, id:"+miEspacio.getIdEdificio());
-
         holder.id.setText(""+miSolicitud.getId());
         holder.fecha.setText(miSolicitud.getFecha());
         holder.espacio.setText(miEspacio.getNombre());
@@ -60,12 +56,10 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         Horario horario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
-        EstadoSolicitud estado = controller.findEstadoSolicitud(miSolicitud.getIdEstado());
+        holder.estado.setText(miSolicitud.getEstadoString());
 
-        if(estado!=null)
-            holder.estado.setText(estado.getEstado());
-        else
-            holder.estado.setText("Fulatea3");
+        if(miSolicitud.getEstadoString()!= "Activo")
+            holder.btnCancelarSolicitud.setEnabled(false);
 
         holder.btnCancelarSolicitud.setOnClickListener(new View.OnClickListener() {
 
@@ -77,13 +71,17 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialogInterface, int i) {
+
                         if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
-                            EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(holder.getAdapterPosition()).getIdEstado());
+
                             holder.btnCancelarSolicitud.setEnabled(false);
+                            miSolicitud.cancelar();
+                            controller.cancelarSolicitud(miSolicitud.getId());
+                            controller.insertSolicitudReserva(miSolicitud);
+                            holder.estado.setText(miSolicitud.getEstadoString());
                             Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
 
-                            if(estado!=null)
-                                holder.estado.setText(estado.getEstado());
+
                         }
                         else
                             Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
@@ -113,6 +111,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         int position;
 
         public SolicitudesViewHolder(View itemView) {
+
             super(itemView);
             id = (TextView) itemView.findViewById(R.id.txtIdItemList);
             fecha = (TextView) itemView.findViewById(R.id.txtFechaItemList);
@@ -122,6 +121,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemList);
             edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
             btnCancelarSolicitud = (Button) itemView.findViewById(R.id.btnCancelarSolicitud);
+
         }
 
         public void onClick(View view) {

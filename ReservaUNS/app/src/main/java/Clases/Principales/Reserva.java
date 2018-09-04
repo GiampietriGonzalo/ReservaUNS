@@ -1,23 +1,19 @@
 package Clases.Principales;
 
 import Clases.DataBases.DBController;
-import Clases.DataBases.TablaEstadosPrestamos;
 import Clases.DataBases.TablaPrestamos;
 import Clases.DataBases.TablaUsuarios;
-import Clases.Estados.EstadoPrestamo;
-import Clases.Estados.PrestamoActivo;
+import Clases.Estados.Estado;
 
 public class Reserva extends Prestamo{
 
     protected int idDocente;
 
-    public Reserva(int id, String fecha, int idHorario, int idEspacio, int idDocente) {
-        super(id,fecha,idEspacio,idHorario);
+    public Reserva(int id, String fecha, int idHorario, int idEspacio, int idDocente, Estado estado) {
+        super(id,fecha,idEspacio,idHorario,estado);
         this.idHorario=idHorario;
         this.idEspacio = idEspacio;
         this.idDocente = idDocente;
-        EstadoPrestamo aux = new PrestamoActivo(TablaEstadosPrestamos.getNextID(DBController.getDB()),id);
-        this.idEstado = aux.getId();
     }
 
 

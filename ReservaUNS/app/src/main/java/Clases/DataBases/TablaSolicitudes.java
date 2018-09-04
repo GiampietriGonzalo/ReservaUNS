@@ -13,13 +13,18 @@ import java.net.ConnectException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import Clases.Estados.Aceptado;
+import Clases.Estados.Activo;
+import Clases.Estados.Cancelado;
+import Clases.Estados.Estado;
+import Clases.Estados.Rechazado;
 import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudAsignacion;
 import Clases.Principales.SolicitudReserva;
 
 public class TablaSolicitudes extends Tabla {
 
-    private static final String[] columns={Columns.Id, Columns.IdEstado , Columns.IdAutor, Columns.IdHorarios, Columns.Fecha, Columns.IdEspacio, Columns.CapacidadEstimada,Columns.Tipo};
+    private static final String[] columns={Columns.Id,Columns.IdAutor, Columns.IdHorarios, Columns.Fecha, Columns.IdEspacio, Columns.CapacidadEstimada,Columns.Tipo,Columns.Estado};
 
 
     public static LinkedList<Solicitud> findSolicitudesUsuario(int idUsuario, SQLiteDatabase db){
@@ -27,13 +32,15 @@ public class TablaSolicitudes extends Tabla {
         LinkedList<Solicitud> solicitudes=new LinkedList<Solicitud>();
         JSONObject jsonIdHorarios;
         LinkedList<Integer> idHorarios;
+        Estado estado;
 
         Cursor cursor=db.query("Solicitudes",columns,Columns.IdAutor +" = '"+idUsuario+"'",null,null,null,null);
 
         try {
             while (!cursor.isClosed() && cursor.moveToNext()) {
 
-                jsonIdHorarios = new JSONObject(cursor.getString(3));
+                estado=getEstado(cursor);
+                jsonIdHorarios = new JSONObject(cursor.getString(2));
                 idHorarios = new LinkedList<Integer>();
                 Iterator<String> iteratorJsonHorarios = jsonIdHorarios.keys();
 
@@ -41,15 +48,15 @@ public class TablaSolicitudes extends Tabla {
                     idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                switch (cursor.getString(7)) {
+                switch (cursor.getString(6)) {
 
                     case "SolicitudReserva": {
-                        solicitudes.addLast(new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6)));
+                        solicitudes.addLast(new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado));
                         break;
                     }
 
                     case "SolicitudAsignacion": {
-                        solicitudes.addLast(new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6)));
+                        solicitudes.addLast(new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado));
                         break;
                     }
 
@@ -70,12 +77,14 @@ public class TablaSolicitudes extends Tabla {
         Solicitud toReturn=null;
         JSONObject jsonIdHorarios;
         LinkedList<Integer> idHorarios;
+        Estado estado;
 
         Cursor cursor=db.query("Solicitudes",columns,Columns.Id +" = '"+idSolicitud+"'",null,null,null,null);
 
         try {
             while (!cursor.isClosed() && cursor.moveToNext()) {
 
+                estado=getEstado(cursor);
                 jsonIdHorarios = new JSONObject(cursor.getString(3));
                 idHorarios = new LinkedList<Integer>();
                 Iterator<String> iteratorJsonHorarios = jsonIdHorarios.keys();
@@ -84,15 +93,15 @@ public class TablaSolicitudes extends Tabla {
                     idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                switch (cursor.getString(7)) {
+                switch (cursor.getString(6)) {
 
                     case "SolicitudReserva": {
-                        toReturn = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6));
+                        toReturn = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
                         break;
                     }
 
                     case "SolicitudAsignacion": {
-                        toReturn = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6));
+                        toReturn = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
                         break;
                     }
 
@@ -125,6 +134,7 @@ public class TablaSolicitudes extends Tabla {
         Solicitud aux=null;
         JSONObject jsonIdHorarios;
         LinkedList<Integer> idHorarios;
+        Estado estado;
 
         Cursor cursor=db.query("Solicitudes",columns,null,null,null,null,null);
 
@@ -132,6 +142,7 @@ public class TablaSolicitudes extends Tabla {
 
             while (!cursor.isClosed() && cursor.moveToNext()) {
 
+                estado=getEstado(cursor);
                 jsonIdHorarios = new JSONObject(cursor.getString(3));
                 idHorarios= new LinkedList<Integer>();
                 Iterator<String> iteratorJsonHorarios=jsonIdHorarios.keys();
@@ -140,15 +151,15 @@ public class TablaSolicitudes extends Tabla {
                     idHorarios.add(jsonIdHorarios.getInt(iteratorJsonHorarios.next()));
                 }
 
-                switch (cursor.getString(7)) {
+                switch (cursor.getString(6)) {
 
                     case "Reserva": {
-                        aux = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6));
+                        aux = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
                         break;
                     }
 
                     case "Asignacion": {
-                        aux = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), cursor.getInt(2), idHorarios, cursor.getString(4), cursor.getInt(5), cursor.getInt(6));
+                        aux = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
 
                     }
 
@@ -181,13 +192,13 @@ public class TablaSolicitudes extends Tabla {
             }
 
             values.put("Id",solicitud.getId());
-            values.put("IdEstado",solicitud.getIdEstado());
             values.put("IdAutor",solicitud.getIdAutor());
             values.put("IdHorarios",idHorarios.toString());
             values.put("Fecha",solicitud.getFecha());
             values.put("IdEspacio",solicitud.getIdEspacio());
             values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
             values.put("Tipo","SolicitudReserva");
+            values.put("Estado",solicitud.getEstadoString().toString());
 
         }
         catch (JSONException e){
@@ -214,7 +225,6 @@ public class TablaSolicitudes extends Tabla {
             }
 
             values.put("Id",solicitud.getId());
-            values.put("IdEstado",solicitud.getIdEstado());
             values.put("IdAutor",solicitud.getIdAutor());
             values.put("IdHorarios",idHorarios.toString());
             values.put("Fecha",solicitud.getFecha());
@@ -234,16 +244,47 @@ public class TablaSolicitudes extends Tabla {
         return getNextID(db,"Solicitudes",columns);
     }
 
+    public static Estado getEstado(Cursor cursor) {
+
+        Estado estado = null;
+
+        switch (cursor.getString(7)) {
+
+            case "Aceptado": {
+                estado = DBController.getEstadoAceptado();
+                break;
+            }
+
+            case "Cancelado": {
+                estado = DBController.getEstadoCancelado();
+                break;
+            }
+
+            case "Rechazado": {
+                estado = DBController.getEstadoRechazado();
+                break;
+            }
+
+            case "Activo": {
+                estado = DBController.getEstadoActivo();
+                break;
+            }
+
+
+        }
+        return estado;
+    }
+
     private static class Columns implements BaseColumns {
 
         public static final String Id= "Id";
-        public static final String IdEstado = "IdEstado";
         public static final String IdAutor = "IdAutor";
         public static final String IdHorarios = "IdHorarios";
         public static final String Fecha = "Fecha";
         public static final String IdEspacio = "IdEspacio";
         public static final String CapacidadEstimada = "CapacidadEstimada";
         public static final String Tipo= "Tipo";
+        public static final String Estado="Estado";
     }
 
 

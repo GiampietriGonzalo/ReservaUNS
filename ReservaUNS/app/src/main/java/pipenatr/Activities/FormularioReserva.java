@@ -24,12 +24,10 @@ import java.util.Calendar;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
-import Clases.Estados.EstadoSolicitud;
-import Clases.Estados.SolicitudActiva;
+import Clases.Estados.Estado;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
-import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudReserva;
 
@@ -49,11 +47,9 @@ public class FormularioReserva extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         myView = inflater.inflate(R.layout.formulario_reserva, container, false);
-
         listView= (ListView) myView.findViewById(R.id.LVReservas);
         listView.setVisibility(View.INVISIBLE);
         listView.setEnabled(false);
-
 
         controller = controller.getDBController(getActivity());
 
@@ -227,6 +223,7 @@ public class FormularioReserva extends Fragment {
         String[] horaInicio;
         int hora, min;
         int contador = 0;
+
         for( int i = 0; i<horaIni.length(); i++)
             if(horaIni.charAt(i) == ':')
                 contador++;
@@ -250,8 +247,7 @@ public class FormularioReserva extends Fragment {
         AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
         alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //Cierra la ventana
+            public void onClick(DialogInterface dialogInterface, int i) {//Cierra la ventana
             }
         });
         alerta.setMessage(mensaje);
@@ -267,7 +263,6 @@ public class FormularioReserva extends Fragment {
         Horario horario;
         LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, Integer.parseInt(capacidad));
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
-        EstadoSolicitud estado;
 
         //Para todos los espacios que cumplen las restricciones del formulario
         for (int i = 0; i < listaEspaciosAux.size(); i++) {
@@ -276,14 +271,18 @@ public class FormularioReserva extends Fragment {
             //Si el espacio no tiene reservas asignadas se guarda en la lista, caso contrario, se verifica que ninguna coincida con la fecha y horario introducidos por el usuario
             if(!listaHorarios.isEmpty()) {
                 encontre = false;
+
                 for( int k = 0; k<listaHorarios.size() && !encontre; k++) {
                     horario = listaHorarios.get(k);
+
                     //Busca la solicitud correspondiente al horario
                     for( int n = 0; n<solicitudes.size(); n++) {
+
                         if(solicitudes.get(n).getHorarios().getFirst() == horario.getId()) {
-                            estado = controller.findEstadoSolicitud(solicitudes.get(n).getIdEstado());
+
                             //Si la solicitud se encuentra activa la tiene en cuenta, sino la saltea
-                            if(!estado.estaActivo()) {
+                            if(solicitudes.get(n).getEstadoString()=="Activo") {
+
                                 for(int j = 0; j<horario.getDiasSemana().size(); j++) {
                                     if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
                                         if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
@@ -294,6 +293,7 @@ public class FormularioReserva extends Fragment {
                         }
                     }
                 }
+
                 if(!encontre){
                     toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+"-----"+listaEspaciosAux.get(i).getEdificio().getNombre());
                     listaEspacios.addLast(listaEspaciosAux.get(i));
@@ -313,6 +313,7 @@ public class FormularioReserva extends Fragment {
         fechas.addLast(fecha);
         String nombreEspacioSeleccionado;
         Espacio espacioSeleccionado = null;
+        Estado estado;
 
         for( int i = 0; i<listaEspacios.size(); i++){
             nombreEspacioSeleccionado= recuperarNombre(listView.getItemAtPosition(position).toString());
@@ -323,17 +324,16 @@ public class FormularioReserva extends Fragment {
 
         Log.e("e2", "Posicion: "+position);
 
-        SolicitudActiva estadoSolicitud = new SolicitudActiva(9999, 9999);
-        Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
-        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, estadoSolicitud.getId(), Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, espacioSeleccionado.getID(), Integer.parseInt(capacidad));
 
-        estadoSolicitud.setIdSolicitud(nuevaSolicitud.getId());
+        Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
+        estado= controller.getEstadoActivo();
+        SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, espacioSeleccionado.getID(), Integer.parseInt(capacidad),estado);
 
         idHorarios.addLast(horarioReserva.getId());
         nuevaSolicitud.setIdHorario(idHorarios);
 
         controller.insertSolicitudReserva(nuevaSolicitud);
-        controller.insertSolicitudActiva(estadoSolicitud);
+
         controller.insertHorario(horarioReserva);
     }
 

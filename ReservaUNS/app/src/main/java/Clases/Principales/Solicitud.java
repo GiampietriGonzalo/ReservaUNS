@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaSolicitudes;
-import Clases.Estados.EstadoSolicitud;
+import Clases.Estados.Estado;
 
 /**
  * Created by gonza on 16/07/18.
@@ -13,16 +13,15 @@ import Clases.Estados.EstadoSolicitud;
 public abstract class Solicitud {
 
     protected int id;
-    protected int idEstado;
     protected int idAutor;
     protected LinkedList<Integer> horarios;
     protected String fecha;
     protected int idEspacio ;
     protected int capacidadEstimada;
+    protected Estado estado;
 
-    public Solicitud(int id,int idEstado,int idAutor, LinkedList<Integer> horarios, String fecha, int idEspacio, int capacidadEstimada){
+    public Solicitud(int id,int idAutor, LinkedList<Integer> horarios, String fecha, int idEspacio, int capacidadEstimada, Estado estado){
 
-        this.idEstado=idEstado;
         this.idAutor=idAutor;
         this.horarios=horarios;
         this.fecha=fecha;
@@ -34,10 +33,12 @@ public abstract class Solicitud {
         else
             this.id=id;
 
+        this.estado=estado;
     }
 
     public abstract boolean guardarSolicitud();
 
+    public String getEstadoString(){return estado.toString();}
 
     public int getIdEspacio() {
         return idEspacio;
@@ -55,12 +56,9 @@ public abstract class Solicitud {
         return capacidadEstimada;
     }
 
-
-
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
 
     public void setIdEspacio(String descripcion) {
         this.idEspacio=idEspacio;
@@ -74,10 +72,6 @@ public abstract class Solicitud {
         return horarios;
     }
 
-    public int getIdEstado() {
-        return idEstado;
-    }
-
     public int getIdAutor() {
         return idAutor;
     }
@@ -86,13 +80,11 @@ public abstract class Solicitud {
         this.idAutor = idAutor;
     }
 
-    public void setIdEstado(int idEstado) {
-        this.idEstado = idEstado;
-    }
-
     public void setIdHorario(LinkedList<Integer> horarios) {
         this.horarios = horarios;
     }
+
+    public void cancelar(){estado=estado.cancelar();}
 
     public void setCapacidadEstimada(int capacidadEstimada) {
         this.capacidadEstimada = capacidadEstimada;

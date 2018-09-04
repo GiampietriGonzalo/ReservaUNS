@@ -15,7 +15,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Clases.DataBases.DBController;
-import Clases.Estados.EstadoSolicitud;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
@@ -29,6 +28,7 @@ public class ListaSolicitudesDepartamentoAdapter extends RecyclerView.Adapter<Li
     Context context;
 
     public ListaSolicitudesDepartamentoAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener) {
+
         this.listaSolicitud = listaSolicitud;
         controller = DBController.getDBController(context);
         this.listener = listener;
@@ -59,10 +59,8 @@ public class ListaSolicitudesDepartamentoAdapter extends RecyclerView.Adapter<Li
         Horario horario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         holder.horarioIncio.setText(horario.horaInicioConFormato());
         holder.horarioFin.setText(horario.horaFinConFormato());
-        EstadoSolicitud estado = controller.findEstadoSolicitud(miSolicitud.getIdEstado());
 
-        if(estado!=null)
-            holder.estado.setText(estado.getEstado());
+        holder.estado.setText(miSolicitud.getEstadoString());
 
         holder.btnRechazarSolicitud.setText("Rechazar");
         holder.btnRechazarSolicitud.setOnClickListener(new View.OnClickListener() {
@@ -76,11 +74,11 @@ public class ListaSolicitudesDepartamentoAdapter extends RecyclerView.Adapter<Li
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(listener.rechazarSolicitud(holder.position)) {
+
                             Toast.makeText(context, "La solicitud fue rechazada", Toast.LENGTH_LONG).show();
-                            EstadoSolicitud estado = controller.findEstadoSolicitud(listaSolicitud.get(position).getIdEstado());
                             holder.btnRechazarSolicitud.setEnabled(false);
-                            if(estado!=null)
-                                holder.estado.setText(estado.getEstado());
+                            holder.estado.setText(miSolicitud.getEstadoString());
+
                         }
                         else
                             Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
@@ -101,7 +99,7 @@ public class ListaSolicitudesDepartamentoAdapter extends RecyclerView.Adapter<Li
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
 
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
+
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                     }
