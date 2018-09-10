@@ -77,6 +77,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                             holder.btnCancelarSolicitud.setEnabled(false);
                             miSolicitud.cancelar();
                             controller.cancelarSolicitud(miSolicitud.getId());
+                            controller.actualizarEstadoSolicitud(miSolicitud);
                             controller.insertSolicitudReserva(miSolicitud);
                             holder.estado.setText(miSolicitud.getEstadoString());
                             Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();

@@ -18,6 +18,7 @@ import Clases.Estados.Activo;
 import Clases.Estados.Cancelado;
 import Clases.Estados.Estado;
 import Clases.Estados.Rechazado;
+import Clases.Estados.StateController;
 import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudAsignacion;
 import Clases.Principales.SolicitudReserva;
@@ -177,8 +178,7 @@ public class TablaSolicitudes extends Tabla {
 
     }
 
-
-    public static boolean insertSolicitudReserva(Solicitud solicitud, SQLiteDatabase db){
+    private static ContentValues guardarValores(Solicitud solicitud){
 
         JSONObject idHorarios= new JSONObject();
         int i=0;
@@ -206,7 +206,14 @@ public class TablaSolicitudes extends Tabla {
             e.printStackTrace();
         }
 
+        return values;
+    }
 
+
+    public static boolean insertSolicitudReserva(Solicitud solicitud, SQLiteDatabase db){
+
+
+        ContentValues values= guardarValores(solicitud);
 
         return db.insert("Solicitudes",null,values) >0 ;
     }
@@ -251,28 +258,33 @@ public class TablaSolicitudes extends Tabla {
         switch (cursor.getString(7)) {
 
             case "Aceptado": {
-                estado = DBController.getEstadoAceptado();
+                estado = StateController.getEstadoAceptado();
                 break;
             }
 
             case "Cancelado": {
-                estado = DBController.getEstadoCancelado();
+                estado = StateController.getEstadoCancelado();
                 break;
             }
 
             case "Rechazado": {
-                estado = DBController.getEstadoRechazado();
+                estado = StateController.getEstadoRechazado();
                 break;
             }
 
             case "Activo": {
-                estado = DBController.getEstadoActivo();
+                estado = StateController.getEstadoActivo();
                 break;
             }
 
 
         }
         return estado;
+    }
+
+
+    public static void actualizarEstado(Solicitud solicitud, SQLiteDatabase db){
+        db.update("Solicitudes",guardarValores(solicitud),Columns.Id +" = '"+solicitud.getId(),null);
     }
 
     private static class Columns implements BaseColumns {

@@ -15,15 +15,18 @@ import android.view.View;
 import android.widget.TextView;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.StateController;
 import Clases.Principales.Usuario;
 
 public class PantallaPrincipal extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DBController controller;
+    private StateController stateController;
 
     
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pantalla_principal);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -39,6 +42,7 @@ public class PantallaPrincipal extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         controller= DBController.getDBController(this);
+        stateController= stateController.getStateController();
 
         //Modifica nombre y Email de acuerdo al usuario logueado
         Usuario user = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(this)));

@@ -41,11 +41,11 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
         adapter = new ListaSolicitudesAdapter(listaSolicitudes, getActivity(), this);
         recyclerViewSolicitudes.setAdapter(adapter);
 
-        consultarListaReservas();
+        consultarListaSolicitudes();
         return myView;
     }
 
-    private void consultarListaReservas() {
+    private void consultarListaSolicitudes() {
 
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());

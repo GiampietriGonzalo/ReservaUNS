@@ -21,6 +21,7 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
     DBController controller;
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario_registro_usuario);
 
@@ -43,8 +44,8 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
         controller = DBController.getDBController(this);
     }
 
-    private void registrarUsuario(View view)
-    {
+    private void registrarUsuario(View view) {
+
         View focusView = null;
         boolean error = false;
         String nombre = inputNombre.getText().toString();
@@ -64,8 +65,8 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
         inputs.addLast(inputEmail);
         inputs.addLast(inputContraseña);
         inputs.addLast(inputVerificarContraseña);
-        for( int i=0; i<inputs.size(); i++)
-        {
+
+        for( int i=0; i<inputs.size(); i++) {
             if(inputs.get(i).getText().toString().equals(""))
             {
                 inputs.get(i).setError("Este campo no puede estar vacío");
@@ -75,8 +76,8 @@ public class FormularioRegistroUsuario extends AppCompatActivity {
         }
 
         //Verifica que los campos no contengan espacios
-        for( int i=0; i<inputs.size(); i++)
-        {
+        for( int i=0; i<inputs.size(); i++) {
+
             if(inputs.get(i).getText().toString().contains(" "))
             {
                 inputs.get(i).setError("Los campos no pueden contener espacios");

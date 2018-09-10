@@ -10,15 +10,15 @@ public class Activo extends Estado {
     }
 
     public Estado aceptar() {
-        return DBController.getEstadoAceptado();
+        return StateController.getEstadoAceptado();
     }
 
     public Estado cancelar() {
-        return DBController.getEstadoCancelado();
+        return StateController.getEstadoCancelado();
     }
 
     public Estado rechazar() {
-        return DBController.getEstadoRechazado();
+        return StateController.getEstadoRechazado();
     }
 
     public String toString(){return "Activo";}

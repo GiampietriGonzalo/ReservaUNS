@@ -25,6 +25,7 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Estados.Estado;
+import Clases.Estados.StateController;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
@@ -326,7 +327,7 @@ public class FormularioReserva extends Fragment {
 
 
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);
-        estado= controller.getEstadoActivo();
+        estado= StateController.getEstadoActivo();
         SolicitudReserva nuevaSolicitud = new SolicitudReserva(9999, Integer.parseInt(SaveSharedPreference.getUserId(getActivity())), idHorarios, fecha, espacioSeleccionado.getID(), Integer.parseInt(capacidad),estado);
 
         idHorarios.addLast(horarioReserva.getId());

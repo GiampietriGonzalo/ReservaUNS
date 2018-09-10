@@ -28,16 +28,10 @@ public class DBController {
 
     private final static int DB_VERSION= 1;
     private final static String DB_NAME="DB.sqlite";
-    private static String DB_PATH = "/data/data/Clases.DataBases/databases/";
     private static DBController dbC;
     private DBHelper dbHelper;
     private static SQLiteDatabase sqlDB,sqlDBW;
     private static Context myContext;
-    private static Estado activo;
-    private static Estado aceptado;
-    private static Estado cancelado;
-    private static Estado rechazado;
-
 
     private DBController(Context context) {
 
@@ -46,12 +40,6 @@ public class DBController {
 
         sqlDB=dbHelper.getReadableDatabase();
         sqlDBW= dbHelper.getWritableDatabase();
-
-        activo= new Activo();
-        cancelado= new Cancelado();
-        rechazado= new Rechazado();
-        aceptado= new Aceptado();
-
 
     }
 
@@ -123,6 +111,10 @@ public class DBController {
      * */
     public static boolean cancelarSolicitud(int idSolicitud){
         return TablaSolicitudes.cancelarSolicitud(idSolicitud, sqlDBW);
+    }
+
+    public static void actualizarEstadoSolicitud(Solicitud solicitud){
+        TablaSolicitudes.actualizarEstado(solicitud,sqlDB);
     }
     
     /**
@@ -205,22 +197,6 @@ public class DBController {
 
     public static Usuario verificarLogIn(String mail, String contraseña){
         return TablaUsuarios.verificarLogIn(mail,contraseña,sqlDB);
-    }
-
-    public static Estado getEstadoAceptado() {
-        return aceptado;
-    }
-
-    public static Estado getEstadoActivo() {
-        return activo;
-    }
-
-    public static Estado getEstadoRechazado() {
-        return rechazado;
-    }
-
-    public static Estado getEstadoCancelado() {
-        return cancelado;
     }
 
     public void open(){

@@ -12,6 +12,7 @@ import Clases.Estados.Activo;
 import Clases.Estados.Cancelado;
 import Clases.Estados.Estado;
 import Clases.Estados.Rechazado;
+import Clases.Estados.StateController;
 import Clases.Principales.Asignacion;
 import Clases.Principales.Prestamo;
 import Clases.Principales.Reserva;
@@ -174,22 +175,22 @@ public class TablaPrestamos extends Tabla {
         switch (cursor.getString(8)) {
 
             case "Aceptado": {
-                estado = DBController.getEstadoAceptado();
+                estado = StateController.getEstadoAceptado();
                 break;
             }
 
             case "Cancelado": {
-                estado = DBController.getEstadoCancelado();
+                estado = StateController.getEstadoCancelado();
                 break;
             }
 
             case "Rechazado": {
-                estado = DBController.getEstadoRechazado();
+                estado = StateController.getEstadoRechazado();
                 break;
             }
 
             case "Activo": {
-                estado = DBController.getEstadoActivo();
+                estado = StateController.getEstadoActivo();
                 break;
             }
 

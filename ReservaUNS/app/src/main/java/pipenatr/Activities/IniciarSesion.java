@@ -67,6 +67,7 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
 
 
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciar_sesion);
         // Set up the login form.
