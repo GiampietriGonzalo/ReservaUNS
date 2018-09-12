@@ -204,7 +204,7 @@ public class FormularioReserva extends Fragment {
                 {
                     // de acuerdo al año y mes verifico que los dias sean correctos
                     dia = Integer.parseInt(valores[0]);
-                    calendario.set(año, mes, 1);
+                    //calendario.set(año, mes, 1);
                     diasAux = calendario.getActualMaximum(calendario.DAY_OF_MONTH);
                     if(dia>0 && dia<=diasAux)
                         fechaValida = true;
@@ -219,11 +219,13 @@ public class FormularioReserva extends Fragment {
         }
 
         if (fechaValida)
-            fechaValida = (mes>=calendario.get(Calendar.MONTH)) && (dia>=calendario.get(Calendar.DATE)) && (año==calendario.get(Calendar.YEAR));
+            fechaValida = (mes>=(calendario.get(Calendar.MONTH)+1)) && (año==calendario.get(Calendar.YEAR));
 
-        if(!fechaValida)
+
+        if(!(fechaValida && dia > calendario.get(Calendar.DATE))) {
             mostrarMensajeError("La fecha ingresada no es válida: ");
-
+            fechaValida=false;
+        }
         return fechaValida;
     }
 
