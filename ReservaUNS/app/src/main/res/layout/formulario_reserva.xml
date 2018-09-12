@@ -55,12 +55,18 @@
                 android:textSize="17sp"
                 android:textStyle="bold" />
 
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="e:j  DD/MM/AAAA" />
+
             <EditText
                 android:id="@+id/txtFechaReserva"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="(dd/mm/aaaa)"
+                android:hint="(DD/MM/AAAA)"
                 android:inputType="date" />
 
             <TextView
@@ -71,6 +77,12 @@
                 android:text="Ingrese hora de inicio y fin de la reserva "
                 android:textSize="17sp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ej: mm : hh" />
 
             <LinearLayout
                 android:layout_width="wrap_content"

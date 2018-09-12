@@ -144,7 +144,7 @@ public class TablaSolicitudes extends Tabla {
             while (!cursor.isClosed() && cursor.moveToNext()) {
 
                 estado=getEstado(cursor);
-                jsonIdHorarios = new JSONObject(cursor.getString(3));
+                jsonIdHorarios = new JSONObject(cursor.getString(2));
                 idHorarios= new LinkedList<Integer>();
                 Iterator<String> iteratorJsonHorarios=jsonIdHorarios.keys();
 
@@ -284,7 +284,7 @@ public class TablaSolicitudes extends Tabla {
 
 
     public static void actualizarEstado(Solicitud solicitud, SQLiteDatabase db){
-        db.update("Solicitudes",guardarValores(solicitud),Columns.Id +" = '"+solicitud.getId(),null);
+        db.update("Solicitudes",guardarValores(solicitud),Columns.Id +" = "+solicitud.getId(),null);
     }
 
     private static class Columns implements BaseColumns {

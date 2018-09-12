@@ -42,7 +42,7 @@ public class PantallaPrincipal extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         controller= DBController.getDBController(this);
-        stateController= stateController.getStateController();
+        stateController=stateController.getStateController();
 
         //Modifica nombre y Email de acuerdo al usuario logueado
         Usuario user = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(this)));

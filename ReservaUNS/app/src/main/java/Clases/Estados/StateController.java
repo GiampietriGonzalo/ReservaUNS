@@ -33,10 +33,10 @@ public class StateController {
         return cancelado;
     }
 
-    public StateController getStateController(){
+    public static StateController getStateController(){
 
         if (sc==null)
-            sc = new StateController();
+            sc=new StateController();
 
         return sc;
     }

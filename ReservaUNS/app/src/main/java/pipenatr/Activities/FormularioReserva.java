@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
@@ -176,22 +177,23 @@ public class FormularioReserva extends Fragment {
 
 
 
-    private boolean verificarFecha(String fecha)
-    {
+    private boolean verificarFecha(String fecha) {
+
         boolean fechaValida = false;
         String[] valores = fecha.split("/");
         Calendar calendario = Calendar.getInstance();
-        int año, mes, dia, diasAux;
+        int año=0, mes=0, dia=0, diasAux=0;
         int contador = 0;
+        Date date= new Date();
 
         //Cuenta si el usuario ingresó la fecha con el formato indicado
         for( int i = 0; i<fecha.length(); i++)
             if(fecha.charAt(i) == '/')
                 contador++;
+
         if(contador!=2)
             mostrarMensajeError("La fecha debe tener el formato dd/mm/aaaa");
-        else
-        {
+        else {
             // verifico que el año sea correcto
             año = Integer.parseInt(valores[2]);
             if(año>2017)
@@ -215,6 +217,13 @@ public class FormularioReserva extends Fragment {
             else
                 mostrarMensajeError("El año de la reserva no es válido");
         }
+
+        if (fechaValida)
+            fechaValida = (mes>=calendario.get(Calendar.MONTH)) && (dia>=calendario.get(Calendar.DATE)) && (año==calendario.get(Calendar.YEAR));
+
+        if(!fechaValida)
+            mostrarMensajeError("La fecha ingresada no es válida: ");
+
         return fechaValida;
     }
 
