@@ -117,7 +117,7 @@ public class TablaSolicitudes extends Tabla {
         return toReturn;
     }
 
-    public static boolean cancelarSolicitud(int idSolicitud,SQLiteDatabase db){
+    public static boolean eliminarSolicitud(int idSolicitud, SQLiteDatabase db){
 
         boolean exito=false;
 
@@ -198,7 +198,7 @@ public class TablaSolicitudes extends Tabla {
             values.put("IdEspacio",solicitud.getIdEspacio());
             values.put("CapacidadEstimada",solicitud.getCapacidadEstimada());
             values.put("Tipo","SolicitudReserva");
-            values.put("Estado",solicitud.getEstadoString().toString());
+            values.put("Estado",solicitud.getEstadoString());
 
         }
         catch (JSONException e){
@@ -283,8 +283,8 @@ public class TablaSolicitudes extends Tabla {
     }
 
 
-    public static void actualizarEstado(Solicitud solicitud, SQLiteDatabase db){
-        db.update("Solicitudes",guardarValores(solicitud),Columns.Id +" = "+solicitud.getId(),null);
+    public static boolean actualizarEstado(Solicitud solicitud, SQLiteDatabase db){
+        return db.update("Solicitudes",guardarValores(solicitud),Columns.Id +" = "+solicitud.getId(),null) >0;
     }
 
     private static class Columns implements BaseColumns {

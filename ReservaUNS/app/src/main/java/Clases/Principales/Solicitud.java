@@ -60,7 +60,7 @@ public abstract class Solicitud {
         this.fecha = fecha;
     }
 
-    public void setIdEspacio(String descripcion) {
+    public void setIdEspacio(int idEspacio) {
         this.idEspacio=idEspacio;
     }
 
@@ -85,6 +85,8 @@ public abstract class Solicitud {
     }
 
     public void cancelar(){estado=estado.cancelar();}
+    public void aceptar(){estado=estado.aceptar();}
+    public void rechazar(){estado=estado.rechazar();}
 
     public void setCapacidadEstimada(int capacidadEstimada) {
         this.capacidadEstimada = capacidadEstimada;

@@ -7,11 +7,6 @@ import com.readystatesoftware.sqliteasset.SQLiteAssetHelper;
 
 import java.util.LinkedList;
 
-import Clases.Estados.Aceptado;
-import Clases.Estados.Activo;
-import Clases.Estados.Cancelado;
-import Clases.Estados.Estado;
-import Clases.Estados.Rechazado;
 import Clases.Principales.Aula;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
@@ -109,12 +104,12 @@ public class DBController {
     /**
      * @return True si se ha eliminado la solicitud indicada, false en caso contrario
      * */
-    public static boolean cancelarSolicitud(int idSolicitud){
-        return TablaSolicitudes.cancelarSolicitud(idSolicitud, sqlDBW);
+    public static boolean eliminarSolicitud(int idSolicitud){
+        return TablaSolicitudes.eliminarSolicitud(idSolicitud, sqlDBW);
     }
 
-    public static void actualizarEstadoSolicitud(Solicitud solicitud){
-        TablaSolicitudes.actualizarEstado(solicitud,sqlDB);
+    public static boolean actualizarEstadoSolicitud(Solicitud solicitud){
+        return TablaSolicitudes.actualizarEstado(solicitud,sqlDB);
     }
     
     /**

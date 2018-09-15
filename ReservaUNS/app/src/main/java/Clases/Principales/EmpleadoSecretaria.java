@@ -31,7 +31,7 @@ public class EmpleadoSecretaria extends Usuario{
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
-        LinkedList<Solicitud> solicitudesAulas = new LinkedList<>();
+        LinkedList<Solicitud> solicitudesAulas = new LinkedList<Solicitud>();
         Edificio edificio;
         Solicitud solicitud ;
 

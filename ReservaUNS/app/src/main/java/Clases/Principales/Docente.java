@@ -23,7 +23,6 @@ public class Docente extends Usuario {
         navigationView.getMenu().findItem(R.id.nav_consultar_solicitud).setVisible(true);
     }
 
-    @Override
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(id);

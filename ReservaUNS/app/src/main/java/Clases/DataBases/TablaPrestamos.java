@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
+import android.renderscript.Sampler;
 
 import java.util.LinkedList;
 
@@ -27,16 +28,27 @@ public class TablaPrestamos extends Tabla {
     private static String[] columns={Columns.Id, Columns.Fecha, Columns.IdHorario,Columns.IdEspacio,Columns.Tipo,Columns.IdTitular, Columns.FechaDesde, Columns.FechaHasta, Columns.Estado};
 
 
-    public  static boolean insertReserva(Prestamo p,SQLiteDatabase db){
+   private static ContentValues insertBasico(Prestamo p){
 
-        ContentValues values= new ContentValues();
-        values.put("Id",p.getId());
-        values.put("Fecha",p.getFecha());
-        values.put("IdEspacio",p.getIdEspacio());
-        values.put("IdHorario",p.getIdHorario());
+       ContentValues values= new ContentValues();
+
+       values.put("Id",p.getId());
+       values.put("Fecha",p.getFecha());
+       values.put("IdEspacio",p.getIdEspacio());
+       values.put("IdHorario",p.getIdHorario());
+       values.put("Estado",p.getEstado().toString());
+
+
+       return values;
+   }
+
+    public static boolean insertReserva(Prestamo p,SQLiteDatabase db){
+
+        ContentValues values= insertBasico(p);
+
         values.put("Tipo","Reserva");
         values.put("IdTitular",((Reserva)p).getIdDocente());
-        values.put("Estado",p.getEstado().toString());
+
 
         return db.insert("Prestamos",null,values)>0;
 
@@ -44,15 +56,12 @@ public class TablaPrestamos extends Tabla {
 
     public static boolean insertAsignacion(Prestamo p, SQLiteDatabase db){
 
-        ContentValues values= new ContentValues();
-        values.put("Id",p.getId());
-        values.put("Fecha",p.getFecha());
-        values.put("IdEspacio",p.getIdEspacio());
-        values.put("IdHorario",p.getIdHorario());
-        values.put("Tipo","Reserva");
+        ContentValues values= insertBasico(p);
+
+        values.put("Tipo","Asignacion");
         values.put("FechaHasta",((Asignacion)p).getFechaHasta());
         values.put("FechaDesde",((Asignacion)p).getFechaDesde());
-        values.put("Estado",p.getEstado().toString());
+
 
         return db.insert("Prestamos",null,values)>0;
     }
@@ -70,35 +79,7 @@ public class TablaPrestamos extends Tabla {
     }
 
     public static boolean actualizarPrestamo(Prestamo prestamo, SQLiteDatabase db){
-
-        boolean exito=false;
-
-        Cursor cursor=db.query("Prestamos",columns,Columns.Id +" = '"+prestamo.getId()+"'",null,null,null,null);
-
-        if (cursor.moveToFirst()) {
-
-            exito = db.delete("Prestamos", Columns.Id + " = ?", new String[]{"" + prestamo.getId()}) > 0;
-
-            switch (cursor.getString(4)){
-
-                case "Reserva":{
-                    if (exito)
-                        insertReserva(prestamo,db);
-                    break;
-                }
-
-                case "Asignacion":{
-                    if (exito)
-                        insertAsignacion(prestamo,db);
-                    break;
-                }
-
-            } //Fin switch
-
-        }
-
-
-        return exito;
+         return db.update("Prestamos", insertBasico(prestamo),Columns.Id +" = "+prestamo.getId(),null) > 0;
     }
 
     public static LinkedList<Prestamo> getPrestamos(SQLiteDatabase db){

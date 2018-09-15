@@ -73,7 +73,7 @@ public class FormularioReserva extends Fragment {
         aux = new String[edificios.size()+1];
         int i=1;
         aux[0]="Edificio";
-        Log.e("e1","edificios: "+edificios.size());
+
         for(Edificio edificio:edificios){
             aux[i]=edificio.getNombre();
             i++;
@@ -214,6 +214,7 @@ public class FormularioReserva extends Fragment {
                 else
                     mostrarMensajeError("El mes de la reserva no es válido");
             }
+
             else
                 mostrarMensajeError("El año de la reserva no es válido");
         }
@@ -222,7 +223,7 @@ public class FormularioReserva extends Fragment {
             fechaValida = (mes>=(calendario.get(Calendar.MONTH)+1)) && (año==calendario.get(Calendar.YEAR));
 
 
-        if(!(fechaValida && dia > calendario.get(Calendar.DATE))) {
+        if( !fechaValida || (mes== calendario.get(Calendar.MONTH)+1 && dia <= calendario.get(Calendar.DAY_OF_MONTH)))  {
             mostrarMensajeError("La fecha ingresada no es válida: ");
             fechaValida=false;
         }
@@ -320,7 +321,7 @@ public class FormularioReserva extends Fragment {
 
     private void enviarSolicitud(int position)
     {
-        LinkedList<Integer> idHorarios = new LinkedList<>();
+        LinkedList<Integer> idHorarios = new LinkedList<Integer>();
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);
         String nombreEspacioSeleccionado;
@@ -332,9 +333,6 @@ public class FormularioReserva extends Fragment {
             if(nombreEspacioSeleccionado.equals(listaEspacios.get(i).getNombre()))
                 espacioSeleccionado = listaEspacios.get(i);
         }
-
-
-        Log.e("e2", "Posicion: "+position);
 
 
         Horario horarioReserva = new Horario(9999, Integer.parseInt(horaIni.replace(":","")), Integer.parseInt(horaFin.replace(":","")), 9999, fechas);

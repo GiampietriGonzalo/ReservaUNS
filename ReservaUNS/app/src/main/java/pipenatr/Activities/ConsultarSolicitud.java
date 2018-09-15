@@ -16,6 +16,7 @@ import java.util.LinkedList;
 import Clases.DataBases.DBController;
 import Clases.Estados.StateController;
 import Clases.Principales.Horario;
+import Clases.Principales.Prestamo;
 import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
@@ -57,55 +58,39 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
 
 
     public boolean cancelarSolicitud(int position) {
+
         Solicitud miSolicitud = listaSolicitudes.get(position);
-        Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
-        Reserva miReserva = null;
+        miSolicitud.cancelar();
 
-        if(miHorario.getIdPrestamo() != 9999) {
-            miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
-            miReserva.cancelar();
-        }
-        else
-            miSolicitud.cancelar();
-
-
-        return true;
+        return controller.actualizarEstadoSolicitud(miSolicitud);
     }
 
 
     public boolean eliminarSolicitud(int position) {
 
         Solicitud miSolicitud = listaSolicitudes.get(position);
-        Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
-        Reserva miReserva = null;
 
-        if(miHorario.getIdPrestamo() != 9999) {
-            miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
-
-            controller.cancelarPrestamo(miReserva.getId());
-        }
-
-        return controller.cancelarSolicitud(adapter.getSelectedItemId(position)) && controller.eliminarHorario(miHorario.getId());
+        return controller.eliminarSolicitud(adapter.getSelectedItemId(position));
     }
 
 
-    public boolean aceptarSolicitud(int position) {/*
+    public boolean aceptarSolicitud(int position) {
+
         Solicitud miSolicitud = listaSolicitudes.get(position);
         Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
-        Reserva miReserva = null;
+        Prestamo miPrestamo= new Reserva(9999,miSolicitud.getFecha(),miHorario.getId(),miSolicitud.getIdEspacio(),miSolicitud.getIdAutor(), StateController.getEstadoActivo());
 
-        if(miHorario.getIdPrestamo() != 9999) {
-            miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
+        miSolicitud.aceptar();
 
-            controller.cancelarPrestamo(miReserva.getId());
-        }
-        return controller.cancelarSolicitud(adapter.getSelectedItemId(position)) && controller.eliminarHorario(miHorario.getId());
-        */
-        return false;
+        return controller.insertReserva(miPrestamo) && controller.actualizarEstadoSolicitud(miSolicitud);
     }
 
 
     public boolean rechazarSolicitud(int position) {
-        return false;
+
+        Solicitud miSolicitud = listaSolicitudes.get(position);
+        miSolicitud.rechazar();
+
+        return controller.actualizarEstadoSolicitud(miSolicitud);
     }
 }

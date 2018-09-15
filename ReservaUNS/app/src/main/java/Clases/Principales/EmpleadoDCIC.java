@@ -13,11 +13,10 @@ public class EmpleadoDCIC extends EmpleadoDepartamento {
         super(id, password, nombre, apellido, legajo, mail, telefono);
     }
 
-    @Override
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
-        LinkedList<Solicitud> solicitudesDCIC = new LinkedList<>();
+        LinkedList<Solicitud> solicitudesDCIC = new LinkedList<Solicitud>();
         Edificio edificio;
         Solicitud solicitud ;
 

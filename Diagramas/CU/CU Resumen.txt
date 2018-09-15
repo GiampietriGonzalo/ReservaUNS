@@ -20,7 +20,7 @@ Administrador del departamento
 SGA y autoridades
 
 	Cancelar asignación (alta)
-	Registrar asignación (alta)
+	Registrar asignación (alta) ACA HAY QUE HACER INSERT Y CANCELAR LAS SOLICITUDES ECHAS EN ESE HORARIO Y CANCELAR LOS PRESTAMOS
 	Consultar asignaciones.
 	Rechazar Reserva (alta)
 	Aceptar Reserva (alta)
@@ -33,6 +33,8 @@ Docentes
 	Consultar solicitudes de reservas (alta) 
 
 ¿Diferencia entre prestamo parcial y final?
+
+
 	
 	
 

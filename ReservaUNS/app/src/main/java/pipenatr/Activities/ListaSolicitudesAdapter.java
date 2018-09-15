@@ -16,7 +16,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Clases.DataBases.DBController;
-import Clases.Principales.Docente;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
@@ -59,9 +58,19 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         holder.horarioFin.setText(horario.horaFinConFormato());
         holder.estado.setText(miSolicitud.getEstadoString());
 
+        if(miSolicitud.getEstadoString()!= "Activo")
+            holder.btnEliminarSolicitud.setVisibility(View.VISIBLE);
+        else{
+            holder.btnCancelarSolicitud.setVisibility(View.VISIBLE);
+            holder.btnAceptarSolicitud.setVisibility(View.GONE);
+            holder.btnEliminarSolicitud.setVisibility(View.GONE);
+            holder.btnAceptarSolicitud.setVisibility(View.INVISIBLE);
+            holder.btnEliminarSolicitud.setVisibility(View.INVISIBLE);
+        }
+
         //Crea boton eliminar
         holder.btnEliminarSolicitud.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
                 listener.eliminarSolicitud(holder.getAdapterPosition());
                 holder.btnEliminarSolicitud.setEnabled(false);
@@ -76,21 +85,16 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
                 //Muestra mensaje para confirmar la cancelacion de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
-
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialogInterface, int i) {
 
                         if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
 
+                            holder.estado.setText(miSolicitud.getEstadoString());
                             holder.btnCancelarSolicitud.setEnabled(false);
                             holder.btnCancelarSolicitud.setVisibility(View.GONE);
                             holder.btnEliminarSolicitud.setVisibility(View.VISIBLE);
-                            miSolicitud.cancelar();
-                            controller.cancelarSolicitud(miSolicitud.getId());
-                            controller.actualizarEstadoSolicitud(miSolicitud);
-                            controller.insertSolicitudReserva(miSolicitud);
-                            holder.estado.setText(miSolicitud.getEstadoString());
                             Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
 
 
@@ -109,14 +113,14 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         //Crea boton aceptar
         holder.btnAceptarSolicitud.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
 
                 //Muestra mensaje para confirmar la aceptacion de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
 
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
+
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(listener.aceptarSolicitud(holder.getAdapterPosition())) {
 
@@ -140,14 +144,14 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
 
         //Crea boton rechazar
         holder.btnRechazarSolicitud.setOnClickListener(new View.OnClickListener() {
-            @Override
+
             public void onClick(View view) {
 
                 //Muestra mensaje para confirmar la cancelacion de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
 
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-                    @Override
+
                     public void onClick(DialogInterface dialogInterface, int i) {
                         if(listener.rechazarSolicitud(holder.getAdapterPosition())) {
 
@@ -169,10 +173,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                 alerta.create().show();
             }        });
 
-        if(miSolicitud.getEstadoString()!= "Activo")
-            holder.btnEliminarSolicitud.setVisibility(View.VISIBLE);
-        else
-            holder.btnCancelarSolicitud.setVisibility(View.VISIBLE);
+
     }
 
     public int getItemCount() {
