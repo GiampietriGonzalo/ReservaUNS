@@ -103,6 +103,6 @@ public abstract class Usuario {
 
     public abstract void actualizarNavView(NavigationView navigationView);
 
-    public abstract LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes);
+    public abstract LinkedList<Solicitud> filtrarEspacios(Context context);
 
 }

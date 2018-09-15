@@ -14,8 +14,9 @@ public class EmpleadoDepEconomia extends EmpleadoDepartamento {
     }
 
     @Override
-    public LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes) {
+    public LinkedList<Solicitud> filtrarEspacios(Context context) {
         DBController controller = DBController.getDBController(context);
+        LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
         LinkedList<Solicitud> solicitudesEconomia = new LinkedList<>();
         Edificio edificio;
         Solicitud solicitud ;

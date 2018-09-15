@@ -25,7 +25,7 @@ public class EmpleadoDepartamento extends Usuario{
     }
 
     @Override
-    public LinkedList<Solicitud> filtrarEspacios(Context context, LinkedList<Solicitud> solicitudes) {
+    public LinkedList<Solicitud> filtrarEspacios(Context context) {
         return null;
     }
 }

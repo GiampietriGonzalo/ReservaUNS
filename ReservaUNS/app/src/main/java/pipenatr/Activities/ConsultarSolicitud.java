@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.StateController;
 import Clases.Principales.Horario;
 import Clases.Principales.Reserva;
 import Clases.Principales.Solicitud;
@@ -48,8 +49,7 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
     private void consultarListaSolicitudes() {
 
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
-        LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(usuario.getId());
-
+        LinkedList<Solicitud> solicitudes = usuario.filtrarEspacios(this.getActivity());
         for( int i = 0; i<solicitudes.size(); i++){
             listaSolicitudes.add(solicitudes.get(i));
         }
@@ -57,16 +57,16 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
 
 
     public boolean cancelarSolicitud(int position) {
-
         Solicitud miSolicitud = listaSolicitudes.get(position);
         Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         Reserva miReserva = null;
 
         if(miHorario.getIdPrestamo() != 9999) {
-
             miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
-
+            miReserva.cancelar();
         }
+        else
+            miSolicitud.cancelar();
 
 
         return true;
@@ -89,7 +89,18 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
     }
 
 
-    public boolean aceptarSolicitud(int position) {
+    public boolean aceptarSolicitud(int position) {/*
+        Solicitud miSolicitud = listaSolicitudes.get(position);
+        Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
+        Reserva miReserva = null;
+
+        if(miHorario.getIdPrestamo() != 9999) {
+            miReserva = (Reserva) controller.findPrestamo(miHorario.getIdPrestamo());
+
+            controller.cancelarPrestamo(miReserva.getId());
+        }
+        return controller.cancelarSolicitud(adapter.getSelectedItemId(position)) && controller.eliminarHorario(miHorario.getId());
+        */
         return false;
     }
 
