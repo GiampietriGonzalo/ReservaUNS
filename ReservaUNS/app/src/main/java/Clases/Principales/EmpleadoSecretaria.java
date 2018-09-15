@@ -6,7 +6,10 @@ import android.support.design.widget.NavigationView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Otras.ButtonListenerController;
+import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
+import pipenatr.Activities.RecyclerViewClickListener;
 import pipenatr.Activities.SaveSharedPreference;
 
 public class EmpleadoSecretaria extends Usuario{
@@ -19,7 +22,6 @@ public class EmpleadoSecretaria extends Usuario{
         return DBController.insertEmpleadoSecretaria(this);
     }
 
-    @Override
     public void actualizarNavView(NavigationView navigationView) {
         navigationView.getMenu().findItem(R.id.nav_consultar_asignaciones).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_anular_prestamo).setVisible(true);
@@ -27,7 +29,6 @@ public class EmpleadoSecretaria extends Usuario{
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
     }
 
-    @Override
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
@@ -45,4 +46,16 @@ public class EmpleadoSecretaria extends Usuario{
         }
         return solicitudesAulas;
     }
+
+    public void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
+
+        holder.btnEA.setEnabled(true);
+        holder.btnCR.setEnabled(true);
+        holder.btnEA.setText("Aceptar");
+        holder.btnCR.setText("Rechazar");
+
+        ButtonListenerController bcl= ButtonListenerController.getButtonListenerController();
+        bcl.setListenerEmpleado(holder,solicitud,listener,context);
+    }
+
 }

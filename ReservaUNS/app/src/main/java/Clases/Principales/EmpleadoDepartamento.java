@@ -4,9 +4,11 @@ import android.content.Context;
 import android.support.design.widget.NavigationView;
 
 import java.util.LinkedList;
-
 import Clases.DataBases.DBController;
+import Clases.Otras.ButtonListenerController;
+import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
+import pipenatr.Activities.RecyclerViewClickListener;
 import pipenatr.Activities.SaveSharedPreference;
 
 public class EmpleadoDepartamento extends Usuario{
@@ -34,6 +36,7 @@ public class EmpleadoDepartamento extends Usuario{
         //Para cada elemento de la lista de solicitudes recibida
         for(int i = 0; i<solicitudes.size(); i++) {
             solicitud = solicitudes.get(i);
+
             edificio = controller.findEdificio(solicitud.getIdEspacio());
             //Verifica que el encargado del edificio de la reserva sea el usuario
             if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
@@ -41,5 +44,17 @@ public class EmpleadoDepartamento extends Usuario{
         }
         return solicitudesDepto;
     }
+
+    public void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
+
+        holder.btnEA.setEnabled(true);
+        holder.btnCR.setEnabled(true);
+        holder.btnEA.setText("Aceptar");
+        holder.btnCR.setText("Rechazar");
+
+        ButtonListenerController bcl= ButtonListenerController.getButtonListenerController();
+        bcl.setListenerEmpleado(holder,solicitud,listener,context);
+    }
+
 }
 

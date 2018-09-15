@@ -7,6 +7,8 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaUsuarios;
+import Clases.Otras.SolicitudesViewHolder;
+import pipenatr.Activities.RecyclerViewClickListener;
 
 /**
  * Created by gonza on 16/07/18.
@@ -104,5 +106,7 @@ public abstract class Usuario {
     public abstract void actualizarNavView(NavigationView navigationView);
 
     public abstract LinkedList<Solicitud> filtrarEspacios(Context context);
+
+    public abstract void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context);
 
 }

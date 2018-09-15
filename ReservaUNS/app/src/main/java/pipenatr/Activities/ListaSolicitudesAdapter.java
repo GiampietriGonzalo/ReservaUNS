@@ -16,23 +16,27 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Clases.DataBases.DBController;
+import Clases.Otras.SolicitudesViewHolder;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
 import Clases.Principales.Solicitud;
+import Clases.Principales.Usuario;
 
-public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitudesAdapter.SolicitudesViewHolder> {
+public class ListaSolicitudesAdapter extends RecyclerView.Adapter<SolicitudesViewHolder> {
 
-    DBController controller;
-    ArrayList<Solicitud> listaSolicitud;
-    RecyclerViewClickListener listener;
-    Context context;
+    private DBController controller;
+    private ArrayList<Solicitud> listaSolicitud;
+    private RecyclerViewClickListener listener;
+    private Context context;
+    private Usuario usuario;
 
-    public ListaSolicitudesAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener) {
+    public ListaSolicitudesAdapter(ArrayList<Solicitud> listaSolicitud, Context context, RecyclerViewClickListener listener, Usuario usuario) {
         this.listaSolicitud = listaSolicitud;
         controller = DBController.getDBController(context);
         this.listener = listener;
         this.context = context;
+        this.usuario=usuario;
     }
 
     
@@ -58,28 +62,28 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         holder.horarioFin.setText(horario.horaFinConFormato());
         holder.estado.setText(miSolicitud.getEstadoString());
 
+        usuario.setListener(holder,miSolicitud,listener,context);
+
+        /*
         if(miSolicitud.getEstadoString()!= "Activo")
-            holder.btnEliminarSolicitud.setVisibility(View.VISIBLE);
+            holder.btnEA.setEnabled(true);
         else{
-            holder.btnCancelarSolicitud.setVisibility(View.VISIBLE);
-            holder.btnAceptarSolicitud.setVisibility(View.GONE);
-            holder.btnEliminarSolicitud.setVisibility(View.GONE);
-            holder.btnAceptarSolicitud.setVisibility(View.INVISIBLE);
-            holder.btnEliminarSolicitud.setVisibility(View.INVISIBLE);
+            holder.btnCR.setEnabled(true);
+            holder.btnEA.setEnabled(false);
         }
 
         //Crea boton eliminar
-        holder.btnEliminarSolicitud.setOnClickListener(new View.OnClickListener() {
+        holder.btnEA.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 listener.eliminarSolicitud(holder.getAdapterPosition());
-                holder.btnEliminarSolicitud.setEnabled(false);
+                holder.btnEA.setEnabled(false);
                 Toast.makeText(context, "La solicitud fue eliminada", Toast.LENGTH_LONG).show();
             }
         });
 
         //Crea boton cancelar
-        holder.btnCancelarSolicitud.setOnClickListener(new View.OnClickListener() {
+        holder.btnCR.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
 
@@ -92,11 +96,9 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                         if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
 
                             holder.estado.setText(miSolicitud.getEstadoString());
-                            holder.btnCancelarSolicitud.setEnabled(false);
-                            holder.btnCancelarSolicitud.setVisibility(View.GONE);
-                            holder.btnEliminarSolicitud.setVisibility(View.VISIBLE);
+                            holder.btnCR.setEnabled(false);
+                            holder.btnEA.setVisibility(View.VISIBLE);
                             Toast.makeText(context, "Su solicitud fue cancelada", Toast.LENGTH_LONG).show();
-
 
                         }
                         else
@@ -112,7 +114,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
             }        });
 
         //Crea boton aceptar
-        holder.btnAceptarSolicitud.setOnClickListener(new View.OnClickListener() {
+        holder.btnEA.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
 
@@ -125,8 +127,8 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                         if(listener.aceptarSolicitud(holder.getAdapterPosition())) {
 
                             Toast.makeText(context, "La solicitud fue aceptada", Toast.LENGTH_LONG).show();
-                            holder.btnRechazarSolicitud.setEnabled(false);
-                            holder.btnAceptarSolicitud.setEnabled(false);
+                            holder.btnCR.setEnabled(false);
+                            holder.btnEA.setEnabled(false);
                             holder.estado.setText(miSolicitud.getEstadoString());
 
                         }
@@ -142,37 +144,8 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
                 alerta.create().show();
             }        });
 
-        //Crea boton rechazar
-        holder.btnRechazarSolicitud.setOnClickListener(new View.OnClickListener() {
 
-            public void onClick(View view) {
-
-                //Muestra mensaje para confirmar la cancelacion de la solicitud
-                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
-
-                alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if(listener.rechazarSolicitud(holder.getAdapterPosition())) {
-
-                            Toast.makeText(context, "La solicitud fue rechazada", Toast.LENGTH_LONG).show();
-                            holder.btnRechazarSolicitud.setEnabled(false);
-                            holder.btnAceptarSolicitud.setEnabled(false);
-                            holder.estado.setText(miSolicitud.getEstadoString());
-
-                        }
-                        else
-                            Toast.makeText(context, "No se pudo rechazar la solicitud", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-                alerta.setNegativeButton("Cancelar", null);
-                alerta.setMessage("¿desea cancelar la solicitud?");
-                alerta.setTitle("Cancelar solicitud");
-                alerta.setCancelable(true);
-                alerta.create().show();
-            }        });
-
+            */
 
     }
 
@@ -184,30 +157,5 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<ListaSolicitud
         return listaSolicitud.get(position).getId();
     }
 
-    public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView id, fecha, horarioIncio, horarioFin, estado, edificio,espacio;
-        Button btnCancelarSolicitud, btnAceptarSolicitud, btnRechazarSolicitud, btnEliminarSolicitud;
-        int position;
-
-        public SolicitudesViewHolder(View itemView) {
-
-            super(itemView);
-            id = (TextView) itemView.findViewById(R.id.txtIdItemList);
-            fecha = (TextView) itemView.findViewById(R.id.txtFechaItemList);
-            horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemList);
-            horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemList);
-            estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
-            espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemList);
-            edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
-            btnCancelarSolicitud = (Button) itemView.findViewById(R.id.btnCancelarSolicitud);
-            btnAceptarSolicitud = (Button) itemView.findViewById(R.id.btnAceptarSolicitud);
-            btnRechazarSolicitud = (Button) itemView.findViewById(R.id.btnRechazarSolicitud);
-            btnEliminarSolicitud = (Button) itemView.findViewById(R.id.btnEliminarSolicitud);
-        }
-
-        public void onClick(View view) {
-            position = this.getLayoutPosition();
-        }
-    }
 }

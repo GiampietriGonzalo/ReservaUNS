@@ -5,7 +5,10 @@ import android.support.design.widget.NavigationView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Otras.ButtonListenerController;
+import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
+import pipenatr.Activities.RecyclerViewClickListener;
 
 public class Docente extends Usuario {
 
@@ -28,4 +31,16 @@ public class Docente extends Usuario {
         LinkedList<Solicitud> solicitudes = controller.findSolicitudesUsuario(id);
         return solicitudes;
     }
+
+    public void setListener(SolicitudesViewHolder holder,Solicitud solicitud,RecyclerViewClickListener listener, Context context){
+
+        holder.btnCR.setEnabled(true);
+        holder.btnEA.setEnabled(false);
+        holder.btnEA.setText("Eliminar");
+        holder.btnCR.setText("Cancelar");
+
+        ButtonListenerController bcl= ButtonListenerController.getButtonListenerController();
+        bcl.setListenerDocente(holder,solicitud,listener,context);
+    }
+
 }
