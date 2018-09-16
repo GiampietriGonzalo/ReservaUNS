@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class FormularioReserva extends Fragment {
 
     private View myView;
 
+    private VerificadorDatosFormulario verificador;
     private LinkedList<Espacio> listaEspacios;
     private LinkedList<String> toAdapter;
     private DBController controller;
@@ -52,6 +54,13 @@ public class FormularioReserva extends Fragment {
         listView= (ListView) myView.findViewById(R.id.LVReservas);
         listView.setVisibility(View.INVISIBLE);
         listView.setEnabled(false);
+
+        RelativeLayout layDH = (RelativeLayout) myView.findViewById(R.id.formRelativeLayout);
+
+        for(int i=0; i<8; i++) {
+            View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
+            layDH.addView(view);
+        }
 
         controller = controller.getDBController(getActivity());
 
@@ -83,6 +92,8 @@ public class FormularioReserva extends Fragment {
         spinner = (Spinner) myView.findViewById(R.id.spinnerEdificios);
         adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, aux);
         spinner.setAdapter(adapter);
+
+        verificador = new VerificadorDatosFormulario(getActivity());
 
         return myView;
     }
@@ -144,10 +155,10 @@ public class FormularioReserva extends Fragment {
             {
                 //Verifica si la hora de inicio ingresada es menor a la hora de finalizacion
                 if(Integer.parseInt(horaIni.replace(":",""))>=Integer.parseInt(horaFin.replace(":","")))
-                    mostrarMensajeError("La hora de inicio de la reserva debe ser anterior a la hora de fin.");
+                    verificador.mostrarMensajeError("La hora de inicio de la reserva debe ser anterior a la hora de fin.");
                 else
                     //Verifica que la fecha y las horas de inicio y fin sean validas
-                    if(verificarFecha(fecha) && verificarHorario(horaIni) && verificarHorario(horaFin))
+                    if(verificador.verificarFecha(fecha) && verificador.verificarHorario(horaIni) && verificador.verificarHorario(horaFin))
                     {
                         //Inicializo listas donde se almacenaran los ids de los espacios para mostrar en la lista y los espacios para reservar
                         listaEspacios = new LinkedList<Espacio>();
@@ -171,11 +182,11 @@ public class FormularioReserva extends Fragment {
                     }
             }
             else
-                mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
+                verificador.mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
         }
     }
 
-
+/*
 
     private boolean verificarFecha(String fecha) {
 
@@ -268,6 +279,8 @@ public class FormularioReserva extends Fragment {
         alerta.setCancelable(true);
         alerta.create().show();
     }
+
+    */
 
     private void consultarTablaEspacios()
     {

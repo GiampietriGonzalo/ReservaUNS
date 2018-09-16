@@ -41,7 +41,7 @@ public class ButtonListenerController {
 
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if(listener.aceptarSolicitud(holder.getAdapterPosition())) {
+                        if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
 
                             holder.estado.setText(solicitud.getEstadoString());
                             holder.btnCR.setEnabled(false);
