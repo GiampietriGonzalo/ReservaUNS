@@ -26,13 +26,14 @@
             android:icon="@drawable/ic_menu_send"
             android:title="Consultar asignaciones" />
         <item
-            android:id="@+id/nav_anular_prestamo"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Anular prestamo" />
+            android:id="@+id/nav_registrar_asignacion"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Registrar asignación" />
         <item
-            android:id="@+id/nav_evaluar_prestamo"
+            android:id="@+id/nav_admininistrar_solicitud_Secretaria"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Evaluar prestamo" />
+            android:title="Administrar solicitues" />
+
         <item
             android:id="@+id/nav_consultar_prestamo"
             android:icon="@drawable/ic_menu_slideshow"

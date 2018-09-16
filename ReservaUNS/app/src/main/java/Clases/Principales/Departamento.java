@@ -1,9 +1,5 @@
 package Clases.Principales;
 
-/**
- * Created by gonza on 18/07/18.
- */
-
 public class Departamento extends Edificio {
 
     protected int codigo;

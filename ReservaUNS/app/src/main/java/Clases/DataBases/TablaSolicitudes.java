@@ -154,18 +154,19 @@ public class TablaSolicitudes extends Tabla {
 
                 switch (cursor.getString(6)) {
 
-                    case "Reserva": {
+                    case "SolicitudReserva": {
                         aux = new SolicitudReserva(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
                         break;
                     }
 
-                    case "Asignacion": {
+                    case "SolicitudAsignacion": {
                         aux = new SolicitudAsignacion(cursor.getInt(0), cursor.getInt(1), idHorarios, cursor.getString(3), cursor.getInt(4), cursor.getInt(5),estado);
 
                     }
 
                 }
-                solicitudes.addLast(aux);
+                if(aux!=null)
+                    solicitudes.addLast(aux);
             }
         }
         catch (JSONException e){

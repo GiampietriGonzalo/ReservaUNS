@@ -27,17 +27,23 @@ public class EmpleadoDepartamento extends Usuario{
     }
 
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
+
         DBController controller = DBController.getDBController(context);
+
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
         LinkedList<Solicitud> solicitudesDepto = new LinkedList<Solicitud>();
+        Espacio espacio;
         Edificio edificio;
         Solicitud solicitud ;
 
         //Para cada elemento de la lista de solicitudes recibida
-        for(int i = 0; i<solicitudes.size(); i++) {
-            solicitud = solicitudes.get(i);
+        while(!solicitudes.isEmpty()) {
 
-            edificio = controller.findEdificio(solicitud.getIdEspacio());
+            solicitud = solicitudes.removeLast();
+
+            espacio=controller.findEspacio(solicitud.getIdEspacio());
+            edificio = controller.findEdificio(espacio.getIdEdificio());
+
             //Verifica que el encargado del edificio de la reserva sea el usuario
             if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
                 solicitudesDepto.addLast(solicitud);
@@ -47,8 +53,15 @@ public class EmpleadoDepartamento extends Usuario{
 
     public void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
 
-        holder.btnEA.setEnabled(true);
-        holder.btnCR.setEnabled(true);
+        if(solicitud.getEstadoString()!="Activo"){
+            holder.btnCR.setEnabled(false);
+            holder.btnEA.setEnabled(false);
+        }
+        else{
+            holder.btnEA.setEnabled(true);
+            holder.btnCR.setEnabled(true);
+        }
+
         holder.btnEA.setText("Aceptar");
         holder.btnCR.setText("Rechazar");
 

@@ -62,7 +62,6 @@ public class IniciarSesion extends AppCompatActivity implements LoaderCallbacks<
     //Controlador de base de datos
     private DBController controller;
 
-    //
     private Usuario user;
 
 

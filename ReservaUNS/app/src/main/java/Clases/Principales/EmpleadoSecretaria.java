@@ -2,6 +2,7 @@ package Clases.Principales;
 
 import android.content.Context;
 import android.support.design.widget.NavigationView;
+import android.util.Log;
 
 import java.util.LinkedList;
 
@@ -24,33 +25,49 @@ public class EmpleadoSecretaria extends Usuario{
 
     public void actualizarNavView(NavigationView navigationView) {
         navigationView.getMenu().findItem(R.id.nav_consultar_asignaciones).setVisible(true);
-        navigationView.getMenu().findItem(R.id.nav_anular_prestamo).setVisible(true);
-        navigationView.getMenu().findItem(R.id.nav_evaluar_prestamo).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_admininistrar_solicitud_Secretaria).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_registrar_asignacion).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
     }
 
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
+
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
         LinkedList<Solicitud> solicitudesAulas = new LinkedList<Solicitud>();
+        Espacio espacio;
         Edificio edificio;
         Solicitud solicitud ;
 
         //Para cada elemento de la lista de solicitudes recibida
-        for(int i = 0; i<solicitudes.size(); i++) {
-            solicitud = solicitudes.get(i);
-            edificio = controller.findEdificio(solicitud.getIdEspacio());
+        while(!solicitudes.isEmpty()) {
+
+            solicitud = solicitudes.removeLast();
+
+            espacio=controller.findEspacio(solicitud.getIdEspacio());
+            edificio = controller.findEdificio(espacio.getIdEdificio());
+
+
             //Verifica que el encargado del edificio de la reserva sea el usuario
             if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
                 solicitudesAulas.addLast(solicitud);
         }
+
         return solicitudesAulas;
     }
 
     public void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
 
-        holder.btnEA.setEnabled(true);
-        holder.btnCR.setEnabled(true);
+        if(solicitud.getEstadoString()!="Activo"){
+            holder.btnCR.setEnabled(false);
+            holder.btnEA.setEnabled(false);
+        }
+        else{
+            holder.btnEA.setEnabled(true);
+            holder.btnCR.setEnabled(true);
+        }
+
+
         holder.btnEA.setText("Aceptar");
         holder.btnCR.setText("Rechazar");
 

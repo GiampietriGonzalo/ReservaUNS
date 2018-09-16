@@ -55,12 +55,12 @@ public class FormularioReserva extends Fragment {
         listView.setVisibility(View.INVISIBLE);
         listView.setEnabled(false);
 
-        RelativeLayout layDH = (RelativeLayout) myView.findViewById(R.id.formRelativeLayout);
+        /*RelativeLayout layDH = (RelativeLayout) myView.findViewById(R.id.formRelativeLayout);
 
         for(int i=0; i<8; i++) {
             View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
             layDH.addView(view);
-        }
+        }*/
 
         controller = controller.getDBController(getActivity());
 
@@ -112,13 +112,16 @@ public class FormularioReserva extends Fragment {
 
             //Muestra una ventana para verificar si el usuario desea reservar el espacio
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                     String itemSeleccionado = (String) listView.getItemAtPosition(position);
                     final int pos = position;
+
                     //Muestra ventana para confirmar la reserva del aula
                     AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
                     alerta.setPositiveButton("Reservar", new DialogInterface.OnClickListener() {
-                        @Override
+
                         public void onClick(DialogInterface dialogInterface, int i) {
                             enviarSolicitud(pos);
                             Toast.makeText(getActivity(), "Su solicitud fue enviada para revisión", Toast.LENGTH_LONG).show();
@@ -129,6 +132,7 @@ public class FormularioReserva extends Fragment {
                             startActivity(intent);
                         }
                     });
+
                     alerta.setNegativeButton("Cancelar", null);
                     alerta.setMessage("¿desea reservar este espacio?");
                     alerta.setTitle("Reservar espacio");
@@ -332,8 +336,8 @@ public class FormularioReserva extends Fragment {
         }
     }
 
-    private void enviarSolicitud(int position)
-    {
+    private void enviarSolicitud(int position){
+
         LinkedList<Integer> idHorarios = new LinkedList<Integer>();
         LinkedList<String> fechas = new LinkedList<String>();
         fechas.addLast(fecha);

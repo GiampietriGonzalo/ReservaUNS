@@ -91,6 +91,7 @@ public class PantallaPrincipal extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         FragmentManager fragmentManager = getFragmentManager();
@@ -101,14 +102,14 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_consultar_asignaciones) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
-        } else if (id == R.id.nav_anular_prestamo) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
-        } else if (id == R.id.nav_evaluar_prestamo) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        } else if (id == R.id.nav_admininistrar_solicitud_Secretaria) {
+            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
+        } else if (id == R.id.nav_registrar_asignacion) {
+            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_prestamo) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_administrar_solicitudes_departamento) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_administrar_docentes) {
             //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_cerrar_sesion) {

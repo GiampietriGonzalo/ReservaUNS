@@ -24,9 +24,30 @@ public class ButtonListenerController {
         holder.btnEA.setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
-                holder.btnEA.setEnabled(false);
-                listener.eliminarSolicitud(holder.getAdapterPosition());
-                Toast.makeText(context, "La solicitud fue eliminada", Toast.LENGTH_LONG).show();
+
+                //Muestra mensaje para confirmar la cancelacion de la solicitud
+                AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+                alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                        if (listener.eliminarSolicitud(holder.getAdapterPosition())) {
+
+                            holder.btnEA.setEnabled(false);
+                            Toast.makeText(context, "La solicitud fue eliminada", Toast.LENGTH_LONG).show();
+                        }
+                        else
+                            Toast.makeText(context, "No se pudo eliminar la solicitud", Toast.LENGTH_LONG).show();
+
+
+                    }
+                });
+
+                alerta.setNegativeButton("Cancelar", null);
+                alerta.setMessage("¿Eliminar solicitud?");
+                alerta.setTitle("Eliminar solicitud");
+                alerta.setCancelable(true);
+                alerta.create().show();
             }
         });
 
@@ -81,12 +102,19 @@ public class ButtonListenerController {
                         if(listener.aceptarSolicitud(holder.getAdapterPosition())){
 
                             holder.btnEA.setEnabled(false);
-                            listener.aceptarSolicitud(holder.getAdapterPosition());
+                            holder.btnCR.setEnabled(false);
                             Toast.makeText(context, "La solicitud fue Aceptada", Toast.LENGTH_LONG).show();
 
                         }
                     }
                 });
+
+                alerta.setNegativeButton("Cancelar", null);
+                alerta.setMessage("¿Aceptar solicitud?");
+                alerta.setTitle("Aceptar solicitud");
+                alerta.setCancelable(true);
+                alerta.create().show();
+
             }
         });
 
@@ -97,15 +125,16 @@ public class ButtonListenerController {
 
                 //Muestra mensaje para confirmar el rechazo de la solicitud
                 AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+
                 alerta.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialogInterface, int i) {
 
-                        if(listener.cancelarSolicitud(holder.getAdapterPosition())) {
+                        if(listener.rechazarSolicitud(holder.getAdapterPosition())) {
 
                             holder.estado.setText(solicitud.getEstadoString());
                             holder.btnCR.setEnabled(false);
-                            holder.btnEA.setEnabled(true);
+                            holder.btnEA.setEnabled(false);
                             Toast.makeText(context, "Su solicitud fue rechazada", Toast.LENGTH_LONG).show();
 
                         }
@@ -114,7 +143,7 @@ public class ButtonListenerController {
                     }
                 });
 
-                alerta.setNegativeButton("Rechazar", null);
+                alerta.setNegativeButton("Cancelar", null);
                 alerta.setMessage("¿Desea rechazar la solicitud?");
                 alerta.setTitle("Rechazar solicitud");
                 alerta.setCancelable(true);

@@ -76,7 +76,7 @@ public class TablaEdificios extends Tabla {
     public static Edificio findEdificio(int idEdificio, SQLiteDatabase db){
 
         Edificio toReturn=null;
-        Cursor cursor=db.query("Edificios",columns, Columns.Id +" = '"+idEdificio+"'",null,null,null,null);
+        Cursor cursor=db.query("Edificios",columns, Columns.Id +" = "+idEdificio,null,null,null,null);
 
         while (!cursor.isClosed() && cursor.moveToNext()) {
 

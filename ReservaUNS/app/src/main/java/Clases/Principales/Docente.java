@@ -34,8 +34,15 @@ public class Docente extends Usuario {
 
     public void setListener(SolicitudesViewHolder holder,Solicitud solicitud,RecyclerViewClickListener listener, Context context){
 
-        holder.btnCR.setEnabled(true);
-        holder.btnEA.setEnabled(false);
+        if(solicitud.getEstadoString()!="Activo"){
+            holder.btnCR.setEnabled(false);
+            holder.btnEA.setEnabled(true);
+        }
+        else{
+            holder.btnCR.setEnabled(true);
+            holder.btnEA.setEnabled(false);
+        }
+
         holder.btnEA.setText("Eliminar");
         holder.btnCR.setText("Cancelar");
 

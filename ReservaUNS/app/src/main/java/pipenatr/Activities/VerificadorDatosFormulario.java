@@ -96,11 +96,12 @@ public class VerificadorDatosFormulario {
     public void mostrarMensajeError(String mensaje)
     {
         AlertDialog.Builder alerta = new AlertDialog.Builder(context);
+
         alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialogInterface, int i) {//Cierra la ventana
             }
         });
+
         alerta.setMessage(mensaje);
         alerta.setTitle("Error");
         alerta.setCancelable(true);
