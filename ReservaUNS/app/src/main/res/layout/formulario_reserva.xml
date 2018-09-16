@@ -1,10 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pipenatr.Activities.FormularioReserva">
+    tools:context="pipenatr.Activities.FormularioReserva"
+    android:id="@+id/formRelativeLayout">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/campoCantidadDias"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/txtCantDias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Cantidad de días asignación"
+            android:inputType="numberSigned" />
+    </android.support.design.widget.TextInputLayout>
 
     <ScrollView
         android:id="@+id/SVReserva"
@@ -52,61 +70,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="20dp"
-                android:text="Ingrese fecha de la reserva"
+                android:text="Ingrese fecha y horario de la reserva"
                 android:textSize="17sp"
                 android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="e:j  DD/MM/AAAA" />
-
-            <EditText
-                android:id="@+id/txtFechaReserva"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="(DD/MM/AAAA)"
-                android:inputType="date" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:text="Ingrese hora de inicio y fin de la reserva "
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ej: mm : hh" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/txtHoraInicio"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Inicio"
-                    android:inputType="time" />
-
-                <EditText
-                    android:id="@+id/txtHoraFin"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:hint="Fin"
-                    android:inputType="time" />
-
-            </LinearLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -144,4 +110,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:visibility="invisible" />
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

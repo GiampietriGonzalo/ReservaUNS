@@ -32,9 +32,4 @@ public class Asignacion extends Prestamo{
         return fechaHasta;
     }
 
-    public void cancelar(){
-        //hacer
-    }
-
-
 }

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -55,12 +56,9 @@ public class FormularioReserva extends Fragment {
         listView.setVisibility(View.INVISIBLE);
         listView.setEnabled(false);
 
-        /*RelativeLayout layDH = (RelativeLayout) myView.findViewById(R.id.formRelativeLayout);
-
-        for(int i=0; i<8; i++) {
-            View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
-            layDH.addView(view);
-        }*/
+        LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
+        View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
+        layoutDiaHora.addView(view, 5);
 
         controller = controller.getDBController(getActivity());
 

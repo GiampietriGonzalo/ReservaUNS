@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
-
 
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
@@ -15,15 +14,14 @@
             android:id="@+id/txtFechaReserva"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="fecha (dd/mm/aaaa)"
+            android:hint="Fecha (dd/mm/aaaa)"
             android:inputType="date" />
     </android.support.design.widget.TextInputLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="horizontal">
-
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -34,11 +32,11 @@
             <EditText
                 android:id="@+id/txtHoraInicio"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Hora inicio"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Hora inicio (hh:mm)"
                 android:inputType="time" />
         </android.support.design.widget.TextInputLayout>
-
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -49,11 +47,30 @@
             <EditText
                 android:id="@+id/txtHoraFin"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="Hora inicio"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Hora fin (hh:mm)"
                 android:inputType="time" />
         </android.support.design.widget.TextInputLayout>
 
     </LinearLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/campoAulaDia"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/txtAulaDia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Aula de la asignación"
+            android:inputType="time" />
+    </android.support.design.widget.TextInputLayout>
+
 
 </LinearLayout>
