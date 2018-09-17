@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
@@ -20,9 +16,8 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
-import Clases.Principales.Espacio;
 
-public class RegistrarAsignacion extends Fragment {
+public class RegistrarAsignacion extends Fragment implements DatosAsignacionListener {
 
     private VerificadorDatosFormulario verificador;
     private DBController controller;
@@ -30,7 +25,7 @@ public class RegistrarAsignacion extends Fragment {
     private LayoutInflater inflater;
 
     //variables datos asigna3
-    private String[] diasAsignacion, horariosAsignacion;
+    private LinkedList<String> diasAsignacion, horariosAsignacion, aulas;
     private String capacidad;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,42 +38,33 @@ public class RegistrarAsignacion extends Fragment {
         myView.findViewById(R.id.spinnerEdificios).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerTiposEspacio).setVisibility(myView.GONE);
         myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.VISIBLE);
-        Button btn = myView.findViewById(R.id.btnEnviarSolicitud);
-       // btn.setOnClickListener(new ListenerAsignacion);
+        Button btnEnviar = myView.findViewById(R.id.btnEnviarSolicitud);
+       // btnEnviar.setOnClickListener(new ListenerAsignacion);
 
-        final EditText text = myView.findViewById(R.id.txtCantDias);
-        text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                TextView text = (TextView) editable;
-                modificarFormulario(Integer.parseInt(text.getText().toString()));
-            }
-        });
+        Button btnSeleccionar = (Button) myView.findViewById(R.id.btnSeleccionarCantidad);
+        btnSeleccionar.setOnClickListener( new ListenerConfirmacionCantidad());
 
         return myView;
     }
 
-    public void modificarFormulario(int cantDiasAsig) {
-        LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
+    @Override
+    public void guardarDia(String fecha) {
+        diasAsignacion.addLast(fecha);
+    }
 
-        for(int i=0; i<cantDiasAsig; i++) {
-            View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
-            layoutDiaHora.addView(view, 5);
-            myView.findViewById(R.id.campoAulaDia).setVisibility(View.VISIBLE);
-        }
+    @Override
+    public void guardarHoraInicio(String hora) {
+        horariosAsignacion.addLast(hora);
+    }
 
-        myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.GONE);
-        myView.findViewById(R.id.SVReserva).setVisibility(myView.VISIBLE);
+    @Override
+    public void guardarHoraFin(String hora) {
+        horariosAsignacion.addLast(hora);
+    }
+
+    @Override
+    public void guardarAula(String aula) {
+        aulas.addLast(aula);
     }
 
 
@@ -97,6 +83,7 @@ public class RegistrarAsignacion extends Fragment {
 
 
 
+            /*
             if(!fecha.matches("") && !capacidad.matches("") && !horaIni.matches("") && !horaFin.matches("") && spinnerEspacio.getSelectedItemPosition()!=0)
             {
                 //Verifica si la hora de inicio ingresada es menor a la hora de finalizacion
@@ -129,8 +116,36 @@ public class RegistrarAsignacion extends Fragment {
             }
             else
                 verificador.mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
+                */
 
         }
 
+    }
+
+    private class ListenerConfirmacionCantidad implements View.OnClickListener {
+        @Override
+        public void onClick(View view) {
+
+            TextView text = (TextView) myView.findViewById(R.id.txtCantDias);
+            int cantDiasAsig = Integer.parseInt(text.getText().toString());
+            LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
+
+            for(int i=0; i<cantDiasAsig; i++) {
+                View viewZ = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
+                layoutDiaHora.addView(viewZ, 5);
+                myView.findViewById(R.id.campoAulaDia).setVisibility(myView.VISIBLE);
+            }
+
+            myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.GONE);
+            myView.findViewById(R.id.btnSeleccionarCantidad).setVisibility(myView.GONE);
+            myView.findViewById(R.id.SVReserva).setVisibility(myView.VISIBLE);
+            myView.findViewById(R.id.txtvPeriodo).setVisibility(myView.VISIBLE);
+            myView.findViewById(R.id.formLayoutPeriodo).setVisibility(myView.VISIBLE);
+
+            diasAsignacion = new LinkedList<>();
+            horariosAsignacion = new LinkedList<>();
+            aulas = new LinkedList<>();
+
+        }
     }
 }

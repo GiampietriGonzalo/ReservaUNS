@@ -58,7 +58,7 @@ public class FormularioReserva extends Fragment {
 
         LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
         View view = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
-        layoutDiaHora.addView(view, 5);
+        layoutDiaHora.addView(view, 7);
 
         controller = controller.getDBController(getActivity());
 
