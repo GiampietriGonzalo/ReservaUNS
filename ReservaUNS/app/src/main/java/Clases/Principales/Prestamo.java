@@ -31,9 +31,9 @@ public abstract class Prestamo {
         this.estado=estado;
     }
 
-     abstract public  boolean guardarPrestamo();
+     abstract public boolean guardarPrestamo();
 
-    public void cancelar(){estado=estado.cancelar();}
+    public void finalizar(){estado=estado.finalizar();}
 
     public int getId() {
         return id;
@@ -72,5 +72,7 @@ public abstract class Prestamo {
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
+
+    public String getEstadoString(){return estado.toString();}
 
 }

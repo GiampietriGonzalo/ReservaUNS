@@ -107,6 +107,8 @@ public abstract class Usuario {
 
     public abstract LinkedList<Solicitud> filtrarEspacios(Context context);
 
+    public abstract LinkedList<Prestamo> filtrarPrestamos(Context context);
+
     public abstract void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context);
 
 }

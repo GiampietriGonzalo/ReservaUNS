@@ -75,4 +75,31 @@ public class EmpleadoSecretaria extends Usuario{
         bcl.setListenerEmpleado(holder,solicitud,listener,context);
     }
 
+    public LinkedList<Prestamo> filtrarPrestamos(Context context) {
+
+        DBController controller = DBController.getDBController(context);
+        LinkedList<Prestamo> prestamos = controller.getPrestamos();
+        LinkedList<Prestamo> prestamosAulas = new LinkedList<Prestamo>();
+        Espacio espacio;
+        Edificio edificio;
+        Prestamo solicitud ;
+
+        //Para cada elemento de la lista de prestamos recibida
+        while(!prestamos.isEmpty()) {
+
+            solicitud = prestamos.removeLast();
+
+            espacio=controller.findEspacio(solicitud.getIdEspacio());
+            edificio = controller.findEdificio(espacio.getIdEdificio());
+
+
+            //Verifica que el encargado del edificio de la reserva sea el usuario
+            if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
+                prestamosAulas.addLast(solicitud);
+        }
+
+        return prestamosAulas;
+    }
+
+
 }

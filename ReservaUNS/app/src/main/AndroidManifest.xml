@@ -28,7 +28,8 @@
             android:label="@string/title_activity_pantalla_principal"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FormularioRegistroUsuario" />
-        <activity android:name=".YEO"></activity>
+        <activity android:name=".YEO" />
+        <activity android:name=".ConsultarPrestamos"></activity>
     </application>
 
 </manifest>

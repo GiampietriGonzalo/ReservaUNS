@@ -20,5 +20,7 @@ public class Aceptado extends Estado{
 
     public String toString(){return "Aceptado";}
 
+    public Estado finalizar(){return null;}
+
 
 }

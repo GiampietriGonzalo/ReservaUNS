@@ -20,5 +20,7 @@ public class Rechazado extends Estado {
 
     public String toString(){return "Rechazado";}
 
+    public Estado finalizar(){return null;}
+
 
 }

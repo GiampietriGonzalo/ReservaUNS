@@ -1,10 +1,11 @@
 package Clases.Estados;
 
-public class Cancelado extends Estado {
 
 
-    public Cancelado(){
-        super(3);
+public class Finalizado extends Estado {
+
+    public Finalizado(){
+        super(4);
     }
 
     public Estado aceptar() {
@@ -19,8 +20,8 @@ public class Cancelado extends Estado {
         return null;
     }
 
-    public String toString(){return "Cancelado";}
+    public String toString(){return "Finalizado";}
 
-    public Estado finalizar(){return null;}
+    public Estado finalizar(){return this;}
 
 }

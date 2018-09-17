@@ -13,5 +13,6 @@ public abstract class Estado {
     public abstract Estado aceptar();
     public abstract Estado rechazar();
     public abstract String toString();
+    public abstract Estado finalizar();
 
 }

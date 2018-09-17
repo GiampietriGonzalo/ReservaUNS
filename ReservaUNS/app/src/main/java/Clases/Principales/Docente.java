@@ -9,6 +9,7 @@ import Clases.Otras.ButtonListenerController;
 import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
 import pipenatr.Activities.RecyclerViewClickListener;
+import pipenatr.Activities.SaveSharedPreference;
 
 public class Docente extends Usuario {
 
@@ -50,4 +51,35 @@ public class Docente extends Usuario {
         bcl.setListenerDocente(holder,solicitud,listener,context);
     }
 
+
+    public LinkedList<Prestamo> filtrarPrestamos(Context context) {
+
+        DBController controller = DBController.getDBController(context);
+
+        //TODO TERMINAR getReservas en TablaPrestamos
+        // LinkedList<Prestamo> prestamos = controller.getReservas();
+        LinkedList<Prestamo> prestamos = controller.getPrestamos();
+        LinkedList<Prestamo> prestamosDepto = new LinkedList<Prestamo>();
+        Espacio espacio;
+        Edificio edificio;
+        Prestamo prestamo;
+
+        //Para cada elemento de la lista de prestamos recibida
+        while(!prestamos.isEmpty()) {
+
+            prestamo = prestamos.removeLast();
+            espacio=controller.findEspacio(prestamo.getIdEspacio());
+            edificio = controller.findEdificio(espacio.getIdEdificio());
+
+            //Verifica que el encargado del edificio de la reserva sea el usuario
+            if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
+                prestamosDepto.addLast(prestamo);
+        }
+
+        return prestamosDepto;
+
+
+
+
+    }
 }
