@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Cantidad de días asignación"
-            android:inputType="numberSigned" />
+            android:inputType="number" />
     </android.support.design.widget.TextInputLayout>
 
 
@@ -166,5 +166,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="invisible" />
+        tools:visibility="gone" />
 </RelativeLayout>

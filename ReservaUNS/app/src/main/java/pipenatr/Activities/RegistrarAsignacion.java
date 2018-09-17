@@ -3,26 +3,31 @@ package pipenatr.Activities;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 
-public class RegistrarAsignacion extends Fragment implements DatosAsignacionListener {
+public class RegistrarAsignacion extends Fragment {
 
     private VerificadorDatosFormulario verificador;
     private DBController controller;
     private View myView;
     private LayoutInflater inflater;
+    private int id;
 
     //variables datos asigna3
     private LinkedList<String> diasAsignacion, horariosAsignacion, aulas;
@@ -33,6 +38,7 @@ public class RegistrarAsignacion extends Fragment implements DatosAsignacionList
         myView = inflater.inflate(R.layout.formulario_reserva, container, false);
 
         verificador = new VerificadorDatosFormulario(getActivity());
+        id = 0;
 
         myView.findViewById(R.id.SVReserva).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerEdificios).setVisibility(myView.GONE);
@@ -46,27 +52,6 @@ public class RegistrarAsignacion extends Fragment implements DatosAsignacionList
 
         return myView;
     }
-
-    @Override
-    public void guardarDia(String fecha) {
-        diasAsignacion.addLast(fecha);
-    }
-
-    @Override
-    public void guardarHoraInicio(String hora) {
-        horariosAsignacion.addLast(hora);
-    }
-
-    @Override
-    public void guardarHoraFin(String hora) {
-        horariosAsignacion.addLast(hora);
-    }
-
-    @Override
-    public void guardarAula(String aula) {
-        aulas.addLast(aula);
-    }
-
 
     private class ListenerAsignacion implements View.OnClickListener {
 
@@ -126,26 +111,54 @@ public class RegistrarAsignacion extends Fragment implements DatosAsignacionList
         @Override
         public void onClick(View view) {
 
+            EditText elemento;
+            Spinner spinnerDias;
+            String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
+            ArrayAdapter<String> adapter;
             TextView text = (TextView) myView.findViewById(R.id.txtCantDias);
-            int cantDiasAsig = Integer.parseInt(text.getText().toString());
-            LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
+            if(text.getText().toString().equals(""))
+                verificador.mostrarMensajeError("Debe ingresar la cantidad de clases semanales de la asignación");
+            else {
+                Log.e("adsad", text.getText().toString());
+                int cantDiasAsig = Integer.parseInt(text.getText().toString());
+                LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
 
-            for(int i=0; i<cantDiasAsig; i++) {
-                View viewZ = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
-                layoutDiaHora.addView(viewZ, 5);
-                myView.findViewById(R.id.campoAulaDia).setVisibility(myView.VISIBLE);
+                for(int i=0; i<cantDiasAsig; i++) {
+                    View viewZ = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
+                    layoutDiaHora.addView(viewZ, 5);
+                    myView.findViewById(R.id.campoAulaDia).setVisibility(myView.VISIBLE);
+
+                    //Setea el campo de fecha como invisible y lo reemplaza por un spinner
+                    elemento = (EditText) viewZ.findViewById(R.id.txtFechaReserva);
+                    elemento.setVisibility(myView.GONE);
+
+                    spinnerDias = (Spinner) viewZ.findViewById(R.id.spinnerDiasAsignacion);
+                    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, dias);
+                    spinnerDias.setAdapter(adapter);
+                    spinnerDias.setId(id);
+                    spinnerDias.setVisibility(myView.VISIBLE);
+                    id++;
+                    elemento = (EditText) viewZ.findViewById(R.id.txtHoraInicio);
+                    elemento.setId(id);
+                    id++;
+                    elemento = (EditText) viewZ.findViewById(R.id.txtHoraFin);
+                    elemento.setId(id);
+                    id++;
+                    elemento = (EditText) viewZ.findViewById(R.id.txtAulaDia);
+                    elemento.setId(id);
+                    id++;
+                }
+
+                myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.GONE);
+                myView.findViewById(R.id.btnSeleccionarCantidad).setVisibility(myView.GONE);
+                myView.findViewById(R.id.SVReserva).setVisibility(myView.VISIBLE);
+                myView.findViewById(R.id.txtvPeriodo).setVisibility(myView.VISIBLE);
+                myView.findViewById(R.id.formLayoutPeriodo).setVisibility(myView.VISIBLE);
+
+                diasAsignacion = new LinkedList<>();
+                horariosAsignacion = new LinkedList<>();
+                aulas = new LinkedList<>();
             }
-
-            myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.GONE);
-            myView.findViewById(R.id.btnSeleccionarCantidad).setVisibility(myView.GONE);
-            myView.findViewById(R.id.SVReserva).setVisibility(myView.VISIBLE);
-            myView.findViewById(R.id.txtvPeriodo).setVisibility(myView.VISIBLE);
-            myView.findViewById(R.id.formLayoutPeriodo).setVisibility(myView.VISIBLE);
-
-            diasAsignacion = new LinkedList<>();
-            horariosAsignacion = new LinkedList<>();
-            aulas = new LinkedList<>();
-
         }
     }
 }
