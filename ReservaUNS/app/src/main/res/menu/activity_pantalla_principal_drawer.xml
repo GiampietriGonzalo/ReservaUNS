@@ -22,10 +22,6 @@
         android:checkableBehavior="single"
         android:visible="false">
         <item
-            android:id="@+id/nav_consultar_asignaciones"
-            android:icon="@drawable/ic_menu_send"
-            android:title="Consultar asignaciones" />
-        <item
             android:id="@+id/nav_registrar_asignacion"
             android:icon="@drawable/ic_menu_send"
             android:title="Registrar asignación" />
@@ -35,7 +31,6 @@
             android:title="Administrar solicitues" />
 
         <item
-            android:id="@+id/nav_consultar_prestamo"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Consultar prestamos" />
     </group>
@@ -48,6 +43,7 @@
             android:id="@+id/nav_administrar_solicitudes_departamento"
             android:icon="@drawable/ic_menu_send"
             android:title="Administrar asignaciones" />
+
         <item
             android:id="@+id/nav_administrar_docentes"
             android:icon="@drawable/ic_menu_slideshow"
@@ -57,6 +53,12 @@
     <group
         android:id="@+id/grupoMisc"
         android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_consultar_prestamo"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Consultar prestamos" />
+
         <item
             android:id="@+id/nav_cerrar_sesion"
             android:title="Cerrar sesión"/>

@@ -100,14 +100,14 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_solicitud) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
-        } else if (id == R.id.nav_consultar_asignaciones) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+        /*} else if (id == R.id.nav_consultar_asignaciones) {
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();*/
         } else if (id == R.id.nav_admininistrar_solicitud_Secretaria) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_registrar_asignacion) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_consultar_prestamo) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
+            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarPrestamos()).commit();
         } else if (id == R.id.nav_administrar_solicitudes_departamento) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
         } else if (id == R.id.nav_administrar_docentes) {

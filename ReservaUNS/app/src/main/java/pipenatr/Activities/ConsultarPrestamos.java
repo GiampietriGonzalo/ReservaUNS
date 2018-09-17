@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +31,20 @@ public class ConsultarPrestamos extends Fragment{
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.consultar_solicitud, container, false);
+        myView = inflater.inflate(R.layout.consultar_prestamo, container, false);
         controller = DBController.getDBController(getActivity());
         listaPrestamos = new ArrayList<Prestamo>();
 
-        recyclerViewPrestamos = myView.findViewById(R.id.recyclerReservas);
+        recyclerViewPrestamos = myView.findViewById(R.id.recyclerPrestamos);
         recyclerViewPrestamos.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
 
+
+        consultarListaPrestamos();
         adapter = new ListaPrestamosAdapter(listaPrestamos, getActivity(),usuario);
         recyclerViewPrestamos.setAdapter(adapter);
 
-        consultarListaPrestamos();
         return myView;
     }
 
@@ -51,6 +53,8 @@ public class ConsultarPrestamos extends Fragment{
 
 
         LinkedList<Prestamo> prestamos = usuario.filtrarPrestamos(this.getActivity());
+        if(prestamos.isEmpty())
+            Log.e("ListaDePrestamos","ESTA VACIA");
         for( int i = 0; i<prestamos.size(); i++){
             listaPrestamos.add(prestamos.get(i));
         }

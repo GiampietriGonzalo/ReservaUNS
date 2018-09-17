@@ -24,7 +24,6 @@ public class EmpleadoSecretaria extends Usuario{
     }
 
     public void actualizarNavView(NavigationView navigationView) {
-        navigationView.getMenu().findItem(R.id.nav_consultar_asignaciones).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_admininistrar_solicitud_Secretaria).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_registrar_asignacion).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
@@ -79,26 +78,29 @@ public class EmpleadoSecretaria extends Usuario{
 
         DBController controller = DBController.getDBController(context);
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
-        LinkedList<Prestamo> prestamosAulas = new LinkedList<Prestamo>();
+        LinkedList<Prestamo> prestamosSecretaria = new LinkedList<Prestamo>();
         Espacio espacio;
         Edificio edificio;
-        Prestamo solicitud ;
+        Prestamo prestamo ;
+
+        if(prestamos.isEmpty())
+            Log.e("getPrestamos", "getPrestamos retorna VACIO");
 
         //Para cada elemento de la lista de prestamos recibida
         while(!prestamos.isEmpty()) {
 
-            solicitud = prestamos.removeLast();
+            prestamo = prestamos.removeLast();
 
-            espacio=controller.findEspacio(solicitud.getIdEspacio());
+            espacio=controller.findEspacio(prestamo.getIdEspacio());
             edificio = controller.findEdificio(espacio.getIdEdificio());
 
 
             //Verifica que el encargado del edificio de la reserva sea el usuario
             if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
-                prestamosAulas.addLast(solicitud);
+                prestamosSecretaria.addLast(prestamo);
         }
 
-        return prestamosAulas;
+        return prestamosSecretaria;
     }
 
 

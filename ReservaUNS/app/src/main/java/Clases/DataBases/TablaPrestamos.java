@@ -97,13 +97,11 @@ public class TablaPrestamos extends Tabla {
 
                 case "Reserva":{
                     aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(5),estado);
-                    //aux.setEstado(cursor.getInt(2));
                     break;
                 }
 
                 case "Asignacion":{
                     aux= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(6),cursor.getString(7),estado);
-                    //aux.setEstado(cursor.getInt(2));
                     break;
                 }
 
@@ -120,17 +118,15 @@ public class TablaPrestamos extends Tabla {
 
         LinkedList<Prestamo> reservas= new LinkedList<Prestamo>();
 
-        Cursor cursor=db.query("Prestamos",columns,Columns.Tipo+" = Reserva",null,null,null,null);
+        Cursor cursor=db.query("Prestamos",columns,Columns.Tipo+" = '"+"Reserva"+"'",null,null,null,null);
         Prestamo aux=null;
         Estado estado=null;
 
-        //TODO : VER EL TEMA DE LOS ESTADOS, COPIAR CON LO DE SOLICITUDES
 
         while(!cursor.isClosed() && cursor.moveToNext()){
 
-
+            estado=getEstado(cursor);
             aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(5),estado);
-            //aux.setEstado(cursor.getInt(2));
 
             reservas.addLast(aux);
 
