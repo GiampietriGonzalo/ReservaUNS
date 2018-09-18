@@ -19,6 +19,7 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Prestamo;
 
@@ -75,7 +76,7 @@ public class RegistrarAsignacion extends Fragment {
             text = (EditText) myView.findViewById(R.id.txtFinPeriodo);
             fechaFinVig = text.getText().toString().trim();
 
-            Spinner dia;
+            Spinner dia, aula;
             TextView aux;
             for(int i=0; i<id; i= i+4) {
                 String num = String.valueOf(i);
@@ -95,8 +96,8 @@ public class RegistrarAsignacion extends Fragment {
 
                 num = String.valueOf((i+3));
                 resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
-                aux = (TextView) myView.findViewById(resID);
-                aulas.addLast(aux.getText().toString().trim());
+                aula = (Spinner) myView.findViewById(resID);
+                aulas.addLast(aula.getSelectedItem().toString().trim().toLowerCase());
             }
 
 
@@ -135,11 +136,19 @@ public class RegistrarAsignacion extends Fragment {
         boolean puedeAsignar = true;
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
         espacios = new LinkedList<>();
-        /*
+        Espacio esp;
+
+        //Obtiene los espacios a partir de los nombres seleccionados por el usuario
         for(int i=0; i<aulas.size(); i++) {
-            espacios.addLast(controller.findEspacio());
+            esp = buscarEspacio(aulas.get(i));
+            espacios.addLast(controller.findEspacio(esp.getID()));
         }
-        */
+
+        //Para los espacios seleccionados
+        for(int i=0; i<espacios.size(); i++) {
+            //Verificar si para el espacio esta libre en el dia y hora especificados
+        }
+
         return puedeAsignar;
     }
 
@@ -148,10 +157,22 @@ public class RegistrarAsignacion extends Fragment {
         public void onClick(View view) {
 
             EditText elemento;
-            Spinner spinnerDias;
+            Spinner spinnerDias, spinnerEspacios;
+
+            //Crea el arreglo con los espacios para insertar en el adapter del spinner
+           // LinkedList<Espacio> espacios = obtenerEspacios();
+            //String[] espaciosArray =  new String[espacios.size()];
+            String[] espaciosArray =  new String[1];
+            espaciosArray[0] = "sdasdas";
+           // for(int i=0; i<espacios.size(); i++)
+             //   espaciosArray[i] = espacios.get(i).getNombre();
+
+            //Crea el arreglo con los dias de la semana para insertar en el spinner
             String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
-            ArrayAdapter<String> adapter;
+            ArrayAdapter<String> adapter, adapterEspacios;
+
             TextView text = (TextView) myView.findViewById(R.id.txtCantDias);
+
             if(text.getText().toString().equals(""))
                 verificador.mostrarMensajeError("Debe ingresar la cantidad de clases semanales de la asignación");
             else {
@@ -161,26 +182,35 @@ public class RegistrarAsignacion extends Fragment {
                 for(int i=0; i<cantDiasAsig; i++) {
                     View viewZ = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
                     layoutDiaHora.addView(viewZ, 7);
-                    myView.findViewById(R.id.campoAulaDia).setVisibility(myView.VISIBLE);
 
-                    //Setea el campo de fecha como invisible y lo reemplaza por un spinner
+                    //Setea el campo de fecha como invisible
                     elemento = (EditText) viewZ.findViewById(R.id.txtFechaReserva);
                     elemento.setVisibility(myView.GONE);
 
+                    //Crea el spinner de dias
                     spinnerDias = (Spinner) viewZ.findViewById(R.id.spinnerDiasAsignacion);
                     adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, dias);
                     spinnerDias.setAdapter(adapter);
                     spinnerDias.setId(id);
                     spinnerDias.setVisibility(myView.VISIBLE);
                     id++;
+
+                    //Hora inicio
                     elemento = (EditText) viewZ.findViewById(R.id.txtHoraInicio);
                     elemento.setId(id);
                     id++;
+
+                    //Hora fin
                     elemento = (EditText) viewZ.findViewById(R.id.txtHoraFin);
                     elemento.setId(id);
                     id++;
-                    elemento = (EditText) viewZ.findViewById(R.id.txtAulaDia);
-                    elemento.setId(id);
+
+                    //Crea el spinner con los espacios
+                    spinnerEspacios = (Spinner) viewZ.findViewById(R.id.spinnerEspacios);
+                    adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item, espaciosArray);
+                    spinnerEspacios.setAdapter(adapter);
+                    spinnerEspacios.setId(id);
+                    spinnerEspacios.setVisibility(myView.VISIBLE);
                     id++;
                 }
 
@@ -194,5 +224,36 @@ public class RegistrarAsignacion extends Fragment {
                 aulas = new LinkedList<>();
             }
         }
+    }
+
+    public LinkedList<Espacio> obtenerEspacios() {
+        LinkedList<Edificio> edificios = controller.getEdificios();
+        LinkedList<Espacio> espacios, espaciosEdificio;
+        espacios = new LinkedList<>();
+        Edificio ed;
+
+        for(int i=0; i<edificios.size(); i++) {
+            ed = edificios.get(i);
+            espaciosEdificio = ed.getEspacios();
+            for(int j=0; j<espaciosEdificio.size(); j++)
+                espacios.addLast(espaciosEdificio.get(j));
+        }
+
+        return espacios;
+    }
+
+    public Espacio buscarEspacio(String nombre) {
+        Espacio espacio = null;
+        LinkedList<Espacio> espacios = obtenerEspacios();
+        boolean encontre = false;
+
+        for(int i=0; i<espacios.size() && !encontre; i++) {
+            if(espacios.get(i).getNombre().equals(nombre)) {
+                espacio = espacios.get(i);
+                encontre = true;
+            }
+        }
+
+        return espacio;
     }
 }

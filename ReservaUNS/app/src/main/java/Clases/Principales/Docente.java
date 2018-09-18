@@ -28,7 +28,6 @@ public class Docente extends Usuario {
         navigationView.getMenu().findItem(R.id.nav_solicitar_reserva).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_solicitud).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
-
     }
 
     public LinkedList<Solicitud> filtrarEspacios(Context context) {
