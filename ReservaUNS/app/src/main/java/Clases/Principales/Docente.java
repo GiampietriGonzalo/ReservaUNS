@@ -1,11 +1,13 @@
 package Clases.Principales;
 import android.content.Context;
 import android.support.design.widget.NavigationView;
+import android.view.View;
 
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Otras.ButtonListenerController;
+import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
 import pipenatr.Activities.RecyclerViewClickListener;
@@ -35,7 +37,7 @@ public class Docente extends Usuario {
         return solicitudes;
     }
 
-    public void setListener(SolicitudesViewHolder holder,Solicitud solicitud,RecyclerViewClickListener listener, Context context){
+    public void setListenerSolicitudes(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
 
         if(solicitud.getEstadoString()!="Activo"){
             holder.btnCR.setEnabled(false);
@@ -74,9 +76,10 @@ public class Docente extends Usuario {
         }
 
         return prestamosDocente;
+    }
 
-
-
-
+    public void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p){
+        holder.btnBaja.setEnabled(false);
+        holder.btnBaja.setVisibility(View.GONE);
     }
 }

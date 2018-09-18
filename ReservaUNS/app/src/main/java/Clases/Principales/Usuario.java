@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaUsuarios;
+import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.RecyclerViewClickListener;
 
@@ -109,6 +110,7 @@ public abstract class Usuario {
 
     public abstract LinkedList<Prestamo> filtrarPrestamos(Context context);
 
-    public abstract void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context);
+    public abstract void setListenerSolicitudes(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context);
 
+    public abstract void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p);
 }

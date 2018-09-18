@@ -8,6 +8,7 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Otras.ButtonListenerController;
+import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.R;
 import pipenatr.Activities.RecyclerViewClickListener;
@@ -55,7 +56,7 @@ public class EmpleadoSecretaria extends Usuario{
         return solicitudesAulas;
     }
 
-    public void setListener(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
+    public void setListenerSolicitudes(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context){
 
         if(solicitud.getEstadoString()!="Activo"){
             holder.btnCR.setEnabled(false);
@@ -75,6 +76,7 @@ public class EmpleadoSecretaria extends Usuario{
     }
 
     public LinkedList<Prestamo> filtrarPrestamos(Context context) {
+
 
         DBController controller = DBController.getDBController(context);
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
@@ -101,6 +103,11 @@ public class EmpleadoSecretaria extends Usuario{
         }
 
         return prestamosSecretaria;
+    }
+
+    public void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p){
+        ButtonListenerController blc= ButtonListenerController.getButtonListenerController();
+        blc.setListenerBajaPrestamo(holder,p);
     }
 
 

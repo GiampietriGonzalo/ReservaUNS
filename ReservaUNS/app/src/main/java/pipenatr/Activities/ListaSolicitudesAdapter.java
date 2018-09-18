@@ -2,16 +2,10 @@ package pipenatr.Activities;
 
 
 import android.content.Context;
-import android.content.DialogInterface;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -46,9 +40,9 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<SolicitudesVie
     }
 
     
-    public void onBindViewHolder(final SolicitudesViewHolder holder, final int position) {
+    public void onBindViewHolder(SolicitudesViewHolder holder, int position) {
 
-        final Solicitud miSolicitud = listaSolicitud.get(position);
+        Solicitud miSolicitud = listaSolicitud.get(position);
 
         Espacio miEspacio= controller.findEspacio(miSolicitud.getIdEspacio());
         Edificio miEdificio= miEspacio.getEdificio();
@@ -62,7 +56,7 @@ public class ListaSolicitudesAdapter extends RecyclerView.Adapter<SolicitudesVie
         holder.horarioFin.setText(horario.horaFinConFormato());
         holder.estado.setText(miSolicitud.getEstadoString());
 
-        usuario.setListener(holder,miSolicitud,listener,context);
+        usuario.setListenerSolicitudes(holder,miSolicitud,listener,context);
 
     }
 

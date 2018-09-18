@@ -51,10 +51,7 @@ public class ConsultarPrestamos extends Fragment{
 
     private void consultarListaPrestamos() {
 
-
         LinkedList<Prestamo> prestamos = usuario.filtrarPrestamos(this.getActivity());
-        if(prestamos.isEmpty())
-            Log.e("ListaDePrestamos","ESTA VACIA");
         for( int i = 0; i<prestamos.size(); i++){
             listaPrestamos.add(prestamos.get(i));
         }

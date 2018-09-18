@@ -25,6 +25,7 @@ public class SolicitudesViewHolder extends RecyclerView.ViewHolder {
         edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
         btnCR= (Button) itemView.findViewById(R.id.btnCR);
         btnEA = (Button) itemView.findViewById(R.id.btnEA);
+
     }
 
     public void onClick(View view) {

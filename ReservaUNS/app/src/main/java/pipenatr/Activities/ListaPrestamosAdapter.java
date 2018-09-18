@@ -37,15 +37,12 @@ public class ListaPrestamosAdapter extends RecyclerView.Adapter<PrestamosViewHol
         return new PrestamosViewHolder(view);
     }
 
-    public void onBindViewHolder(final PrestamosViewHolder holder, final int position) {
+    public void onBindViewHolder(PrestamosViewHolder holder,int position) {
 
-        final Prestamo miPrestamo = listaPrestamos.get(position);
+        Prestamo miPrestamo = listaPrestamos.get(position);
 
         Espacio miEspacio= controller.findEspacio(miPrestamo.getIdEspacio());
         Edificio miEdificio= miEspacio.getEdificio();
-
-        if(miPrestamo==null)
-            Log.e("ListPAdapater","PRESTAMO NULO");
 
         holder.id.setText(""+miPrestamo.getId());
         holder.fecha.setText(miPrestamo.getFecha());
@@ -56,8 +53,7 @@ public class ListaPrestamosAdapter extends RecyclerView.Adapter<PrestamosViewHol
         holder.horarioFin.setText(horario.horaFinConFormato());
         holder.estado.setText(miPrestamo.getEstadoString());
 
-
-
+        usuario.setListenerPrestamos(holder,miPrestamo);
     }
 
     public int getItemCount() {

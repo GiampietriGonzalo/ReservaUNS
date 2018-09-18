@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Toast;
+
+import Clases.DataBases.DBController;
+import Clases.Principales.Prestamo;
 import Clases.Principales.Solicitud;
 import pipenatr.Activities.RecyclerViewClickListener;
 
@@ -13,7 +16,21 @@ public class ButtonListenerController {
 
     private static ButtonListenerController blc;
 
-    private ButtonListenerController(){
+    private ButtonListenerController(){}
+
+    public void setListenerBajaPrestamo(PrestamosViewHolder holder,Prestamo p){
+
+
+        holder.btnBaja.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                DBController.cancelarPrestamo(p.getId());
+                holder.btnBaja.setEnabled(false);
+                holder.estado.setText("Elimnado");
+
+            }
+        });
 
     }
 

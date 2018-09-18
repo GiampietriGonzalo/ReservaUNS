@@ -133,9 +133,6 @@ public class TablaPrestamos extends Tabla {
 
         }
 
-
-
-
         return reservas;
     }
 
