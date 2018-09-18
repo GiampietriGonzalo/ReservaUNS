@@ -17,11 +17,13 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Calendar;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
+import Clases.Principales.Horario;
 import Clases.Principales.Prestamo;
 
 public class RegistrarAsignacion extends Fragment {
@@ -140,25 +142,32 @@ public class RegistrarAsignacion extends Fragment {
     //Consulto si los espacios estan disponibles de acuerdo a las especificaciones del usuario
     private boolean consultarDispoibilidad() {
 
+        Calendar calendario = Calendar.getInstance();
         boolean puedeAsignar = true;
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
         espacios = new LinkedList<Espacio>();
         Espacio esp;
+        Prestamo pres;
+        Horario hor;
+        int indiceHorarios = 0;
 
         //Obtiene los espacios a partir de los nombres seleccionados por el usuario
-        for(int i=0; i<aulas.size(); i++) {
+        for(int i=0; i<aulas.size() && puedeAsignar; i++) {
             esp = buscarEspacio(aulas.get(i));
 
-            if(controller==null)
-                Log.e("controller","controller NULO");
-
-            if(espacios==null)
-                Log.e("lista espacios","Lista espacios NULA");
-
-            if(esp==null)
-                Log.e("es","esp NULO");
-
             espacios.addLast(controller.findEspacio(esp.getID()));
+            for(int j=0; j<prestamos.size() && puedeAsignar; j++) {
+                pres = prestamos.get(j);
+                if(pres.getIdEspacio() == esp.getID()) {
+                    hor = controller.findHorario(pres.getIdHorario());
+                    if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) || hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":",""))) {
+
+                    }
+                    else
+                        puedeAsignar = false;
+                }
+            }
+            indiceHorarios = indiceHorarios + 2;
         }
 
         //Para los espacios seleccionados

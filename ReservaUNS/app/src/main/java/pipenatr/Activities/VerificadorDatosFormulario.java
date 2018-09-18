@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class VerificadorDatosFormulario {
 
-    Context context;
+    private Context context;
 
     public VerificadorDatosFormulario(Context context) {
         this.context = context;
@@ -107,5 +107,6 @@ public class VerificadorDatosFormulario {
         alerta.setCancelable(true);
         alerta.create().show();
     }
+
 
 }

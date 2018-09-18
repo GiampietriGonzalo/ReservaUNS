@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -175,7 +176,7 @@ public class FormularioReserva extends Fragment {
 
                         //DESHABILITAR EL RESTO
                         scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
-                        scrollView.setVisibility(view.INVISIBLE);
+                        scrollView.setVisibility(view.GONE);
                         scrollView.setEnabled(false);
                     }
             }
@@ -213,6 +214,7 @@ public class FormularioReserva extends Fragment {
 
                                 for(int j = 0; j<horario.getDiasSemana().size(); j++) {
                                     if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
+                                        Log.e("KE", horario.getDiasSemana().getFirst());
                                         if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
                                             encontre = true;
                                     }
