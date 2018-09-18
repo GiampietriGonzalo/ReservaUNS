@@ -214,7 +214,6 @@ public class FormularioReserva extends Fragment {
 
                                 for(int j = 0; j<horario.getDiasSemana().size(); j++) {
                                     if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
-                                        Log.e("KE", horario.getDiasSemana().getFirst());
                                         if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) || horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
                                             encontre = true;
                                     }

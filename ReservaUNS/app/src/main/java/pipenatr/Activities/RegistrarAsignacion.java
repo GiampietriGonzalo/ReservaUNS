@@ -143,6 +143,7 @@ public class RegistrarAsignacion extends Fragment {
     private boolean consultarDispoibilidad() {
 
         Calendar calendario = Calendar.getInstance();
+
         boolean puedeAsignar = true;
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
         espacios = new LinkedList<Espacio>();
