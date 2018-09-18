@@ -1,10 +1,9 @@
 package pipenatr.Activities;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +19,8 @@ import android.widget.TextView;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Principales.Espacio;
+import Clases.Principales.Prestamo;
 
 public class RegistrarAsignacion extends Fragment {
 
@@ -31,7 +32,8 @@ public class RegistrarAsignacion extends Fragment {
 
     //variables datos asigna3
     private LinkedList<String> diasAsignacion, horariosAsignacion, aulas;
-    private String capacidad;
+    private LinkedList<Espacio> espacios;
+    private String capacidad, fechaInicioVig, fechaFinVig;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         this.inflater = inflater;
@@ -43,9 +45,12 @@ public class RegistrarAsignacion extends Fragment {
         myView.findViewById(R.id.SVReserva).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerEdificios).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerTiposEspacio).setVisibility(myView.GONE);
+        myView.findViewById(R.id.txtSpinnerEd).setVisibility(myView.GONE);
+        myView.findViewById(R.id.txtSpinnerEsp).setVisibility(myView.GONE);
         myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.VISIBLE);
         Button btnEnviar = myView.findViewById(R.id.btnEnviarSolicitud);
-       // btnEnviar.setOnClickListener(new ListenerAsignacion);
+        btnEnviar.setText("Registrar asignación");
+        btnEnviar.setOnClickListener(new ListenerAsignacion());
 
         Button btnSeleccionar = (Button) myView.findViewById(R.id.btnSeleccionarCantidad);
         btnSeleccionar.setOnClickListener( new ListenerConfirmacionCantidad());
@@ -57,54 +62,85 @@ public class RegistrarAsignacion extends Fragment {
 
         private ListView listView;
         private ScrollView scrollView;
-        private TextView text;
+        private EditText text;
 
         @Override
         public void onClick(View view) {
 
             //Obtiene la informacion ingresada por el usuario y verifica que la haya ingresado correctamente
-            text = (TextView) myView.findViewById(R.id.txtCapacidadEspacio);
+            text = (EditText) myView.findViewById(R.id.txtCapacidadEspacio);
             capacidad = text.getText().toString().trim();
+            text = (EditText) myView.findViewById(R.id.txtInicioPeriodo);
+            fechaInicioVig = text.getText().toString().trim();
+            text = (EditText) myView.findViewById(R.id.txtFinPeriodo);
+            fechaFinVig = text.getText().toString().trim();
+
+            Spinner dia;
+            TextView aux;
+            for(int i=0; i<id; i= i+4) {
+                String num = String.valueOf(i);
+                int resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
+                dia = (Spinner) myView.findViewById(resID);
+                diasAsignacion.addLast(dia.getSelectedItem().toString().trim().toLowerCase());
+
+                num = String.valueOf((i+1));
+                resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
+                aux = (TextView) myView.findViewById(resID);
+                horariosAsignacion.addLast(aux.getText().toString().trim());
+
+                num = String.valueOf((i+2));
+                resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
+                aux = (TextView) myView.findViewById(resID);
+                horariosAsignacion.addLast(aux.getText().toString().trim());
+
+                num = String.valueOf((i+3));
+                resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
+                aux = (TextView) myView.findViewById(resID);
+                aulas.addLast(aux.getText().toString().trim());
+            }
 
 
 
-            /*
-            if(!fecha.matches("") && !capacidad.matches("") && !horaIni.matches("") && !horaFin.matches("") && spinnerEspacio.getSelectedItemPosition()!=0)
+            //Verifica si datos son nulos
+            if(!horariosAsignacion.contains("") && !aulas.contains("") && !capacidad.matches("") && !fechaFinVig.matches("") && !fechaInicioVig.matches(""))
             {
                 //Verifica si la hora de inicio ingresada es menor a la hora de finalizacion
-                if(Integer.parseInt(horaIni.replace(":",""))>=Integer.parseInt(horaFin.replace(":","")))
-                    verificador.mostrarMensajeError("La hora de inicio de la reserva debe ser anterior a la hora de fin.");
-                else
+                boolean error = false;
+                for(int i=0; i<horariosAsignacion.size(); i= i+2)
+                   if(Integer.parseInt(horariosAsignacion.get(i).replace(":",""))>=Integer.parseInt(horariosAsignacion.get((i+1)).replace(":","")))
+                       error = true;
+                if(error)
+                    verificador.mostrarMensajeError("La hora de inicio de una asignación debe ser anterior a la hora de fin.");
+                else {
                     //Verifica que la fecha y las horas de inicio y fin sean validas
-                    if(verificador.verificarFecha(fecha) && verificador.verificarHorario(horaIni) && verificador.verificarHorario(horaFin))
-                    {
-                        //Inicializo listas donde se almacenaran los ids de los espacios para mostrar en la lista y los espacios para reservar
-                        listaEspacios = new LinkedList<Espacio>();
-                        toAdapter= new LinkedList<String>();
+                    for(int i=0; i<horariosAsignacion.size(); i++)
+                        if(!verificador.verificarHorario(horariosAsignacion.get(i)))
+                            error = true;
+                    if(!error && verificador.verificarFecha(fechaFinVig) && verificador.verificarFecha(fechaInicioVig)) {
+                        if(consultarDispoibilidad()) {
 
-                        //Consulto los espacios disponibles de acuerdo a las especificaciones del usuario
-                        consultarTablaEspacios();
-
-                        //Seteo el adapter para mostrar en el listView
-                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, toAdapter);
-                        listView.setAdapter(adapter);
-
-                        //HABILITAR LISTVIEW
-                        listView.setVisibility(View.VISIBLE);
-                        listView.setEnabled(true);
-
-                        //DESHABILITAR EL RESTO
-                        scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
-                        scrollView.setVisibility(view.INVISIBLE);
-                        scrollView.setEnabled(false);
+                        }
                     }
+                }
             }
             else
                 verificador.mostrarMensajeError("Debe ingresar toda la iformacion solicitada.");
-                */
 
         }
 
+    }
+
+    //Consulto si los espacios estan disponibles de acuerdo a las especificaciones del usuario
+    private boolean consultarDispoibilidad() {
+        boolean puedeAsignar = true;
+        LinkedList<Prestamo> prestamos = controller.getPrestamos();
+        espacios = new LinkedList<>();
+        /*
+        for(int i=0; i<aulas.size(); i++) {
+            espacios.addLast(controller.findEspacio());
+        }
+        */
+        return puedeAsignar;
     }
 
     private class ListenerConfirmacionCantidad implements View.OnClickListener {
@@ -119,13 +155,12 @@ public class RegistrarAsignacion extends Fragment {
             if(text.getText().toString().equals(""))
                 verificador.mostrarMensajeError("Debe ingresar la cantidad de clases semanales de la asignación");
             else {
-                Log.e("adsad", text.getText().toString());
                 int cantDiasAsig = Integer.parseInt(text.getText().toString());
                 LinearLayout layoutDiaHora = (LinearLayout) myView.findViewById(R.id.layoutRS);
 
                 for(int i=0; i<cantDiasAsig; i++) {
                     View viewZ = inflater.inflate(R.layout.formulario_sublayout_dias_horarios, null);
-                    layoutDiaHora.addView(viewZ, 5);
+                    layoutDiaHora.addView(viewZ, 7);
                     myView.findViewById(R.id.campoAulaDia).setVisibility(myView.VISIBLE);
 
                     //Setea el campo de fecha como invisible y lo reemplaza por un spinner
@@ -150,7 +185,6 @@ public class RegistrarAsignacion extends Fragment {
                 }
 
                 myView.findViewById(R.id.campoCantidadDias).setVisibility(myView.GONE);
-                myView.findViewById(R.id.btnSeleccionarCantidad).setVisibility(myView.GONE);
                 myView.findViewById(R.id.SVReserva).setVisibility(myView.VISIBLE);
                 myView.findViewById(R.id.txtvPeriodo).setVisibility(myView.VISIBLE);
                 myView.findViewById(R.id.formLayoutPeriodo).setVisibility(myView.VISIBLE);
