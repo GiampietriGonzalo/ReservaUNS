@@ -107,7 +107,8 @@ public class TablaPrestamos extends Tabla {
 
             }
 
-            prestamos.addLast(aux);
+            if(prestamos!=null)
+                prestamos.addLast(aux);
 
         }
 

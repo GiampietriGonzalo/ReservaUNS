@@ -3,6 +3,7 @@ package pipenatr.Activities;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,9 @@ public class ListaPrestamosAdapter extends RecyclerView.Adapter<PrestamosViewHol
 
         Espacio miEspacio= controller.findEspacio(miPrestamo.getIdEspacio());
         Edificio miEdificio= miEspacio.getEdificio();
+
+        if(miPrestamo==null)
+            Log.e("ListPAdapater","PRESTAMO NULO");
 
         holder.id.setText(""+miPrestamo.getId());
         holder.fecha.setText(miPrestamo.getFecha());

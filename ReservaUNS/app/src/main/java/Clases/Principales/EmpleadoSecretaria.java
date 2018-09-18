@@ -24,7 +24,7 @@ public class EmpleadoSecretaria extends Usuario{
     }
 
     public void actualizarNavView(NavigationView navigationView) {
-        navigationView.getMenu().findItem(R.id.nav_admininistrar_solicitud_Secretaria).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_consultar_solicitud).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_registrar_asignacion).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
     }

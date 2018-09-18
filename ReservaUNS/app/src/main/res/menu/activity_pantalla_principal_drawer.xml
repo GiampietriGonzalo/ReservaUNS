@@ -11,10 +11,7 @@
             android:id="@+id/nav_solicitar_reserva"
             android:icon="@drawable/ic_menu_send"
             android:title="Solicitar reserva" />
-        <item
-            android:id="@+id/nav_consultar_solicitud"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Consultar solicitud" />
+
     </group>
 
     <group
@@ -25,10 +22,6 @@
             android:id="@+id/nav_registrar_asignacion"
             android:icon="@drawable/ic_menu_send"
             android:title="Registrar asignación" />
-        <item
-            android:id="@+id/nav_admininistrar_solicitud_Secretaria"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Administrar solicitues" />
 
         <item
             android:icon="@drawable/ic_menu_slideshow"
@@ -53,6 +46,11 @@
     <group
         android:id="@+id/grupoMisc"
         android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_consultar_solicitud"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Consultar solicitud" />
 
         <item
             android:id="@+id/nav_consultar_prestamo"

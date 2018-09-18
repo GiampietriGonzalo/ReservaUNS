@@ -16,13 +16,13 @@ public class PrestamosViewHolder extends RecyclerView.ViewHolder {
     public PrestamosViewHolder(View itemView) {
 
         super(itemView);
-        id = (TextView) itemView.findViewById(R.id.txtIdItemList);
-        fecha = (TextView) itemView.findViewById(R.id.txtFechaItemList);
-        horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemList);
-        horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemList);
-        estado = (TextView) itemView.findViewById(R.id.txtEstadoItemList);
-        espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemList);
-        edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemList);
+        id = (TextView) itemView.findViewById(R.id.txtIdItemListPrestamo);
+        fecha = (TextView) itemView.findViewById(R.id.txtFechaItemListPrestamo);
+        horarioIncio = (TextView) itemView.findViewById(R.id.txtHorarioInicioItemListPrestamo);
+        horarioFin = (TextView) itemView.findViewById(R.id.txtHorarioFinItemListPrestamo);
+        estado = (TextView) itemView.findViewById(R.id.txtEstadoItemListPrestamo);
+        espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemListPrestamo);
+        edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemListPrestamo);
     }
 
     public void onClick(View view) {
