@@ -19,31 +19,31 @@ import Clases.Principales.Prestamo;
 import Clases.Principales.Solicitud;
 import Clases.Principales.Usuario;
 
-public class ConsultarPrestamos extends Fragment{
+public class ConsultarAsignaciones extends Fragment{
 
     View myView;
     ArrayList<Prestamo> listaPrestamos;
-    RecyclerView recyclerViewPrestamos;
-    ListaPrestamosAdapter adapter;
+    RecyclerView recyclerViewAsignaciones;
+    ListaAsignacionesAdapter adapter;
     DBController controller;
     Usuario usuario;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        myView = inflater.inflate(R.layout.consultar_prestamo, container, false);
+        myView = inflater.inflate(R.layout.consultar_asignaciones, container, false);
         controller = DBController.getDBController(getActivity());
         listaPrestamos = new ArrayList<Prestamo>();
 
-        recyclerViewPrestamos = myView.findViewById(R.id.recyclerPrestamos);
-        recyclerViewPrestamos.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewAsignaciones = myView.findViewById(R.id.recyclerAsignaciones);
+        recyclerViewAsignaciones.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         usuario = controller.findUsuario(Integer.parseInt(SaveSharedPreference.getUserId(getActivity())));
 
 
         consultarListaPrestamos();
-        adapter = new ListaPrestamosAdapter(listaPrestamos, getActivity(),usuario);
-        recyclerViewPrestamos.setAdapter(adapter);
+        adapter = new ListaAsignacionesAdapter(listaPrestamos, getActivity(),usuario);
+        recyclerViewAsignaciones.setAdapter(adapter);
 
         return myView;
     }
@@ -51,7 +51,7 @@ public class ConsultarPrestamos extends Fragment{
 
     private void consultarListaPrestamos() {
 
-        LinkedList<Prestamo> prestamos = usuario.getPrestamos(this.getActivity());
+        LinkedList<Prestamo> prestamos = usuario.getAsignaciones(this.getActivity());
         for( int i = 0; i<prestamos.size(); i++){
             listaPrestamos.add(prestamos.get(i));
         }

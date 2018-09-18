@@ -22,5 +22,7 @@ public class Rechazado extends Estado {
 
     public Estado finalizar(){return null;}
 
+    public Estado darDeBaja(){return null;}
+
 
 }

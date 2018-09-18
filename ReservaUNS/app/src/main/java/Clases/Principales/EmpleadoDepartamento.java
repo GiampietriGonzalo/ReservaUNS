@@ -6,6 +6,7 @@ import android.view.View;
 
 import java.util.LinkedList;
 import Clases.DataBases.DBController;
+import Clases.Otras.AsignacionesViewHolder;
 import Clases.Otras.ButtonListenerController;
 import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
@@ -25,11 +26,12 @@ public class EmpleadoDepartamento extends Usuario{
     
     public void actualizarNavView(NavigationView navigationView) {
         navigationView.getMenu().findItem(R.id.nav_consultar_solicitud).setVisible(true);
+        navigationView.getMenu().findItem(R.id.nav_consultar_asignaciones).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
         navigationView.getMenu().findItem(R.id.nav_administrar_docentes).setVisible(true);
     }
 
-    public LinkedList<Solicitud> filtrarEspacios(Context context) {
+    public LinkedList<Solicitud> getEspacios(Context context) {
 
         DBController controller = DBController.getDBController(context);
 
@@ -72,11 +74,11 @@ public class EmpleadoDepartamento extends Usuario{
         bcl.setListenerEmpleado(holder,solicitud,listener,context);
     }
 
-    public LinkedList<Prestamo> filtrarPrestamos(Context context) {
+    public LinkedList<Prestamo> getPrestamos(Context context) {
 
         DBController controller = DBController.getDBController(context);
 
-        LinkedList<Prestamo> prestamos = controller.getPrestamos();
+        LinkedList<Prestamo> prestamos = controller.getReservas();
         LinkedList<Prestamo> prestamosDepto = new LinkedList<Prestamo>();
         Espacio espacio;
         Edificio edificio;
@@ -98,8 +100,32 @@ public class EmpleadoDepartamento extends Usuario{
     }
 
     public void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p){
-        holder.btnBaja.setEnabled(false);
-        holder.btnBaja.setVisibility(View.GONE);
+        ButtonListenerController blc= ButtonListenerController.getButtonListenerController();
+        blc.setListenerBajaPrestamo(holder,p);
+    }
+
+
+    public LinkedList<Prestamo> getAsignaciones(Context context){
+
+        LinkedList<Prestamo> asignaciones=DBController.getAsignaciones();
+        LinkedList<Prestamo> asignacionesDepto= new LinkedList<Prestamo>();
+        Prestamo asignacion;
+        Edificio edificio;
+        Espacio espacio;
+        DBController controller=DBController.getDBController(context);
+
+        while(!asignaciones.isEmpty()) {
+
+            asignacion = asignaciones.removeLast();
+            espacio=controller.findEspacio(asignacion.getIdEspacio());
+            edificio = controller.findEdificio(espacio.getIdEdificio());
+
+            //Verifica que el encargado del edificio de la reserva sea el usuario
+            if(edificio.getEncargado().getId() == Integer.parseInt(SaveSharedPreference.getUserId(context)))
+                asignacionesDepto.addLast(asignacion);
+        }
+
+        return asignacionesDepto;
     }
 
 }

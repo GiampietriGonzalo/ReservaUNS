@@ -14,5 +14,6 @@ public abstract class Estado {
     public abstract Estado rechazar();
     public abstract String toString();
     public abstract Estado finalizar();
+    public abstract Estado darDeBaja();
 
 }

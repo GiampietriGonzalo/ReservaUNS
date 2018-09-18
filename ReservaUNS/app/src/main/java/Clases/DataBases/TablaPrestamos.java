@@ -115,6 +115,28 @@ public class TablaPrestamos extends Tabla {
         return prestamos;
     }
 
+    public static LinkedList<Prestamo> getAsignaciones(SQLiteDatabase db){
+
+        LinkedList<Prestamo> asignaciones= new LinkedList<Prestamo>();
+
+        Cursor cursor=db.query("Prestamos",columns,Columns.Tipo+" = '"+"Asignacion"+"'",null,null,null,null);
+        Prestamo aux=null;
+        Estado estado=null;
+
+
+        while(!cursor.isClosed() && cursor.moveToNext()){
+
+            estado=getEstado(cursor);
+            aux= new Asignacion(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(6),cursor.getString(7),estado);
+
+            asignaciones.addLast(aux);
+
+        }
+
+        return asignaciones;
+
+    }
+
     public static LinkedList<Prestamo> getReservas(SQLiteDatabase db){
 
         LinkedList<Prestamo> reservas= new LinkedList<Prestamo>();

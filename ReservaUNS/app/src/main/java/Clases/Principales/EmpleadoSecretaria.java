@@ -7,6 +7,7 @@ import android.util.Log;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Otras.AsignacionesViewHolder;
 import Clases.Otras.ButtonListenerController;
 import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
@@ -30,7 +31,7 @@ public class EmpleadoSecretaria extends Usuario{
         navigationView.getMenu().findItem(R.id.nav_consultar_prestamo).setVisible(true);
     }
 
-    public LinkedList<Solicitud> filtrarEspacios(Context context) {
+    public LinkedList<Solicitud> getEspacios(Context context) {
 
         DBController controller = DBController.getDBController(context);
         LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
@@ -75,7 +76,7 @@ public class EmpleadoSecretaria extends Usuario{
         bcl.setListenerEmpleado(holder,solicitud,listener,context);
     }
 
-    public LinkedList<Prestamo> filtrarPrestamos(Context context) {
+    public LinkedList<Prestamo> getPrestamos(Context context) {
 
 
         DBController controller = DBController.getDBController(context);
@@ -110,5 +111,7 @@ public class EmpleadoSecretaria extends Usuario{
         blc.setListenerBajaPrestamo(holder,p);
     }
 
+
+    public LinkedList<Prestamo> getAsignaciones(Context context){return  null;}
 
 }

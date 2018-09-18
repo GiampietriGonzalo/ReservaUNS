@@ -22,5 +22,7 @@ public class Aceptado extends Estado{
 
     public Estado finalizar(){return null;}
 
+    public Estado darDeBaja(){return StateController.getEstadoDeBaja();}
+
 
 }

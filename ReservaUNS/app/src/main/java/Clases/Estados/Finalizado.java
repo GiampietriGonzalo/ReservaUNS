@@ -24,4 +24,6 @@ public class Finalizado extends Estado {
 
     public Estado finalizar(){return this;}
 
+    public Estado darDeBaja(){return StateController.getEstadoDeBaja();}
+
 }

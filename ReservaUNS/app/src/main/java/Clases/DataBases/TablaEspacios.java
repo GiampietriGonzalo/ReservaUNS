@@ -205,12 +205,12 @@ public class TablaEspacios extends Tabla {
 
     public static LinkedList<Integer> findEspacios(int idEdificio, SQLiteDatabase db) {
 
-        LinkedList<Integer> espacios=null;
+        LinkedList<Integer> espacios=new LinkedList<Integer>();
 
         Cursor cursor=db.query("Espacios",columns,Columns.IdEdificio +" = '"+idEdificio+"'",null,null,null,null);
-
         while (!cursor.isClosed() && cursor.moveToNext())
             espacios.addLast(cursor.getInt(0));
+
         return espacios;
 
     }

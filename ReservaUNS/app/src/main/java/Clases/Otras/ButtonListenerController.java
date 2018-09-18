@@ -25,9 +25,11 @@ public class ButtonListenerController {
 
             public void onClick(View view) {
 
-                DBController.cancelarPrestamo(p.getId());
+                //DBController.cancelarPrestamo(p.getId());
                 holder.btnBaja.setEnabled(false);
-                holder.estado.setText("Elimnado");
+                p.darDeBaja();
+                DBController.actualizarPrestamo(p);
+                holder.estado.setText(p.getEstado());
 
             }
         });

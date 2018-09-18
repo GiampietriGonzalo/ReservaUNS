@@ -50,7 +50,7 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
     private void consultarListaSolicitudes() {
 
 
-        LinkedList<Solicitud> solicitudes = usuario.filtrarEspacios(this.getActivity());
+        LinkedList<Solicitud> solicitudes = usuario.getEspacios(this.getActivity());
         for( int i = 0; i<solicitudes.size(); i++){
             listaSolicitudes.add(solicitudes.get(i));
         }

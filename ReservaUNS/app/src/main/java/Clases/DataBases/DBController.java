@@ -143,6 +143,10 @@ public class DBController {
         return TablaEdificios.findDepartamento(idDepartamento, sqlDB);
     }
 
+    public static LinkedList<Prestamo> getAsignaciones(){
+        return TablaPrestamos.getAsignaciones(sqlDB);
+    }
+
     public static boolean insertSolicitudReserva(Solicitud reserva){
         return TablaSolicitudes.insertSolicitudReserva(reserva,sqlDB);
     }

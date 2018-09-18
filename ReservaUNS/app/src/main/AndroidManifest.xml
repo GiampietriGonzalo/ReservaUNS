@@ -29,7 +29,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".FormularioRegistroUsuario" />
         <activity android:name=".YEO" />
-        <activity android:name=".ConsultarPrestamos"></activity>
+        <activity android:name=".ConsultarPrestamos" />
+        <activity android:name=".ConsultarAsignaciones"></activity>
     </application>
 
 </manifest>

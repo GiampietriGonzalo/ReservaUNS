@@ -63,6 +63,7 @@ public abstract class Prestamo {
         return idHorario;
     }
 
+    public void darDeBaja(){estado=estado.darDeBaja();}
 
     public void setId(int id) {
         this.id = id;

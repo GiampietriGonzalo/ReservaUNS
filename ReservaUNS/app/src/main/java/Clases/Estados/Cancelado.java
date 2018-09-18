@@ -23,4 +23,6 @@ public class Cancelado extends Estado {
 
     public Estado finalizar(){return null;}
 
+    public Estado darDeBaja(){return StateController.getEstadoDeBaja();}
+
 }

@@ -7,6 +7,7 @@ import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
 import Clases.DataBases.TablaUsuarios;
+import Clases.Otras.AsignacionesViewHolder;
 import Clases.Otras.PrestamosViewHolder;
 import Clases.Otras.SolicitudesViewHolder;
 import pipenatr.Activities.RecyclerViewClickListener;
@@ -106,11 +107,15 @@ public abstract class Usuario {
 
     public abstract void actualizarNavView(NavigationView navigationView);
 
-    public abstract LinkedList<Solicitud> filtrarEspacios(Context context);
+    public abstract LinkedList<Solicitud> getEspacios(Context context);
 
-    public abstract LinkedList<Prestamo> filtrarPrestamos(Context context);
+    public abstract LinkedList<Prestamo> getPrestamos(Context context);
+
+    public abstract LinkedList<Prestamo> getAsignaciones(Context context);
 
     public abstract void setListenerSolicitudes(SolicitudesViewHolder holder, Solicitud solicitud, RecyclerViewClickListener listener, Context context);
 
     public abstract void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p);
+
+
 }

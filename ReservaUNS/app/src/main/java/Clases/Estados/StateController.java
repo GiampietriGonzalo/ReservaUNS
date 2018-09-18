@@ -7,6 +7,7 @@ public class StateController {
     private static Estado cancelado;
     private static Estado rechazado;
     private static Estado finalizado;
+    private static Estado deBaja;
     private static StateController sc;
 
     private StateController(){
@@ -16,6 +17,7 @@ public class StateController {
         rechazado= new Rechazado();
         aceptado= new Aceptado();
         finalizado= new Finalizado();
+        deBaja= new DeBaja();
 
     }
 
@@ -38,6 +40,8 @@ public class StateController {
     public static Estado getEstadoFinalizado() {
         return finalizado;
     }
+
+    public static Estado getEstadoDeBaja(){ return deBaja;}
 
     public static StateController getStateController(){
 

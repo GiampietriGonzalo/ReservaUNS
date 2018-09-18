@@ -23,6 +23,8 @@ public class Activo extends Estado {
 
     public String toString(){return "Activo";}
 
-    public Estado finalizar(){return null;}
+    public Estado finalizar(){return StateController.getEstadoFinalizado();}
+
+    public Estado darDeBaja(){return StateController.getEstadoDeBaja();}
 
 }

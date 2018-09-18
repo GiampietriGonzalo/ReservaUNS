@@ -23,9 +23,6 @@
             android:icon="@drawable/ic_menu_send"
             android:title="Registrar asignación" />
 
-        <item
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Consultar prestamos" />
     </group>
 
     <group
@@ -35,12 +32,18 @@
         <item
             android:id="@+id/nav_administrar_solicitudes_departamento"
             android:icon="@drawable/ic_menu_send"
-            android:title="Administrar asignaciones" />
+            android:title="Administrar solicitudes" />
+        <item
+            android:id="@+id/nav_consultar_asignaciones"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Consultar asignaciones" />
 
         <item
             android:id="@+id/nav_administrar_docentes"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Administrar docentes" />
+
+
     </group>
 
     <group

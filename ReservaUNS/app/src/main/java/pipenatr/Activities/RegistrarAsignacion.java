@@ -4,6 +4,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +44,11 @@ public class RegistrarAsignacion extends Fragment {
         verificador = new VerificadorDatosFormulario(getActivity());
         id = 0;
 
+        diasAsignacion = new LinkedList<>();
+        horariosAsignacion = new LinkedList<>();
+        aulas = new LinkedList<>();
+        controller= DBController.getDBController(container.getContext());
+
         myView.findViewById(R.id.SVReserva).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerEdificios).setVisibility(myView.GONE);
         myView.findViewById(R.id.spinnerTiposEspacio).setVisibility(myView.GONE);
@@ -65,7 +71,6 @@ public class RegistrarAsignacion extends Fragment {
         private ScrollView scrollView;
         private EditText text;
 
-        @Override
         public void onClick(View view) {
 
             //Obtiene la informacion ingresada por el usuario y verifica que la haya ingresado correctamente
@@ -78,6 +83,7 @@ public class RegistrarAsignacion extends Fragment {
 
             Spinner dia, aula;
             TextView aux;
+
             for(int i=0; i<id; i= i+4) {
                 String num = String.valueOf(i);
                 int resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
@@ -133,14 +139,25 @@ public class RegistrarAsignacion extends Fragment {
 
     //Consulto si los espacios estan disponibles de acuerdo a las especificaciones del usuario
     private boolean consultarDispoibilidad() {
+
         boolean puedeAsignar = true;
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
-        espacios = new LinkedList<>();
+        espacios = new LinkedList<Espacio>();
         Espacio esp;
 
         //Obtiene los espacios a partir de los nombres seleccionados por el usuario
         for(int i=0; i<aulas.size(); i++) {
             esp = buscarEspacio(aulas.get(i));
+
+            if(controller==null)
+                Log.e("controller","controller NULO");
+
+            if(espacios==null)
+                Log.e("lista espacios","Lista espacios NULA");
+
+            if(esp==null)
+                Log.e("es","esp NULO");
+
             espacios.addLast(controller.findEspacio(esp.getID()));
         }
 
@@ -153,7 +170,7 @@ public class RegistrarAsignacion extends Fragment {
     }
 
     private class ListenerConfirmacionCantidad implements View.OnClickListener {
-        @Override
+
         public void onClick(View view) {
 
             EditText elemento;
@@ -219,9 +236,7 @@ public class RegistrarAsignacion extends Fragment {
                 myView.findViewById(R.id.txtvPeriodo).setVisibility(myView.VISIBLE);
                 myView.findViewById(R.id.formLayoutPeriodo).setVisibility(myView.VISIBLE);
 
-                diasAsignacion = new LinkedList<>();
-                horariosAsignacion = new LinkedList<>();
-                aulas = new LinkedList<>();
+
             }
         }
     }
@@ -229,7 +244,7 @@ public class RegistrarAsignacion extends Fragment {
     public LinkedList<Espacio> obtenerEspacios() {
         LinkedList<Edificio> edificios = controller.getEdificios();
         LinkedList<Espacio> espacios, espaciosEdificio;
-        espacios = new LinkedList<>();
+        espacios = new LinkedList<Espacio>();
         Edificio ed;
 
         for(int i=0; i<edificios.size(); i++) {
@@ -243,8 +258,10 @@ public class RegistrarAsignacion extends Fragment {
     }
 
     public Espacio buscarEspacio(String nombre) {
+
         Espacio espacio = null;
         LinkedList<Espacio> espacios = obtenerEspacios();
+
         boolean encontre = false;
 
         for(int i=0; i<espacios.size() && !encontre; i++) {

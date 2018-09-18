@@ -90,6 +90,7 @@ public abstract class Edificio {
     }
 
     public LinkedList<Espacio> getEspacios() {
+
         LinkedList<Integer> idEdficios = DBController.findEspaciosDeEdificio(id);
         LinkedList<Espacio> toReturn= new LinkedList<Espacio>();
 
