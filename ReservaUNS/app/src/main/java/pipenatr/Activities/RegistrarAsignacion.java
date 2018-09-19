@@ -17,7 +17,10 @@ import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
@@ -144,12 +147,15 @@ public class RegistrarAsignacion extends Fragment {
 
         Calendar calendario = Calendar.getInstance();
 
-        boolean puedeAsignar = true;
         LinkedList<Prestamo> prestamos = controller.getPrestamos();
+
         espacios = new LinkedList<Espacio>();
+
         Espacio esp;
         Prestamo pres;
         Horario hor;
+
+        boolean puedeAsignar = true;
         int indiceHorarios = 0;
 
         //Obtiene los espacios a partir de los nombres seleccionados por el usuario
@@ -159,13 +165,19 @@ public class RegistrarAsignacion extends Fragment {
             espacios.addLast(controller.findEspacio(esp.getID()));
             for(int j=0; j<prestamos.size() && puedeAsignar; j++) {
                 pres = prestamos.get(j);
+                //Si el prestamo ocurre en el mismo espacio
                 if(pres.getIdEspacio() == esp.getID()) {
-                    hor = controller.findHorario(pres.getIdHorario());
-                    if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) || hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":",""))) {
+                    calendario.setTime(getDate(pres.getFecha()));
+                    //Si el prestamo ocurre en el mismo dia
+                    if(calendario.get(Calendar.DAY_OF_WEEK) == getValorNumericoDia(diasAsignacion.get(i))) {
+                        //Verifica si el prestamo ocurre un horario distinto, caso contrario no se puede asignar el espacio en esa fecha y ese horario
+                        hor = controller.findHorario(pres.getIdHorario());
+                        if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) || hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":",""))) {
 
+                        }
+                        else
+                            puedeAsignar = false;
                     }
-                    else
-                        puedeAsignar = false;
                 }
             }
             indiceHorarios = indiceHorarios + 2;
@@ -283,4 +295,35 @@ public class RegistrarAsignacion extends Fragment {
 
         return espacio;
     }
+
+    private Date getDate(String fecha) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/mm/aaaa");
+        Date date = null ;
+        try {
+            date = format.parse(fecha);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    private int getValorNumericoDia(String dia) {
+        int indice = 0;
+
+        switch (dia) {
+            case "Lunes": indice = 1;
+            break;
+            case "Martes": indice = 2;
+            break;
+            case "Miercoles": indice = 3;
+            break;
+            case "Jueves": indice = 4;
+            break;
+            case "Viernes": indice = 5;
+            break;
+        }
+
+        return indice;
+    }
+
 }
