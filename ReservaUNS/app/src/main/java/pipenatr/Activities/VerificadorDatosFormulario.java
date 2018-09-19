@@ -6,6 +6,7 @@ import android.support.v7.app.AlertDialog;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
 
 public class VerificadorDatosFormulario {
 
@@ -30,7 +31,7 @@ public class VerificadorDatosFormulario {
                 contador++;
 
         if(contador!=2)
-            mostrarMensajeError("La fecha debe tener el formato dd/mm/aaaa");
+            mostrarMensajeError("Las fechas deben tener el formato dd/mm/aaaa");
         else {
             // verifico que el año sea correcto
             año = Integer.parseInt(valores[2]);
@@ -47,14 +48,14 @@ public class VerificadorDatosFormulario {
                     if(dia>0 && dia<=diasAux)
                         fechaValida = true;
                     else
-                        mostrarMensajeError("El dia de la reserva debe estar comprendido entre el 1 y " + diasAux + " de acuerdo al mes seleccionado");
+                        mostrarMensajeError("El dia de la fecha " + fecha + " debe estar comprendido entre el 1 y " + diasAux + " de acuerdo al mes seleccionado");
                 }
                 else
-                    mostrarMensajeError("El mes de la reserva no es válido");
+                    mostrarMensajeError("El mes de la fecha " + fecha + " ingresada es inválido");
             }
 
             else
-                mostrarMensajeError("El año de la reserva no es válido");
+                mostrarMensajeError("El año de la fecha" + fecha + " es inválido");
         }
 
         if (fechaValida)
@@ -62,7 +63,7 @@ public class VerificadorDatosFormulario {
 
 
         if( !fechaValida || (mes== calendario.get(Calendar.MONTH)+1 && dia <= calendario.get(Calendar.DAY_OF_MONTH)))  {
-            mostrarMensajeError("La fecha ingresada no es válida: ");
+            mostrarMensajeError("La fecha " + fecha + " ingresada no es válida, no puede ingresar una fecha pasada.");
             fechaValida=false;
         }
         return fechaValida;
@@ -79,7 +80,7 @@ public class VerificadorDatosFormulario {
             if(horaIni.charAt(i) == ':')
                 contador++;
         if(contador!=1)
-            mostrarMensajeError("El formato de la hora de reserva debe ser hh:mm");
+            mostrarMensajeError("El formato de la hora debe ser hh:mm");
         else
         {
             horaInicio = horaIni.split(":");
@@ -88,9 +89,21 @@ public class VerificadorDatosFormulario {
             if(hora>=0 && hora<=23 && min>=0 && min<=59)
                 horaValida = true;
             else
-                mostrarMensajeError("El horario de reserva debe estar comprendido entre las 00:00hs y las 23:59hs");
+                mostrarMensajeError("El horario de debe estar comprendido entre las 00:00hs y las 23:59hs");
         }
         return horaValida;
+    }
+
+    //Verifica si los dias ingresados son distintos
+    public boolean verificarDias(LinkedList<String> dias) {
+        boolean esPosibleCursar = true;
+
+        for(int i=0; i<dias.size() && esPosibleCursar; i++)
+            for(int j=i+1; j<dias.size() && esPosibleCursar; j++)
+                if(dias.get(i).matches(dias.get(j)))
+                    esPosibleCursar = false;
+
+        return esPosibleCursar;
     }
 
     public void mostrarMensajeError(String mensaje)
@@ -107,6 +120,4 @@ public class VerificadorDatosFormulario {
         alerta.setCancelable(true);
         alerta.create().show();
     }
-
-
 }

@@ -18,7 +18,7 @@ public abstract class Prestamo {
     protected int idHorario;
     protected Estado estado;
 
-    public Prestamo(int id, String fecha, int idEspacio,int idHorario,Estado estado){
+    public Prestamo(int id, String fecha, int idEspacio,int idHorario, Estado estado){
 
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;

@@ -1,13 +1,17 @@
 package pipenatr.Activities;
 
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +20,7 @@ import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,6 +29,8 @@ import java.util.Date;
 import java.util.LinkedList;
 
 import Clases.DataBases.DBController;
+import Clases.Estados.StateController;
+import Clases.Principales.Asignacion;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
@@ -108,7 +115,7 @@ public class RegistrarAsignacion extends Fragment {
                 num = String.valueOf((i+3));
                 resID = getResources().getIdentifier(num, "id", myView.getContext().getPackageName());
                 aula = (Spinner) myView.findViewById(resID);
-                aulas.addLast(aula.getSelectedItem().toString().trim().toLowerCase());
+                aulas.addLast(aula.getSelectedItem().toString());
             }
 
 
@@ -129,8 +136,38 @@ public class RegistrarAsignacion extends Fragment {
                         if(!verificador.verificarHorario(horariosAsignacion.get(i)))
                             error = true;
                     if(!error && verificador.verificarFecha(fechaFinVig) && verificador.verificarFecha(fechaInicioVig)) {
+                        //Si se los espacios se encuentran disponibles en su respectivo dia y horario, se realiza la asignacion
                         if(consultarDispoibilidad()) {
+                            //Muestra una ventana para verificar si el usuario desea reservar el espacio
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                                    String itemSeleccionado = (String) listView.getItemAtPosition(position);
+                                    final int pos = position;
+
+                                    //Muestra ventana para confirmar la reserva del aula
+                                    AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                                    alerta.setPositiveButton("Asignar", new DialogInterface.OnClickListener() {
+
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            realizarAsignacion();
+                                            Toast.makeText(getActivity(), "Se realizó exitosamente la asignación.", Toast.LENGTH_LONG).show();
+                                            getFragmentManager().popBackStack();
+                                            getFragmentManager().beginTransaction().commit();
+                                            Intent intent = new Intent(myView.getContext(), PantallaPrincipal.class);
+                                            getActivity().finish();
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                    alerta.setNegativeButton("Cancelar", null);
+                                    alerta.setMessage("¿desea realizar la asignación?");
+                                    alerta.setTitle("Asignar espacios");
+                                    alerta.setCancelable(true);
+                                    alerta.create().show();
+                                }
+                            });
                         }
                     }
                 }
@@ -140,6 +177,24 @@ public class RegistrarAsignacion extends Fragment {
 
         }
 
+    }
+
+    private void realizarAsignacion() {
+        int indiceHorarios = 0;
+
+        for(int i=0; i<diasAsignacion.size(); i++) {
+
+            int horarioInicio = Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":",""));
+            int horarioFin = Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":",""));
+            indiceHorarios = indiceHorarios + 2;
+
+            LinkedList<String> dia = new LinkedList<>();
+            dia.addLast(diasAsignacion.get(i));
+
+            Horario nuevoHorario = new Horario(9999, horarioInicio, horarioFin, 9999, dia);
+            Asignacion asigna100 = new Asignacion(9999, diasAsignacion.get(i), nuevoHorario.getId(), espacios.get(i).getID(), fechaInicioVig, fechaFinVig, StateController.getEstadoAceptado());
+            nuevoHorario.setIdPrestamo(asigna100.getId());
+        }
     }
 
     //Consulto si los espacios estan disponibles de acuerdo a las especificaciones del usuario
@@ -172,10 +227,7 @@ public class RegistrarAsignacion extends Fragment {
                     if(calendario.get(Calendar.DAY_OF_WEEK) == getValorNumericoDia(diasAsignacion.get(i))) {
                         //Verifica si el prestamo ocurre un horario distinto, caso contrario no se puede asignar el espacio en esa fecha y ese horario
                         hor = controller.findHorario(pres.getIdHorario());
-                        if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) || hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":",""))) {
-
-                        }
-                        else
+                        if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) && hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":","")))
                             puedeAsignar = false;
                     }
                 }
@@ -183,10 +235,8 @@ public class RegistrarAsignacion extends Fragment {
             indiceHorarios = indiceHorarios + 2;
         }
 
-        //Para los espacios seleccionados
-        for(int i=0; i<espacios.size(); i++) {
-            //Verificar si para el espacio esta libre en el dia y hora especificados
-        }
+        if(!puedeAsignar)
+            verificador.mostrarMensajeError("No se puede realizar la asignación ya que existen conflictos con una asignación existente.");
 
         return puedeAsignar;
     }
@@ -199,15 +249,13 @@ public class RegistrarAsignacion extends Fragment {
             Spinner spinnerDias, spinnerEspacios;
 
             //Crea el arreglo con los espacios para insertar en el adapter del spinner
-           // LinkedList<Espacio> espacios = obtenerEspacios();
-            //String[] espaciosArray =  new String[espacios.size()];
-            String[] espaciosArray =  new String[1];
-            espaciosArray[0] = "sdasdas";
-           // for(int i=0; i<espacios.size(); i++)
-             //   espaciosArray[i] = espacios.get(i).getNombre();
+            LinkedList<Espacio> espacios = obtenerEspacios();
+            String[] espaciosArray =  new String[espacios.size()];
+            for(int i=0; i<espacios.size(); i++)
+                espaciosArray[i] = espacios.get(i).getNombre();
 
             //Crea el arreglo con los dias de la semana para insertar en el spinner
-            String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes"};
+            String[] dias = {"Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"};
             ArrayAdapter<String> adapter, adapterEspacios;
 
             TextView text = (TextView) myView.findViewById(R.id.txtCantDias);
@@ -263,7 +311,8 @@ public class RegistrarAsignacion extends Fragment {
         }
     }
 
-    public LinkedList<Espacio> obtenerEspacios() {
+    //Retorna una lista que contiene todos los espacios cargados en el sistema
+    private LinkedList<Espacio> obtenerEspacios() {
         LinkedList<Edificio> edificios = controller.getEdificios();
         LinkedList<Espacio> espacios, espaciosEdificio;
         espacios = new LinkedList<Espacio>();
@@ -279,7 +328,8 @@ public class RegistrarAsignacion extends Fragment {
         return espacios;
     }
 
-    public Espacio buscarEspacio(String nombre) {
+    //Dado el nombre de un espacio retorna el objeto espacio asociado al mismo
+    private Espacio buscarEspacio(String nombre) {
 
         Espacio espacio = null;
         LinkedList<Espacio> espacios = obtenerEspacios();
@@ -296,6 +346,7 @@ public class RegistrarAsignacion extends Fragment {
         return espacio;
     }
 
+    //Retorna un objeto de tipo Date a partir de un string que contiene un fecha en formato dd/mm/aaaa
     private Date getDate(String fecha) {
         SimpleDateFormat format = new SimpleDateFormat("dd/mm/aaaa");
         Date date = null ;
@@ -307,20 +358,23 @@ public class RegistrarAsignacion extends Fragment {
         return date;
     }
 
+    //Determina el dia valor numerico de un dia de la semana dado
     private int getValorNumericoDia(String dia) {
         int indice = 0;
 
         switch (dia) {
             case "Lunes": indice = 1;
-            break;
+                break;
             case "Martes": indice = 2;
-            break;
+                break;
             case "Miercoles": indice = 3;
-            break;
+                break;
             case "Jueves": indice = 4;
-            break;
+                break;
             case "Viernes": indice = 5;
-            break;
+                break;
+            case "Sabado": indice = 6;
+                break;
         }
 
         return indice;

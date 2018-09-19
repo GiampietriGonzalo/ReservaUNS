@@ -108,8 +108,6 @@ public class PantallaPrincipal extends AppCompatActivity
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarPrestamos()).commit();
         } else if (id == R.id.nav_administrar_solicitudes_departamento) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarSolicitud()).commit();
-        } else if (id == R.id.nav_administrar_docentes) {
-            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new FormularioReserva()).commit();
         } else if (id == R.id.nav_cerrar_sesion) {
             SaveSharedPreference.setUserId(PantallaPrincipal.this, "");
             Intent intent = new Intent(this, IniciarSesion.class);
