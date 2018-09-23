@@ -39,9 +39,6 @@ public abstract class Prestamo {
         return id;
     }
 
-    public String getEstado(){return estado.toString();}
-
-
     public String getFecha() {
         return fecha;
     }

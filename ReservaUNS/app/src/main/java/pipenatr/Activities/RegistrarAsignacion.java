@@ -227,7 +227,7 @@ public class RegistrarAsignacion extends Fragment {
                     if(calendario.get(Calendar.DAY_OF_WEEK) == getValorNumericoDia(diasAsignacion.get(i))) {
                         //Verifica si el prestamo ocurre un horario distinto, caso contrario no se puede asignar el espacio en esa fecha y ese horario
                         hor = controller.findHorario(pres.getIdHorario());
-                        if(hor.getHoraFin()>=Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) && hor.getHoraInicio()<=Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":","")))
+                        if(hor.getHoraFin()>Integer.parseInt(horariosAsignacion.get(indiceHorarios).replace(":","")) && hor.getHoraInicio()<Integer.parseInt(horariosAsignacion.get(indiceHorarios+1).replace(":","")))
                             puedeAsignar = false;
                     }
                 }

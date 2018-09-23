@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +28,7 @@ import Clases.Estados.StateController;
 import Clases.Principales.Edificio;
 import Clases.Principales.Espacio;
 import Clases.Principales.Horario;
+import Clases.Principales.Prestamo;
 import Clases.Principales.Solicitud;
 import Clases.Principales.SolicitudReserva;
 
@@ -185,14 +185,51 @@ public class FormularioReserva extends Fragment {
         }
     }
 
+    //Revisa la lista de espacios en el sistema y guarda aquellos que se encuentran disponibles en el dia y horario especificados
     private void consultarTablaEspacios()
     {
         boolean encontre;
-        LinkedList<Horario> listaHorarios;
-        Horario horario;
-        LinkedList<Espacio> listaEspaciosAux = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, Integer.parseInt(capacidad));
-        LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
 
+        LinkedList<Espacio> listaEspaciosPrestados = new LinkedList<>();
+        LinkedList<Espacio> listaEspaciosAReservar = controller.findEspaciosAReservar(tipoEspacio, nombreEdificio, Integer.parseInt(capacidad));
+        LinkedList<Solicitud> solicitudes = controller.getSolicitudes();
+        LinkedList<Prestamo> prestamos = controller.getPrestamos();
+
+        Espacio espacio;
+        Prestamo prestamo;
+        Horario horarioPrestamo;
+
+
+        //Para todos los espacios que cumplen los requisitos del usuario
+        for(int i=0; i<listaEspaciosAReservar.size(); i++) {
+            espacio = listaEspaciosAReservar.get(i);
+            encontre = false;
+
+            //Busco en la lista de prestamos si el espacio se encuentra asignado a un prestamo activo
+            for(int p=0; p<prestamos.size() && !encontre;p++) {
+                prestamo = prestamos.get(p);
+
+                if(prestamo.getEstadoString().matches("Activo") && prestamo.getIdEspacio()==espacio.getID()) {
+                    horarioPrestamo = prestamo.getHorario();
+
+                    //Si el horario del prestamo coincide con el horario del usuario, no se puede realizar la solicitud, caso contrario se almacena el espacio
+                    if( !(horarioPrestamo.getHoraFin()>Integer.parseInt(horaIni.replace(":", "")) && horarioPrestamo.getHoraInicio()<Integer.parseInt(horaFin.replace(":", ""))) ) {
+                        listaEspacios.addLast(espacio);
+                        toAdapter.addLast(listaEspaciosAReservar.get(i).getNombre()+"-----"+listaEspaciosAReservar.get(i).getEdificio().getNombre());
+                    }
+                    encontre = true;
+
+                }
+            }
+
+            if(!encontre) {
+                listaEspacios.addLast(espacio);
+                toAdapter.addLast(listaEspaciosAReservar.get(i).getNombre()+"-----"+listaEspaciosAReservar.get(i).getEdificio().getNombre());
+            }
+        }
+
+
+        /*
         //Para todos los espacios que cumplen las restricciones del formulario
         for (int i = 0; i < listaEspaciosAux.size(); i++) {
             listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
@@ -233,6 +270,7 @@ public class FormularioReserva extends Fragment {
                 listaEspacios.addLast(listaEspaciosAux.get(i));
             }
         }
+        */
     }
 
     private void enviarSolicitud(int position){

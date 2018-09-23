@@ -29,7 +29,7 @@ public class ButtonListenerController {
                 holder.btnBaja.setEnabled(false);
                 p.darDeBaja();
                 DBController.actualizarPrestamo(p);
-                holder.estado.setText(p.getEstado());
+                holder.estado.setText(p.getEstadoString());
 
             }
         });

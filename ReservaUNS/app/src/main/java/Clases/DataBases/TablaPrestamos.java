@@ -36,7 +36,7 @@ public class TablaPrestamos extends Tabla {
        values.put("Fecha",p.getFecha());
        values.put("IdEspacio",p.getIdEspacio());
        values.put("IdHorario",p.getIdHorario());
-       values.put("Estado",p.getEstado().toString());
+       values.put("Estado",p.getEstadoString().toString());
 
 
        return values;
