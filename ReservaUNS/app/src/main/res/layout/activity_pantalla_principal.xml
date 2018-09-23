@@ -23,46 +23,6 @@
         app:headerLayout="@layout/nav_header_pantalla_principal"
         app:menu="@menu/activity_pantalla_principal_drawer" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:maxHeight="8dp"
-        android:maxWidth="8dp"
-        android:scaleType="fitCenter"
-        android:layout_marginLeft="3dp"
-        android:src="@drawable/logo_uns"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Integrantes:"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Giampietri Gonzalo"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LU: 108644"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Viola Gómez Enrique"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="LU: 110905"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tecnología de Programación 2017"/>
 
 
 </android.support.v4.widget.DrawerLayout>
