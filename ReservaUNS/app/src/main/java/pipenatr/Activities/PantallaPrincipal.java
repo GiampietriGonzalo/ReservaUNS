@@ -52,6 +52,9 @@ public class PantallaPrincipal extends AppCompatActivity
         ((TextView)  headerView.findViewById(R.id.txtEmailHeader)).setText(user.getMail());
         ((TextView) headerView.findViewById(R.id.txtNombreHeader)).setText(user.getNombre());
 
+        //Inserta la informacion de la pantalla principal
+
+
         //Hace visibles en el drawer las operaciones especificas del usuario
         user.actualizarNavView(navigationView);
     }
@@ -69,7 +72,7 @@ public class PantallaPrincipal extends AppCompatActivity
     
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.pantalla_principal, menu);
+        //getMenuInflater().inflate(R.menu.pantalla_principal, menu);
         return true;
     }
 
@@ -81,9 +84,11 @@ public class PantallaPrincipal extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        /*
         if (id == R.id.action_settings) {
             return true;
         }
+        */
 
         return super.onOptionsItemSelected(item);
     }
@@ -115,8 +120,10 @@ public class PantallaPrincipal extends AppCompatActivity
             startActivity(intent);
         }
 
+        findViewById(R.id.layout_informacion_app).setVisibility(View.GONE);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }
