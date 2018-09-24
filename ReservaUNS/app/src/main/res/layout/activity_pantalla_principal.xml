@@ -23,6 +23,6 @@
         app:headerLayout="@layout/nav_header_pantalla_principal"
         app:menu="@menu/activity_pantalla_principal_drawer" />
 
-
+   
 
 </android.support.v4.widget.DrawerLayout>

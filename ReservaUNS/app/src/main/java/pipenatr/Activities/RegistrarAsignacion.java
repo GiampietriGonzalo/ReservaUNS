@@ -7,16 +7,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -79,7 +76,6 @@ public class RegistrarAsignacion extends Fragment {
 
     private class ListenerAsignacion implements View.OnClickListener {
 
-        private ListView listView;
         private ScrollView scrollView;
         private EditText text;
 
@@ -138,36 +134,27 @@ public class RegistrarAsignacion extends Fragment {
                     if(!error && verificador.verificarFecha(fechaFinVig) && verificador.verificarFecha(fechaInicioVig)) {
                         //Si se los espacios se encuentran disponibles en su respectivo dia y horario, se realiza la asignacion
                         if(consultarDispoibilidad()) {
-                            //Muestra una ventana para verificar si el usuario desea reservar el espacio
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            //Muestra ventana para confirmar la reserva del aula
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
+                            alerta.setPositiveButton("Asignar", new DialogInterface.OnClickListener() {
 
-                                    String itemSeleccionado = (String) listView.getItemAtPosition(position);
-                                    final int pos = position;
-
-                                    //Muestra ventana para confirmar la reserva del aula
-                                    AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
-                                    alerta.setPositiveButton("Asignar", new DialogInterface.OnClickListener() {
-
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            realizarAsignacion();
-                                            Toast.makeText(getActivity(), "Se realizó exitosamente la asignación.", Toast.LENGTH_LONG).show();
-                                            getFragmentManager().popBackStack();
-                                            getFragmentManager().beginTransaction().commit();
-                                            Intent intent = new Intent(myView.getContext(), PantallaPrincipal.class);
-                                            getActivity().finish();
-                                            startActivity(intent);
-                                        }
-                                    });
-
-                                    alerta.setNegativeButton("Cancelar", null);
-                                    alerta.setMessage("¿desea realizar la asignación?");
-                                    alerta.setTitle("Asignar espacios");
-                                    alerta.setCancelable(true);
-                                    alerta.create().show();
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    realizarAsignacion();
+                                    Toast.makeText(getActivity(), "Se realizó exitosamente la asignación.", Toast.LENGTH_LONG).show();
+                                    getFragmentManager().popBackStack();
+                                    getFragmentManager().beginTransaction().commit();
+                                    Intent intent = new Intent(myView.getContext(), PantallaPrincipal.class);
+                                    getActivity().finish();
+                                    startActivity(intent);
                                 }
                             });
+
+                            alerta.setNegativeButton("Cancelar", null);
+                            alerta.setMessage("¿desea realizar la asignación?");
+                            alerta.setTitle("Asignar espacios");
+                            alerta.setCancelable(true);
+                            alerta.create().show();
                         }
                     }
                 }
