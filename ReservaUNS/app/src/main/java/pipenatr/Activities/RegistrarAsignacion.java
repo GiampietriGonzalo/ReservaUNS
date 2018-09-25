@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -132,7 +133,7 @@ public class RegistrarAsignacion extends Fragment {
                         if(!verificador.verificarHorario(horariosAsignacion.get(i)))
                             error = true;
                     if(!error && verificador.verificarFecha(fechaFinVig) && verificador.verificarFecha(fechaInicioVig)) {
-                        //Si se los espacios se encuentran disponibles en su respectivo dia y horario, se realiza la asignacion
+                        //Si se los espacios se encuentran disponibles en sus respectivos dias (dias deben ser diferentes) y horarios, se realiza la asignacion
                         if(consultarDispoibilidad()) {
 
                             //Muestra ventana para confirmar la reserva del aula
@@ -181,6 +182,9 @@ public class RegistrarAsignacion extends Fragment {
             Horario nuevoHorario = new Horario(9999, horarioInicio, horarioFin, 9999, dia);
             Asignacion asigna100 = new Asignacion(9999, diasAsignacion.get(i), nuevoHorario.getId(), espacios.get(i).getID(), fechaInicioVig, fechaFinVig, StateController.getEstadoAceptado());
             nuevoHorario.setIdPrestamo(asigna100.getId());
+
+            controller.insertAsignacion(asigna100);
+            controller.insertHorario(nuevoHorario);
         }
     }
 
@@ -343,6 +347,23 @@ public class RegistrarAsignacion extends Fragment {
             e.printStackTrace();
         }
         return date;
+    }
+
+    private boolean verificarDias() {
+        boolean diasValidos = true;
+        String dia;
+
+        for(int p=0; p<diasAsignacion.size() && diasValidos; p++) {
+            dia = diasAsignacion.get(p);
+            Log.e("I",""+p);
+            for(int h=p+1; h<diasAsignacion.size() && diasValidos; h++) {
+                Log.e("J", ""+h);
+                if(dia.matches(diasAsignacion.get(h)))
+                    diasValidos = false;
+            }
+        }
+
+        return diasValidos;
     }
 
     //Determina el dia valor numerico de un dia de la semana dado
