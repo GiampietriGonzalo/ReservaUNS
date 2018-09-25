@@ -108,7 +108,7 @@ public class PantallaPrincipal extends AppCompatActivity
         } else if (id == R.id.nav_consultar_asignaciones) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarAsignaciones()).commit();
         } else if (id == R.id.nav_registrar_asignacion) {
-            fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new RegistrarAsignacion()).commit();
+            //fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new RegistrarAsignacion()).commit();
         } else if (id == R.id.nav_consultar_prestamo) {
             fragmentManager.beginTransaction().replace(R.id.pantalla_principal, new ConsultarPrestamos()).commit();
         } else if (id == R.id.nav_administrar_solicitudes_departamento) {

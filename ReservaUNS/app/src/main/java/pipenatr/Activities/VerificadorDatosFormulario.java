@@ -86,10 +86,10 @@ public class VerificadorDatosFormulario {
             horaInicio = horaIni.split(":");
             hora = Integer.parseInt(horaInicio[0]);
             min = Integer.parseInt(horaInicio[1]);
-            if(hora>=0 && hora<=23 && min>=0 && min<=59)
+            if(hora>=8 && hora<=22 && min>=0 && min<=59)
                 horaValida = true;
             else
-                mostrarMensajeError("El horario de debe estar comprendido entre las 00:00hs y las 23:59hs");
+                mostrarMensajeError("El horario de debe estar comprendido entre las 08:00hs y las 22:00hs");
         }
         return horaValida;
     }
