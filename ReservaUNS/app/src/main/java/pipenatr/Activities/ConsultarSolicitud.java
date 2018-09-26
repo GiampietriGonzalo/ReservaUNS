@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,6 @@ public class ConsultarSolicitud extends Fragment implements RecyclerViewClickLis
         Solicitud miSolicitud = listaSolicitudes.get(position);
         Horario miHorario = controller.findHorario(miSolicitud.getHorarios().getFirst());
         Prestamo miPrestamo= new Reserva(9999,miSolicitud.getFecha(),miHorario.getId(),miSolicitud.getIdEspacio(),miSolicitud.getIdAutor(), StateController.getEstadoActivo());
-
         miSolicitud.aceptar();
 
         return controller.insertReserva(miPrestamo) && controller.actualizarEstadoSolicitud(miSolicitud);

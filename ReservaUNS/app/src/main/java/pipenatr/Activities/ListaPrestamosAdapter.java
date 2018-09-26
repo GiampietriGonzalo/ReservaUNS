@@ -54,6 +54,7 @@ public class ListaPrestamosAdapter extends RecyclerView.Adapter<PrestamosViewHol
         holder.estado.setText(miPrestamo.getEstadoString());
 
         usuario.setListenerPrestamos(holder,miPrestamo);
+
     }
 
     public int getItemCount() {

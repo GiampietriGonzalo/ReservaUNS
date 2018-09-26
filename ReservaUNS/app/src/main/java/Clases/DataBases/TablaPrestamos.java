@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.renderscript.Sampler;
+import android.util.Log;
 
 import java.util.LinkedList;
 
@@ -152,8 +153,8 @@ public class TablaPrestamos extends Tabla {
             aux= new Reserva(cursor.getInt(0),cursor.getString(1),cursor.getInt(2),cursor.getInt(3),cursor.getInt(5),estado);
 
             reservas.addLast(aux);
-
         }
+
 
         return reservas;
     }

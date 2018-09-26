@@ -22,7 +22,7 @@ public abstract class Prestamo {
 
         this.idEspacio=idEspacio;
         this.idHorario=idHorario;
-
+        this.fecha=fecha;
         if(id==9999)
             this.id = TablaPrestamos.getNextID(DBController.getDB());
         else
