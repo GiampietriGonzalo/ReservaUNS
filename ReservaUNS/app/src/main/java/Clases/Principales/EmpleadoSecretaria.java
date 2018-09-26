@@ -85,10 +85,6 @@ public class EmpleadoSecretaria extends Usuario{
         Espacio espacio;
         Edificio edificio;
         Prestamo prestamo ;
-
-        if(prestamos.isEmpty())
-            Log.e("getPrestamos", "getPrestamos retorna VACIO");
-
         //Para cada elemento de la lista de prestamos recibida
         while(!prestamos.isEmpty()) {
 

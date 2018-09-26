@@ -1,0 +1,28 @@
+ReservaUNS
+
+Clases Principales/Bases:
+
+	Prestamo: Reserva y Asignacion
+	Usuario: Docente, EmpleadoDepartamento, EmpleadoSecretraria
+	Espacio: Aula,Laboratorio,SalaConferencias,SalaReuniones
+	Edificio: Departamento,EdificioAulas
+	Solicitud: SolicitudAsignacion, SolicitudReserva
+	Horarios.
+
+Clases de Estados:
+	Estado: Activo,Aceptado,Rechazado,Cancelado,DeBaja,Finalizado. Singletons.
+	StateController: Brinda acceso a los diferentes estados. Singleton.
+
+Clase de Base de datos:
+			
+	DBController: Interfaz entre sistema y base de datos sqlite. Singleton.
+	Tabla: TablaPrestamo, TablaSolicitudes, TablaUsuarios, TablaEdificios,TablaEspacios,TablaHorarios. Interfaces entre DBController 		y tablas de la base de datos.
+	
+*Una asignación corresponde al uso habitual de un espacio por un cursado durante un cuatrimestre.
+
+*Una reserva corresponde a un uso temporal (y ajeno a una asignación) de un espacio en un edificio.
+
+Faltó: Completar la implementación para registrar una asignación (prioridad baja). Las consultas sobre las asignaciones no bridarán resultados. 
+Se consideró que las asignaciones no deberían registrarse (en su totalidad) por medio de la aplicación, pero sí que debía contemplarlas y permitir registrarlas en caso de que sean necesario.
+
+

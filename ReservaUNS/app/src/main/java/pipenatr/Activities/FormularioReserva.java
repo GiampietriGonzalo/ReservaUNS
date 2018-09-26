@@ -227,50 +227,6 @@ public class FormularioReserva extends Fragment {
                 toAdapter.addLast(listaEspaciosAReservar.get(i).getNombre()+"-----"+listaEspaciosAReservar.get(i).getEdificio().getNombre());
             }
         }
-
-
-        /*
-        //Para todos los espacios que cumplen las restricciones del formulario
-        for (int i = 0; i < listaEspaciosAux.size(); i++) {
-            listaHorarios = controller.findHorariosEspacio(listaEspaciosAux.get(i));
-
-            //Si el espacio no tiene reservas asignadas se guarda en la lista, caso contrario, se verifica que ninguna coincida con la fecha y horario introducidos por el usuario
-            if(!listaHorarios.isEmpty()) {
-                encontre = false;
-
-                for( int k = 0; k<listaHorarios.size() && !encontre; k++) {
-                    horario = listaHorarios.get(k);
-
-                    //Busca la solicitud correspondiente al horario
-                    for( int n = 0; n<solicitudes.size(); n++) {
-
-                        if(solicitudes.get(n).getHorarios().getFirst() == horario.getId()) {
-
-                            //Si la solicitud se encuentra activa la tiene en cuenta, sino la saltea
-                            if(solicitudes.get(n).getEstadoString()=="Activo") {
-
-                                for(int j = 0; j<horario.getDiasSemana().size(); j++) {
-                                    if(!encontre && horario.getDiasSemana().get(j).equals(fecha)) {
-                                        if (horario.getHoraFin() >= Integer.parseInt(horaIni.replace(":", "")) && horario.getHoraInicio() <= Integer.parseInt(horaFin.replace(":","")))
-                                            encontre = true;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if(!encontre){
-                    toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+"-----"+listaEspaciosAux.get(i).getEdificio().getNombre());
-                    listaEspacios.addLast(listaEspaciosAux.get(i));
-                }
-            }
-            else {
-                toAdapter.addLast(listaEspaciosAux.get(i).getNombre()+"-----"+listaEspaciosAux.get(i).getEdificio().getNombre());
-                listaEspacios.addLast(listaEspaciosAux.get(i));
-            }
-        }
-        */
     }
 
     private void enviarSolicitud(int position){

@@ -1,6 +1,7 @@
 PRESTAMO = RESERVA Y ASIGNACION
+(Prioridad)
 
-Público
+Público (Eliminable)
 
 	Consultar horarios de profesor (Minima)
 	Consultar horarios de materia (Minima)
@@ -12,12 +13,12 @@ Los siguientes participantes heredan los CU del Público
 Administrador del departamento
 	
 	Consultar asignaciones.
-	Rechazar Reserva (alta)
-	Aceptar Reserva (alta)
+	Rechazar solicitud (alta)
+	Aceptar solicitud (alta)
 	Modificar habilitación de docente (minima)
 	Consultar docentes habilitados (minima)
 
-SGA y autoridades
+SGA (Secretaria)
 
 	Cancelar asignación (alta)
 	Registrar asignación (alta) ACA HAY QUE HACER INSERT Y CANCELAR LAS SOLICITUDES ECHAS EN ESE HORARIO Y CANCELAR LOS PRESTAMOS
@@ -31,10 +32,6 @@ Docentes
 	Cancelar solicitud de reserva (alta)
 	Solicitar reserva (Minima)
 	Consultar solicitudes de reservas (alta) 
-
-¿Diferencia entre prestamo parcial y final?
-
-
 	
 	
 

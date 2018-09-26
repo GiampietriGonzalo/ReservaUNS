@@ -355,9 +355,7 @@ public class RegistrarAsignacion extends Fragment {
 
         for(int p=0; p<diasAsignacion.size() && diasValidos; p++) {
             dia = diasAsignacion.get(p);
-            Log.e("I",""+p);
             for(int h=p+1; h<diasAsignacion.size() && diasValidos; h++) {
-                Log.e("J", ""+h);
                 if(dia.matches(diasAsignacion.get(h)))
                     diasValidos = false;
             }
