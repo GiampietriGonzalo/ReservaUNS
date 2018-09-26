@@ -167,18 +167,36 @@ public class FormularioReserva extends Fragment {
                         //Consulto los espacios disponibles de acuerdo a las especificaciones del usuario
                         consultarTablaEspacios();
 
-                        //Seteo el adapter para mostrar en el listView
-                        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, toAdapter);
-                        listView.setAdapter(adapter);
+                        //Si no se encontraron espacios muestra un cartel de notificacion, caso contrario, muestra la lista de espacios disponibles
+                        if(toAdapter.isEmpty()) {
+                            
+                            AlertDialog.Builder alerta = new AlertDialog.Builder(getActivity());
 
-                        //HABILITAR LISTVIEW
-                        listView.setVisibility(View.VISIBLE);
-                        listView.setEnabled(true);
+                            alerta.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {//Cierra la ventana
+                                }
+                            });
 
-                        //DESHABILITAR EL RESTO
-                        scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
-                        scrollView.setVisibility(view.GONE);
-                        scrollView.setEnabled(false);
+                            alerta.setMessage("No se encontraron espacios disponibles que satifagan el criterio de búsqueda.");
+                            alerta.setTitle("Aviso");
+                            alerta.setCancelable(true);
+                            alerta.create().show();
+
+                        } else {
+                            //Seteo el adapter para mostrar en el listView
+                            adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, toAdapter);
+                            listView.setAdapter(adapter);
+
+                            //HABILITAR LISTVIEW
+                            listView.setVisibility(View.VISIBLE);
+                            listView.setEnabled(true);
+
+                            //DESHABILITAR EL RESTO
+                            scrollView=(ScrollView) myView.findViewById(R.id.SVReserva);
+                            scrollView.setVisibility(view.GONE);
+                            scrollView.setEnabled(false);
+
+                        }
                     }
             }
             else
