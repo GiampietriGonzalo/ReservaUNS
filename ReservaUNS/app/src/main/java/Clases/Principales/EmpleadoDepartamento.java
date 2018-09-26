@@ -99,8 +99,19 @@ public class EmpleadoDepartamento extends Usuario{
     }
 
     public void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p){
-        ButtonListenerController blc= ButtonListenerController.getButtonListenerController();
+
+        ButtonListenerController blc = ButtonListenerController.getButtonListenerController();
+        blc.setListenerEliminarPrestamo(holder,p);
         blc.setListenerBajaPrestamo(holder,p);
+
+        if(p.getEstadoString()=="Dado de baja"){
+            holder.btnBaja.setEnabled(false);
+            holder.btnEliminar.setEnabled(true);
+        }
+        else {
+            holder.btnBaja.setEnabled(true);
+            holder.btnEliminar.setEnabled(false);
+        }
     }
 
 

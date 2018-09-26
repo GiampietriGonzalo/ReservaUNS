@@ -27,12 +27,30 @@ public class ButtonListenerController {
 
                 //DBController.cancelarPrestamo(p.getId());
                 holder.btnBaja.setEnabled(false);
+                holder.btnEliminar.setEnabled(true);
                 p.darDeBaja();
                 DBController.actualizarPrestamo(p);
                 holder.estado.setText(p.getEstadoString());
 
             }
         });
+
+    }
+
+    public void setListenerEliminarPrestamo(PrestamosViewHolder holder, Prestamo p){
+
+        holder.btnEliminar.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View view) {
+
+                DBController.cancelarPrestamo(p.getId());
+                holder.btnBaja.setEnabled(false);
+                holder.btnEliminar.setEnabled(false);
+                holder.estado.setText("De baja - Eliminado");
+
+            }
+        });
+
 
     }
 

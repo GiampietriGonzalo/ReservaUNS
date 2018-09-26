@@ -79,8 +79,18 @@ public class Docente extends Usuario {
     }
 
     public void setListenerPrestamos(PrestamosViewHolder holder,Prestamo p){
+
+        ButtonListenerController blc = ButtonListenerController.getButtonListenerController();
+
         holder.btnBaja.setEnabled(false);
         holder.btnBaja.setVisibility(View.GONE);
+        holder.btnEliminar.setEnabled(false);
+        blc.setListenerEliminarPrestamo(holder,p);
+
+        if(p.getEstadoString()=="Dado de baja")
+            holder.btnEliminar.setEnabled(true);
+
+
     }
 
     public LinkedList<Prestamo> getAsignaciones(Context context) {

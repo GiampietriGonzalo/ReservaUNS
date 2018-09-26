@@ -218,6 +218,11 @@ public class TablaPrestamos extends Tabla {
                 break;
             }
 
+            case "Dado de baja": {
+                estado = StateController.getEstadoDeBaja();
+                break;
+            }
+
 
         }
         return estado;

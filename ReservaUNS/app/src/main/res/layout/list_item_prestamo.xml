@@ -159,6 +159,13 @@
                 android:layout_weight="1"
                 android:text="Dar de baja" />
 
+            <Button
+                android:id="@+id/btnEliminarP"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Eliminar" />
+
         </LinearLayout>
 
     </LinearLayout>

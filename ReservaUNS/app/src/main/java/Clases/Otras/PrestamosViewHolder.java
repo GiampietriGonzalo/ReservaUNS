@@ -12,7 +12,7 @@ public class PrestamosViewHolder extends RecyclerView.ViewHolder {
 
     public TextView id, fecha, horarioIncio, horarioFin, estado, edificio,espacio;
     public int position;
-    public Button btnBaja;
+    public Button btnBaja,btnEliminar;
 
     public PrestamosViewHolder(View itemView) {
 
@@ -25,6 +25,7 @@ public class PrestamosViewHolder extends RecyclerView.ViewHolder {
         espacio=(TextView) itemView.findViewById(R.id.txtEspacioItemListPrestamo);
         edificio=(TextView) itemView.findViewById(R.id.txtEdificioItemListPrestamo);
         btnBaja= (Button) itemView.findViewById(R.id.btnBajaPrestamo);
+        btnEliminar= (Button) itemView.findViewById(R.id.btnEliminarP);
 
     }
 
