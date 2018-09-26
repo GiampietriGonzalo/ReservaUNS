@@ -1,5 +1,13 @@
 ReservaUNS
 
+Usuario presentes:
+
+	Docente: marcelo@cs.uns.edu.ar
+	EmpleadoDepartamento: dcic@cs.uns.edu.ar
+	EmpleadoSecretaria: secretaria@cs.uns.edu.ar
+
+	Contraseñas: 123456
+
 Clases Principales/Bases:
 
 	Prestamo: Reserva y Asignacion

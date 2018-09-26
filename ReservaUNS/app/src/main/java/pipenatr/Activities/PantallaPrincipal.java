@@ -14,8 +14,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import java.util.Calendar;
+import java.util.LinkedList;
+
 import Clases.DataBases.DBController;
 import Clases.Estados.StateController;
+import Clases.Principales.Prestamo;
 import Clases.Principales.Usuario;
 
 import static Clases.Otras.ButtonListenerController.getButtonListenerController;
@@ -57,6 +61,8 @@ public class PantallaPrincipal extends AppCompatActivity
 
         //Hace visibles en el drawer las operaciones especificas del usuario
         user.actualizarNavView(navigationView);
+
+
     }
 
     
@@ -91,6 +97,33 @@ public class PantallaPrincipal extends AppCompatActivity
         */
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void establecerPrestamosVencidos(){
+
+        Calendar calendario = Calendar.getInstance();
+        int año=0, mes=0, dia=0;
+        String[] valores;
+        boolean terminado=false;
+
+        LinkedList<Prestamo> prestamos= controller.getReservas();
+
+        for(Prestamo p: prestamos){
+            valores=p.getFecha().split("/");
+
+            dia = Integer.parseInt(valores[0]);
+            mes = Integer.parseInt(valores[1]);
+            año = Integer.parseInt(valores[2]);
+
+            terminado = (año==calendario.get(Calendar.YEAR))  &&  (mes>calendario.get(Calendar.MONTH)+1) || (año>calendario.get(Calendar.YEAR)) || (año==calendario.get(Calendar.YEAR) &&  (mes==calendario.get(Calendar.MONTH)+1 && dia>calendario.get(Calendar.DAY_OF_MONTH)));
+
+            if(terminado){
+                p.darDeBaja();
+                controller.actualizarPrestamo(p);
+            }
+
+        }
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
